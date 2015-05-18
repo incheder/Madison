@@ -1,0 +1,25 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
+         https://developer.android.com/design/patterns/navigation-drawer.html -->
+    <dimen name="navigation_drawer_width">240dp</dimen>
+    <dimen name="card_item_padding">10dp</dimen>
+    <dimen name="card_item_margin">10dp</dimen>
+    <dimen name="detail_image_height">200dp</dimen>
+    <dimen name="abc_beverage_detail_name">@dimen/abc_text_size_display_1_material</dimen>
+    <dimen name="abc_beverage_detail_price">@dimen/abc_text_size_headline_material</dimen>
+    <dimen name="abc_text_size_beverage_description">18sp</dimen>
+    <dimen name="abc_text_size_title_description">24sp</dimen>
+    <dimen name="padding_beverage_detail">70dp</dimen>
+    <dimen name="row_checkout_padding">10dp</dimen>
+    <dimen name="row_checkout_margin">10dp</dimen>
+    <dimen name="madison_edit_text_size">18sp</dimen>
+    <dimen name="edittext_address_padding">20dp</dimen>
+    <dimen name="edittext_address_margin">10dp</dimen>
+    <dimen name="nav_drawer_left_margin">16dp</dimen>
+    <dimen name="nav_drawer_item_margin_text">72dp</dimen>
+    <dimen name="nav_drawer_space_content_areas">8dp</dimen>
+</resources>

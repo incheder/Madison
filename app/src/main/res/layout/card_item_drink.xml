@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_gravity="center"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/card_item_margin"
+    android:background="@color/bright_foreground_material_dark"
+    android:id="@+id/itemGridContent"
+    >
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Absolut Azul 750ml"
+        android:id="@+id/tvItemDrinkName"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/abc_control_padding_material"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:id="@+id/ivBeverage"
+        android:src="@drawable/kraken"
+
+        android:layout_above="@+id/tvItemDrinkPrice"
+        android:layout_below="@+id/tvItemDrinkName"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="$315.00"
+        android:id="@+id/tvItemDrinkPrice"
+        android:gravity="center_horizontal"
+        android:background="@color/background_material_dark"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:padding="@dimen/abc_control_padding_material"
+
+
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
+

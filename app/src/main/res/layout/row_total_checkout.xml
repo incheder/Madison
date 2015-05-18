@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/card_item_padding"
+    >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+       android:background="@color/background_material_dark"
+        android:layout_alignParentTop="true"
+        android:id="@+id/checkoutTotalSeparator"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="1200.00"
+        android:id="@+id/tvCheckoutTotal"
+        android:layout_below="@+id/checkoutTotalSeparator"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="@dimen/row_checkout_margin"
+        android:layout_marginTop="@dimen/row_checkout_margin"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/continuar"
+        android:id="@+id/btnCheckoutTotal"
+
+        android:textColor="@color/abc_secondary_text_material_dark"
+        android:layout_below="@+id/tvCheckoutTotal"
+        android:layout_alignRight="@+id/tvCheckoutTotal"
+        android:layout_alignEnd="@+id/tvCheckoutTotal"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/total_checkout_label"
+        android:id="@+id/textView2"
+        android:layout_toLeftOf="@+id/tvCheckoutTotal"
+        android:layout_toStartOf="@+id/tvCheckoutTotal"
+        android:layout_marginRight="@dimen/row_checkout_margin"
+        android:layout_alignBottom="@+id/tvCheckoutTotal"/>
+
+</RelativeLayout>
