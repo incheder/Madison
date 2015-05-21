@@ -14,5 +14,4 @@
     <dimen name="madison_edit_text_size">18sp</dimen>
     <dimen name="edittext_address_padding">20dp</dimen>
     <dimen name="nav_drawer_left_margin">16dp</dimen>
-
 </resources>

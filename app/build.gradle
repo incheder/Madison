@@ -27,4 +27,8 @@ dependencies {
     compile 'com.melnykov:floatingactionbutton:1.1.0'
     compile 'com.google.android.gms:play-services-maps:7.3.0'
     compile 'com.google.android.gms:play-services:7.3.0'
+    compile 'com.android.support:palette-v7:22.0.0'
+    compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
+    compile 'com.parse.bolts:bolts-android:1.+'
+    compile fileTree(dir: 'libs', include: 'Parse-*.jar')
 }

@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.wezen.madison.com.wezen.madison.fragment.BeverageDetailFragment;
+import com.wezen.madison.com.wezen.madison.fragment.BeverageMenuFragment;
 import com.wezen.madison.com.wezen.madison.fragment.CheckoutFragment;
 import com.wezen.madison.com.wezen.madison.fragment.FavoritesFragment;
 import com.wezen.madison.com.wezen.madison.fragment.GridFragment;
@@ -62,13 +63,12 @@ public class MainActivity extends ActionBarActivity
             Fragment fragment = null;
             switch (position){
                 case 0:
-                    fragment = GridFragment.newInstance(position);
+                    fragment = BeverageMenuFragment.newInstance("","");
                     break;
                 case 1:
                     fragment = FavoritesFragment.newInstance("","");
                     break;
-                default:
-                    fragment = GridFragment.newInstance(position);
+
             }
 
             if(fragment != null){

@@ -28,12 +28,12 @@ public class Utils {
             case CHAMPAGNE:
                 dataSet = createListWithArray(context,R.array.champagne,R.array.champagne_prices,R.array.champagne_images);
                 break;
-            case GINEBRA:
+           /* case GINEBRA:
                 dataSet = createListWithArray(context,R.array.ginebra,R.array.ginebra_prices,R.array.ginebra_images);
                 break;
             case LICOR:
                 dataSet = createListWithArray(context,R.array.licores,R.array.licores_prices,R.array.licores_images);
-                break;
+                break;*/
             case RON:
                 dataSet = createListWithArray(context,R.array.ron,R.array.ron_prices,R.array.ron_images);
                 break;

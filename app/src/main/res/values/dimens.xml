@@ -22,4 +22,5 @@
     <dimen name="nav_drawer_left_margin">16dp</dimen>
     <dimen name="nav_drawer_item_margin_text">72dp</dimen>
     <dimen name="nav_drawer_space_content_areas">8dp</dimen>
+    <dimen name="beverage_menu_margin">2dp</dimen>
 </resources>
