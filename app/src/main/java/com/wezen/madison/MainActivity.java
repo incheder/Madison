@@ -18,11 +18,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.wezen.madison.com.wezen.madison.fragment.BeverageDetailFragment;
-import com.wezen.madison.com.wezen.madison.fragment.BeverageMenuFragment;
-import com.wezen.madison.com.wezen.madison.fragment.CheckoutFragment;
-import com.wezen.madison.com.wezen.madison.fragment.FavoritesFragment;
-import com.wezen.madison.com.wezen.madison.fragment.GridFragment;
+import com.parse.Parse;
+import com.parse.ParseObject;
+import com.wezen.madison.fragment.BeverageDetailFragment;
+import com.wezen.madison.fragment.BeverageMenuFragment;
+import com.wezen.madison.fragment.CheckoutFragment;
+import com.wezen.madison.fragment.FavoritesFragment;
+import com.wezen.madison.fragment.GridFragment;
 
 
 public class MainActivity extends ActionBarActivity
@@ -51,6 +53,15 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        // Enable Local Datastore.
+        //Parse.enableLocalDatastore(this);
+
+
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        // testObject.saveInBackground();
+
     }
 
 

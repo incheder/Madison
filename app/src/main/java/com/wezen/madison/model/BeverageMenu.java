@@ -1,24 +1,26 @@
 package com.wezen.madison.model;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by eder on 5/18/15.
  */
 public class BeverageMenu {
-    private Integer beverageMenuImage;
+    private byte[] beverageMenuImage;
     private String beverageMenuName;
 
     public BeverageMenu(){}
 
-    public BeverageMenu(Integer beverageMenuImage, String beverageMenuName){
+    public BeverageMenu(byte[] beverageMenuImage, String beverageMenuName){
         setBeverageMenuImage(beverageMenuImage);
         setBeverageMenuName(beverageMenuName);
     }
 
-    public Integer getBeverageMenuImage() {
+    public byte[] getBeverageMenuImage() {
         return beverageMenuImage;
     }
 
-    public void setBeverageMenuImage(Integer beverageMenuImage) {
+    public void setBeverageMenuImage(byte[] beverageMenuImage) {
         this.beverageMenuImage = beverageMenuImage;
     }
 
