@@ -40,6 +40,14 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" >
         </activity>
+        <activity
+            android:name=".activity.BeverageListActivity"
+            android:label="@string/title_activity_beverage_list"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wezen.madison.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

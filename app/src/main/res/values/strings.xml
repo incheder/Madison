@@ -194,6 +194,9 @@
         <item>Ayuda</item>
 
     </array>
+    <string name="title_activity_beverage_list">BeverageListActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 
 </resources>
