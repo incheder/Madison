@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="continue_button">#090</color>
+    <color name="primary">#F44336</color>
+    <color name="primaryDark">#D32F2F</color>
+    <color name="accent">#40C4FF</color>
 </resources>

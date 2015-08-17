@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,8 +28,8 @@ import com.wezen.madison.fragment.FavoritesFragment;
 import com.wezen.madison.fragment.GridFragment;
 
 
-public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends AppCompatActivity
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -61,6 +62,8 @@ public class MainActivity extends ActionBarActivity
         ParseObject testObject = new ParseObject("TestObject");
         testObject.put("foo", "bar");
         // testObject.saveInBackground();
+
+       // getSupportFragmentManager().addOnBackStackChangedListener(this);
 
     }
 
@@ -109,7 +112,7 @@ public class MainActivity extends ActionBarActivity
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        //actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
@@ -146,6 +149,26 @@ public class MainActivity extends ActionBarActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+   /* @Override
+    public void onBackStackChanged() {
+        shouldDisplayHomeUp();
+    }
+
+    private void shouldDisplayHomeUp() {
+        boolean canBack = getSupportFragmentManager().getBackStackEntryCount() > 0;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(canBack);
+        getSupportActionBar().setHomeButtonEnabled(canBack);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_action_shopping_cart);
+
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        getSupportFragmentManager().popBackStack();
+        return  true;
+    }*/
 
     /**
      * A placeholder fragment containing a simple view.

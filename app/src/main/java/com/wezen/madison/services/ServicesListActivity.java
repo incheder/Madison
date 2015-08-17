@@ -1,24 +1,30 @@
-package com.wezen.madison.activity;
+package com.wezen.madison.services;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.wezen.madison.R;
+import com.wezen.madison.adapter.BeverageMenuAdapter;
 
-public class BeverageListActivity extends AppCompatActivity {
+public class ServicesListActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private BeverageMenuAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_beverage_list);
+        setContentView(R.layout.activity_services_list);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_beverage_list, menu);
+        getMenuInflater().inflate(R.menu.menu_services_list, menu);
         return true;
     }
 

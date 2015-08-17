@@ -197,6 +197,14 @@
     <string name="title_activity_beverage_list">BeverageListActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_services_list">ServicesListActivity</string>
+    <string name="title_activity_categories">CategoriesActivity</string>
+    <string name="category_one">Plomería</string>
+    <string name="category_two">Cerrajería</string>
+    <string name="category_three">Jardinería</string>
+    <string name="category_four">Limpieza</string>
+    <string name="drawer_menu_1">drawer1</string>
+    <string name="drawer_menu_2">menu2</string>
 
 
 </resources>
