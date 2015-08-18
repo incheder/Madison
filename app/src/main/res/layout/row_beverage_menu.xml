@@ -8,29 +8,34 @@
     android:id="@+id/beverageMenuContent"
     >
 
-
-
-
-    <ImageView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/ivBeverageMenu"
-        android:src="@drawable/torres_header"
-        android:layout_above="@+id/tvItemDrinkPrice"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:scaleType="centerCrop"/>
+        android:layout_above="@+id/tvItemDrinkPrice">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/ivBeverageMenu"
+            android:src="@drawable/torres_header"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"/>
+
+
+    </FrameLayout>
+
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="$315.00"
-        android:id="@+id/tvBeverageMenu"
+        android:id="@+id/tvItemDrinkPrice"
         android:gravity="center_horizontal"
         android:background="@color/background_material_dark"
         android:textColor="@color/abc_primary_text_material_dark"
-        android:padding="@dimen/abc_control_padding_material"
+        android:padding="10dp"
         android:textStyle="bold"
 
 

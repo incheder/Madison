@@ -53,6 +53,7 @@ public class BeverageMenuAdapter extends RecyclerView.Adapter<BeverageMenuAdapte
                 100
         );
         viewHolder.ivBeverage.setImageBitmap(bmp);
+        //viewHolder.ivBeverage.setBackgroundColor(context.getResources().getColor(R.color.palette_blue));
         final TextView tvName = viewHolder.tvFooter;
 
         Palette.generateAsync(bmp, new Palette.PaletteAsyncListener() {
@@ -105,7 +106,7 @@ public class BeverageMenuAdapter extends RecyclerView.Adapter<BeverageMenuAdapte
         public ViewHolder(View v) {
             super(v);
 
-            tvFooter = (TextView)v.findViewById(R.id.tvBeverageMenu);
+            tvFooter = (TextView)v.findViewById(R.id.tvItemDrinkPrice);
             content = v.findViewById(R.id.beverageMenuContent);
             ivBeverage = (ImageView)v.findViewById(R.id.ivBeverageMenu);
             

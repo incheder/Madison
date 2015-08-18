@@ -131,17 +131,6 @@ public class BeverageMenuFragment extends Fragment {
             }
         });
 
-        //ArrayList<BeverageMenu> list = new ArrayList<>();
-       // for (int i = 0; i<5;i++){
-          /*  list.add(new BeverageMenu(R.drawable.menu_brandy,"Brandy"));
-            list.add(new BeverageMenu(R.drawable.menu_beer,"Cerveza"));
-            list.add(new BeverageMenu(R.drawable.menu_champagne,"Champagne"));
-            list.add(new BeverageMenu(R.drawable.menu_ron,"Ron"));
-            list.add(new BeverageMenu(R.drawable.menu_tequila,"Tequila"));
-            list.add(new BeverageMenu(R.drawable.menu_vino,"Vino"));
-            list.add(new BeverageMenu(R.drawable.menu_vodka,"Vodka"));
-            list.add(new BeverageMenu(R.drawable.menu_whiskey,"Whiskey"));*/
-      //  }
         return list;
     }
 

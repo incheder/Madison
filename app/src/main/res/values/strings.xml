@@ -205,6 +205,8 @@
     <string name="category_four">Limpieza</string>
     <string name="drawer_menu_1">drawer1</string>
     <string name="drawer_menu_2">menu2</string>
+    <string name="openDrawer">Navigation Drawer Open</string>
+    <string name="closeDrawer">Navigation Drawer Closed</string>
 
 
 </resources>
