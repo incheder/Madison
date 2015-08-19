@@ -24,4 +24,25 @@
     <color name="palette_brown">#795548</color>
     <color name="palette_grey">#9E9E9E</color>
     <color name="palette_blue_grey">#607D8B</color>
+
+
+
+    <color name="palette_red_dark">#C62828</color>
+    <color name="palette_pink_dark">#AD1457</color>
+    <color name="palette_purple_dark">#6A1B9A</color>
+    <color name="palette_deep_purple_dark">#4527A0</color>
+    <color name="palette_indigo_dark">#283593</color>
+    <color name="palette_blue_dark">#1565C0</color>
+    <color name="palette_light_blue_dark">#0277BD</color>
+    <color name="palette_cyan_dark">#00838F</color>
+    <color name="palette_teal_dark">#00695C</color>
+    <color name="palette_green_dark">#2E7D32</color>
+    <color name="palette_light_green_dark">#558B2F</color>
+    <color name="palette_yellow_dark">#F9A825</color>
+    <color name="palette_amber_dark">#FF8F00</color>
+    <color name="palette_orange_dark">#EF6C00</color>
+    <color name="palette_deep_orange_dark">#D84315</color>
+    <color name="palette_brown_dark">#4E342E</color>
+    <color name="palette_grey_dark">#424242</color>
+    <color name="palette_blue_grey_dark">#37474F</color>
 </resources>

@@ -209,4 +209,14 @@
     <string name="closeDrawer">Navigation Drawer Closed</string>
 
 
+    <array name="categories">
+        <item>Plomería</item>
+        <item>Electricistas</item>
+        <item>Cerrajería</item>
+        <item>Jardineria</item>
+        <item>Limpieza</item>
+
+    </array>
+
+
 </resources>

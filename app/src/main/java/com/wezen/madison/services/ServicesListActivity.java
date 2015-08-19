@@ -2,23 +2,39 @@ package com.wezen.madison.services;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.wezen.madison.R;
 import com.wezen.madison.adapter.BeverageMenuAdapter;
+import com.wezen.madison.adapter.GridAdapter;
+import com.wezen.madison.model.BeverageType;
+import com.wezen.madison.utils.Utils;
 
 public class ServicesListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private BeverageMenuAdapter adapter;
+    private GridAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private Toolbar toolbar;
+    private int mType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services_list);
+        toolbar = (Toolbar)findViewById(R.id.servicesListToolbar);
+        setSupportActionBar(toolbar);
+
+        recyclerView = (RecyclerView) findViewById(R.id.rvServiceList);
+        layoutManager = new GridLayoutManager(this,1);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        adapter = new GridAdapter(Utils.fillDataSet(this, BeverageType.valueOf(mType)),this,getSupportFragmentManager());
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

@@ -51,10 +51,10 @@
         <activity
             android:name=".services.ServicesListActivity"
             android:label="@string/title_activity_services_list"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".categories.CategoriesActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.wezen.madison.MainActivity" />
+                android:value="com.wezen.madison.categories.CategoriesActivity" />
         </activity>
         <activity
             android:name=".categories.CategoriesActivity"

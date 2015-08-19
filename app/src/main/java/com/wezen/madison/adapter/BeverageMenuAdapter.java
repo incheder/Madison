@@ -1,23 +1,24 @@
 package com.wezen.madison.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wezen.madison.R;
-import com.wezen.madison.fragment.BeverageDetailFragment;
-import com.wezen.madison.fragment.GridFragment;
 import com.wezen.madison.model.Beverage;
 import com.wezen.madison.model.BeverageMenu;
+import com.wezen.madison.services.ServicesListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,30 +53,48 @@ public class BeverageMenuAdapter extends RecyclerView.Adapter<BeverageMenuAdapte
                 80,
                 100
         );
-        viewHolder.ivBeverage.setImageBitmap(bmp);
+        //viewHolder.ivBeverage.setImageBitmap(bmp);
+        viewHolder.ivBeverage.setImageResource(R.drawable.ic_format_paint_white_48dp);
         //viewHolder.ivBeverage.setBackgroundColor(context.getResources().getColor(R.color.palette_blue));
         final TextView tvName = viewHolder.tvFooter;
+        final FrameLayout backColor = viewHolder.categoryColor;
 
-        Palette.generateAsync(bmp, new Palette.PaletteAsyncListener() {
+       /* Palette.Builder builder = Palette.from(bmp);
+        builder.generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                Palette.Swatch swatch = palette.getVibrantSwatch();
+                if (swatch != null) {
+                    tvName.setBackgroundColor(swatch.getBodyTextColor());
+                    tvName.setTextColor(swatch.getTitleTextColor());
+                    backColor.setBackgroundColor(swatch.getRgb());
+                }
+            }
+        });*/
+
+        setColors(position, viewHolder.categoryColor,viewHolder.tvFooter);
+       /* Palette.generateAsync(bmp, new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
                 // Here's your generated palette
                 Palette.Swatch swatch = palette.getMutedSwatch();
                 if(swatch != null){
-                    tvName.setBackgroundColor(swatch.getRgb());
+                    tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_blue_dark));
                     tvName.setTextColor(swatch.getTitleTextColor());
                 }
             }
-        });
+        });*/
 
 
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+               /* android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
                         ft.replace(R.id.container, GridFragment.newInstance(position));
                         ft.addToBackStack(null);
-                        ft.commit();
+                        ft.commit();*/
+                Intent servicesList = new Intent(context, ServicesListActivity.class);
+                context.startActivity(servicesList);
             }
         });
 
@@ -102,6 +121,7 @@ public class BeverageMenuAdapter extends RecyclerView.Adapter<BeverageMenuAdapte
         public TextView tvFooter;
         public View content;
         public ImageView ivBeverage;
+        private FrameLayout categoryColor;
 
         public ViewHolder(View v) {
             super(v);
@@ -109,7 +129,8 @@ public class BeverageMenuAdapter extends RecyclerView.Adapter<BeverageMenuAdapte
             tvFooter = (TextView)v.findViewById(R.id.tvItemDrinkPrice);
             content = v.findViewById(R.id.beverageMenuContent);
             ivBeverage = (ImageView)v.findViewById(R.id.ivBeverageMenu);
-            
+            categoryColor = (FrameLayout)v.findViewById(R.id.categoryColor);
+
         }
     }
 
@@ -151,5 +172,42 @@ public class BeverageMenuAdapter extends RecyclerView.Adapter<BeverageMenuAdapte
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return  BitmapFactory.decodeByteArray(res,0,res.length);
+    }
+
+    private void setColors(int position, View view,TextView tvName){
+        switch (position){
+            case 0:
+                view.setBackgroundColor(context.getResources().getColor(R.color.palette_blue));
+                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_blue_dark));
+                break;
+            case 1:
+                view.setBackgroundColor(context.getResources().getColor(R.color.palette_amber));
+                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_amber_dark));
+                break;
+            case 2:
+                view.setBackgroundColor(context.getResources().getColor(R.color.palette_green));
+                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_green_dark));
+                break;
+            case 3:
+                view.setBackgroundColor(context.getResources().getColor(R.color.palette_brown));
+                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_brown_dark));
+                break;
+            case 4:
+                view.setBackgroundColor(context.getResources().getColor(R.color.palette_indigo));
+                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_indigo_dark));
+                break;
+            case 5:
+                view.setBackgroundColor(context.getResources().getColor(R.color.palette_deep_orange));
+                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_orange_dark));
+                break;
+            case 6:
+                view.setBackgroundColor(context.getResources().getColor(R.color.palette_purple));
+                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_purple_dark));
+                break;
+            case 7:
+                view.setBackgroundColor(context.getResources().getColor(R.color.palette_pink));
+                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_pink_dark));
+                break;
+        }
     }
 }
