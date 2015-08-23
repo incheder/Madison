@@ -22,11 +22,14 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
-           <!-- <intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
 
         <meta-data
@@ -64,6 +67,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".services.ServiceDetailActivity"
+            android:label="@string/title_activity_service_detail"
+            android:parentActivityName=".services.ServicesListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wezen.madison.services.ServicesListActivity" />
         </activity>
     </application>
 

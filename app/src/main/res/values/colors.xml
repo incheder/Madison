@@ -45,4 +45,5 @@
     <color name="palette_brown_dark">#4E342E</color>
     <color name="palette_grey_dark">#424242</color>
     <color name="palette_blue_grey_dark">#37474F</color>
+    <color name="service_name_background">#99111111</color>
 </resources>

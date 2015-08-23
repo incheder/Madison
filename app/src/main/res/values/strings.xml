@@ -217,6 +217,7 @@
         <item>Limpieza</item>
 
     </array>
+    <string name="title_activity_service_detail">ServiceDetailActivity</string>
 
 
 </resources>

@@ -1,13 +1,11 @@
-package com.wezen.madison.adapter;
+package com.wezen.madison.services;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import android.widget.TextView;
 
 import com.wezen.madison.R;
 import com.wezen.madison.fragment.BeverageDetailFragment;
-import com.wezen.madison.fragment.GridFragment;
 import com.wezen.madison.model.Beverage;
 
 import java.util.ArrayList;
@@ -46,25 +43,25 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         final Beverage beverage = mDataset.get(position);
-        viewHolder.tvHeader.setText(mDataset.get(position).getName());
-        viewHolder.tvFooter.setText(mDataset.get(position).getPrice());
+        //viewHolder.tvHeader.setText(mDataset.get(position).getName());
+        //viewHolder.tvServiceName.setText(mDataset.get(position).getPrice());
         //viewHolder.ivBeverage.setImageResource(mDataset.get(position).getImageResId());
-        viewHolder.ivBeverage.setImageBitmap(decodeSampledBitmapFromResource(
+        /*viewHolder.ivBeverage.setImageBitmap(decodeSampledBitmapFromResource(
                 context.getResources(),
                 mDataset.get(position).getImageResId(),
                 80,
                 100
-        ));
+        ));*/
 
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Log.d("Click", "Item Click");
                 //TODO pasar como parametro al adpter el fragmentmanager
-                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+                /*android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
                         ft.replace(R.id.container, BeverageDetailFragment.newInstance("", ""));
                         ft.addToBackStack(null);
-                        ft.commit();
+                        ft.commit();*/
             }
         });
 
@@ -88,15 +85,15 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView tvHeader;
-        public TextView tvFooter;
+      //  public TextView tvHeader;
+        public TextView tvServiceName;
         public View content;
         public ImageView ivBeverage;
 
         public ViewHolder(View v) {
             super(v);
-            tvHeader = (TextView)v.findViewById(R.id.tvItemDrinkName);
-            tvFooter = (TextView)v.findViewById(R.id.tvItemDrinkPrice);
+           // tvHeader = (TextView)v.findViewById(R.id.tvItemDrinkName);
+            tvServiceName = (TextView)v.findViewById(R.id.tvItemServiceName);
             content = v.findViewById(R.id.itemGridContent);
             ivBeverage = (ImageView)v.findViewById(R.id.ivBeverage);
             

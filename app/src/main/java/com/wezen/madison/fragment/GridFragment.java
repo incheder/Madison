@@ -16,12 +16,10 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.wezen.madison.R;
-import com.wezen.madison.adapter.GridAdapter;
-import com.wezen.madison.model.Beverage;
+import com.wezen.madison.services.GridAdapter;
 import com.wezen.madison.model.BeverageType;
 import com.wezen.madison.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

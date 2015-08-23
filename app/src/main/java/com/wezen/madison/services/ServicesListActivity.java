@@ -9,8 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.wezen.madison.R;
-import com.wezen.madison.adapter.BeverageMenuAdapter;
-import com.wezen.madison.adapter.GridAdapter;
 import com.wezen.madison.model.BeverageType;
 import com.wezen.madison.utils.Utils;
 
@@ -28,6 +26,7 @@ public class ServicesListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_services_list);
         toolbar = (Toolbar)findViewById(R.id.servicesListToolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = (RecyclerView) findViewById(R.id.rvServiceList);
         layoutManager = new GridLayoutManager(this,1);

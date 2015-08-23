@@ -1,8 +1,6 @@
 package com.wezen.madison.fragment;
 
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,19 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.GetDataCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.wezen.madison.R;
 import com.wezen.madison.adapter.BeverageMenuAdapter;
-import com.wezen.madison.adapter.GridAdapter;
 import com.wezen.madison.model.BeverageMenu;
-import com.wezen.madison.model.BeverageType;
-import com.wezen.madison.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
