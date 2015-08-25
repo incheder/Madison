@@ -1,6 +1,7 @@
 package com.wezen.madison.services;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -62,6 +63,8 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
                         ft.replace(R.id.container, BeverageDetailFragment.newInstance("", ""));
                         ft.addToBackStack(null);
                         ft.commit();*/
+                Intent serviceDetail = new Intent(context, ServiceDetailActivity.class);
+                context.startActivity(serviceDetail);
             }
         });
 
