@@ -218,6 +218,7 @@
 
     </array>
     <string name="title_activity_service_detail">ServiceDetailActivity</string>
+    <string name="title_activity_map">Map</string>
 
 
 </resources>

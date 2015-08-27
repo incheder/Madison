@@ -76,6 +76,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.services.ServicesListActivity" />
         </activity>
+        <activity
+            android:name=".map.MapActivity"
+            android:label="@string/title_activity_map" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wezen.madison.services.ServiceDetailActivity" />
+        </activity>
     </application>
 
 </manifest>

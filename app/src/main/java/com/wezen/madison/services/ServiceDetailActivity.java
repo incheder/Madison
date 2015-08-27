@@ -1,27 +1,28 @@
 package com.wezen.madison.services;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
 import com.wezen.madison.R;
+import com.wezen.madison.map.MapActivity;
 import com.wezen.madison.model.BeverageType;
 import com.wezen.madison.utils.Utils;
 
@@ -54,6 +55,13 @@ public class ServiceDetailActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         adapter = new GridAdapter(Utils.fillDataSet(this, BeverageType.valueOf(1)),this,getSupportFragmentManager());
         recyclerView.setAdapter(adapter);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mapIntent = new Intent(ServiceDetailActivity.this, MapActivity.class);
+                startActivity(mapIntent);
+            }
+        });
     }
 
     @Override
@@ -80,13 +88,14 @@ public class ServiceDetailActivity extends AppCompatActivity {
 
     private void toolBarColoring(){
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                R.drawable.doctor_solucion);
+                R.drawable.beach);
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
              int  toolbarColor = palette.getMutedColor(getResources().getColor(R.color.primary));
              int statusBarColor = palette.getDarkMutedColor(getResources().getColor(R.color.primaryDark));
              int fabColor = palette.getVibrantColor(getResources().getColor(R.color.accent));
+
                collapsingToolbar.setContentScrimColor(toolbarColor);
                setStatusBarColor(context, statusBarColor);
                fab.setBackgroundTintList(createFabColors(fabColor));
