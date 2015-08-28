@@ -210,15 +210,21 @@
 
 
     <array name="categories">
-        <item>Plomería</item>
-        <item>Electricistas</item>
-        <item>Cerrajería</item>
-        <item>Jardineria</item>
-        <item>Limpieza</item>
+        <item>Categoria 1</item>
+        <item>Categoria 2</item>
+        <item>Categoria 3</item>
+        <item>Categoria 4</item>
+        <item>Categoria 5</item>
+        <item>Categoria 6</item>
+        <item>Categoria 7</item>
+        <item>Categoria 8</item>
 
     </array>
+
     <string name="title_activity_service_detail">ServiceDetailActivity</string>
     <string name="title_activity_map">Map</string>
+    <string name="action_location">ubicacion</string>
+    <string name="add_address">Ingresa tu dirección</string>
 
 
 </resources>

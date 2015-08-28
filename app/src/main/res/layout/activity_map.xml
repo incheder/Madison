@@ -9,8 +9,7 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/mapToolbar"
@@ -18,14 +17,53 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/primary"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:layout_margin="16dp"
-        android:layout_alignParentBottom="true"/>
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/mapToolbarBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/primary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/mapAddressEditTex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="200"
+                android:maxLines="3"
+                android:textColor="@color/user_address_in_map"
+                android:hint="@string/add_address"/>
+
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_place_48dp"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_place_48dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        android:src="@drawable/ic_done_red_24dp"
+        android:id="@+id/serviceDetailFAB"
+        android:layout_above="@id/mapToolbarBottom"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:elevation="@dimen/elevation_fab_map"
+        app:backgroundTint="@color/fab_map"/>
 
 
 </RelativeLayout>

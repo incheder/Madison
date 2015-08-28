@@ -47,4 +47,6 @@
     <color name="palette_blue_grey_dark">#37474F</color>
     <color name="service_name_background">#99111111</color>
     <color name="transparent">#00000000</color>
+    <color name="user_address_in_map">#ffffff</color>
+    <color name="fab_map">#ffffff</color>
 </resources>
