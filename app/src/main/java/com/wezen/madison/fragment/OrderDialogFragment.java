@@ -1,5 +1,6 @@
 package com.wezen.madison.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
@@ -12,6 +13,15 @@ import com.wezen.madison.R;
  * Created by eder on 5/9/15.
  */
 public class OrderDialogFragment extends DialogFragment {
+
+    public interface OnClickOrderDialog {
+        void onButtonClicked();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

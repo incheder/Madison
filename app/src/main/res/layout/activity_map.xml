@@ -30,20 +30,41 @@
         android:background="@color/primary"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
 
             <EditText
                 android:id="@+id/mapAddressEditTex"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="200"
                 android:maxLines="3"
                 android:textColor="@color/user_address_in_map"
-                android:hint="@string/add_address"/>
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:imeOptions="actionDone"
+                android:visibility="gone"
+                android:inputType="textMultiLine"/>
+            <TextView
+                android:id="@+id/mapAddressTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="200"
+                android:maxLines="3"
+                android:textColor="@color/user_address_in_map"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-        </LinearLayout>
+            <!--<ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_location_searching_white_24dp"
+                android:gravity="right"
+                android:visibility="gone"
+                />-->
+
+        </FrameLayout>
     </android.support.v7.widget.Toolbar>
 
     <ImageView
@@ -58,12 +79,12 @@
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
         android:src="@drawable/ic_done_red_24dp"
-        android:id="@+id/serviceDetailFAB"
+        android:id="@+id/fabMap"
         android:layout_above="@id/mapToolbarBottom"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:elevation="@dimen/elevation_fab_map"
-        app:backgroundTint="@color/fab_map"/>
+        app:backgroundTint="@color/fab_map" />
 
 
 </RelativeLayout>

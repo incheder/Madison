@@ -1,16 +1,20 @@
 package com.wezen.madison.map;
 
+import android.content.Context;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,9 +22,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.VisibleRegion;
 import com.wezen.madison.R;
+import com.wezen.madison.fragment.OrderDialogFragment;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,8 +32,10 @@ import java.util.Locale;
 
 public class MapActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    private EditText userAddressText;
+    private EditText userAddressEditText;
     private boolean firstTime = true;
+    private TextView userAddressTextView;
+    private FloatingActionButton fab;
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
@@ -38,9 +44,14 @@ public class MapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         toolbar = (Toolbar)findViewById(R.id.mapToolbar);
-        userAddressText = (EditText)findViewById(R.id.mapAddressEditTex);
+        userAddressEditText = (EditText)findViewById(R.id.mapAddressEditTex);
+        userAddressTextView = (TextView)findViewById(R.id.mapAddressTextView);
+        userAddressTextView.setOnClickListener(addressTextViewListener);
+        fab = (FloatingActionButton)findViewById(R.id.fabMap);
+        fab.setOnClickListener(fabClickListener);
         setSupportActionBar(toolbar);
         setUpMapIfNeeded();
+
     }
 
     @Override
@@ -108,8 +119,26 @@ public class MapActivity extends AppCompatActivity {
                         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(latLng,16)));
                         firstTime = false;
                     }
-                    userAddressText.setText(getAddress());
+                        userAddressTextView.setText(getAddress());
+                        //userAddressEditText.setText(getAddress());
+
                 }
+            }
+        });
+        mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+            @Override
+            public void onCameraChange(CameraPosition cameraPosition) {
+                noMoreInput();
+            }
+        });
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+               // userAddressEditText.setVisibility(View.GONE);
+               // userAddressTextView.setVisibility(View.VISIBLE);
+               // userAddressTextView.setText(getAddress());
+                hideKeyboard(userAddressEditText);
             }
         });
     }
@@ -168,5 +197,42 @@ public class MapActivity extends AppCompatActivity {
 			e.printStackTrace();
 		}
         return addressLabel;
+    }
+
+    View.OnClickListener addressTextViewListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            userAddressTextView.setVisibility(View.GONE);
+            userAddressEditText.setVisibility(View.VISIBLE);
+            userAddressEditText.setText(userAddressTextView.getText());
+            userAddressEditText.requestFocus();
+            showKeyboard(userAddressEditText);
+        }
+    };
+
+    View.OnClickListener fabClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+                OrderDialogFragment dialog = new OrderDialogFragment();
+                dialog.show( getSupportFragmentManager(),null);
+        }
+    };
+
+    private void showKeyboard(EditText editText){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+        editText.setSelection(editText.getText().length());
+    }
+
+    private void hideKeyboard(EditText editText){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
+
+    private void  noMoreInput(){
+        userAddressEditText.setVisibility(View.GONE);
+        userAddressTextView.setVisibility(View.VISIBLE);
+        userAddressTextView.setText(getAddress());
+        hideKeyboard(userAddressEditText);
     }
 }
