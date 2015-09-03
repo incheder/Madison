@@ -1,6 +1,7 @@
 package com.wezen.madison.map;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.VisibleRegion;
 import com.wezen.madison.R;
 import com.wezen.madison.fragment.OrderDialogFragment;
+import com.wezen.madison.summary.SummaryActivity;
 
 import java.io.IOException;
 import java.util.List;
@@ -213,8 +215,10 @@ public class MapActivity extends AppCompatActivity {
     View.OnClickListener fabClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-                OrderDialogFragment dialog = new OrderDialogFragment();
-                dialog.show( getSupportFragmentManager(),null);
+               /* OrderDialogFragment dialog = new OrderDialogFragment();
+                dialog.show( getSupportFragmentManager(),null);*/
+                Intent summary = new Intent(MapActivity.this, SummaryActivity.class);
+                startActivity(summary);
         }
     };
 

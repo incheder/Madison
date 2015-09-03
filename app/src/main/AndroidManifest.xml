@@ -62,11 +62,14 @@
         <activity
             android:name=".categories.CategoriesActivity"
             android:label="@string/title_activity_categories" >
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".services.ServiceDetailActivity"
@@ -82,6 +85,20 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.services.ServiceDetailActivity" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".summary.SummaryActivity"
+            android:label="@string/title_activity_summary"
+            android:parentActivityName=".map.MapActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wezen.madison.map.MapActivity" />
         </activity>
     </application>
 
