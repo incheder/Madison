@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdate;
@@ -13,13 +14,18 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.wezen.madison.R;
+import com.wezen.madison.map.MapActivity;
 
 public class SummaryActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private MapView mapView;
     private GoogleMap map;
+    private LatLng myLatLng;
+    private TextView userAddress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +34,17 @@ public class SummaryActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.summaryToolbar);
         setSupportActionBar(toolbar);
         mapView = (MapView)findViewById(R.id.mapview);
+        userAddress = (TextView)findViewById(R.id.summaryUserAddress);
+
+        if(getIntent().getExtras()!= null){
+            myLatLng = new LatLng(
+                    getIntent().getDoubleExtra(MapActivity.LATITUDE,0),
+                    getIntent().getDoubleExtra(MapActivity.LONGITUDE,0));
+            userAddress.setText(getIntent().getStringExtra(MapActivity.ADDRESS));
+        }
+
+
+
         mapView.onCreate(savedInstanceState);
         map = mapView.getMap();
         map.getUiSettings().setMyLocationButtonEnabled(false);
@@ -36,8 +53,10 @@ public class SummaryActivity extends AppCompatActivity {
         MapsInitializer.initialize(this);
 
         // Updates the location and zoom of the MapView
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(43.1, -87.9), 10);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myLatLng, 16);
         map.animateCamera(cameraUpdate);
+        map.addMarker(new MarkerOptions().position(myLatLng));
+        map.getUiSettings().setAllGesturesEnabled(false);
 
     }
 

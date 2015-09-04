@@ -33,11 +33,16 @@ import java.util.List;
 import java.util.Locale;
 
 public class MapActivity extends AppCompatActivity {
+    public static final String LATITUDE = "latitude";
+    public static final String LONGITUDE = "longitude";
+    public static final String ADDRESS = "address";
+
     private Toolbar toolbar;
     private EditText userAddressEditText;
     private boolean firstTime = true;
     private TextView userAddressTextView;
     private FloatingActionButton fab;
+
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
@@ -51,6 +56,7 @@ public class MapActivity extends AppCompatActivity {
         userAddressTextView.setOnClickListener(addressTextViewListener);
         fab = (FloatingActionButton)findViewById(R.id.fabMap);
         fab.setOnClickListener(fabClickListener);
+        fab.hide();
         setSupportActionBar(toolbar);
         setUpMapIfNeeded();
 
@@ -120,6 +126,7 @@ public class MapActivity extends AppCompatActivity {
                     if(firstTime){
                         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(latLng,16)));
                         firstTime = false;
+                        fab.show();
                     }
                         userAddressTextView.setText(getAddress());
                         //userAddressEditText.setText(getAddress());
@@ -218,6 +225,14 @@ public class MapActivity extends AppCompatActivity {
                /* OrderDialogFragment dialog = new OrderDialogFragment();
                 dialog.show( getSupportFragmentManager(),null);*/
                 Intent summary = new Intent(MapActivity.this, SummaryActivity.class);
+                LatLng latLng = getCenterOfMap(mMap);
+                summary.putExtra(LATITUDE,latLng.latitude);
+                summary.putExtra(LONGITUDE,latLng.longitude);
+                summary.putExtra(ADDRESS,
+                        userAddressEditText.getVisibility() == View.VISIBLE ?
+                        userAddressEditText.getText().toString() :
+                        userAddressTextView.getText().toString());
+
                 startActivity(summary);
         }
     };
