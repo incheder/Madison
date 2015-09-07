@@ -100,6 +100,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.map.MapActivity" />
         </activity>
+        <activity
+            android:name=".order.OrderSentActivity"
+            android:label="@string/title_activity_order_sent"
+            android:parentActivityName=".summary.SummaryActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wezen.madison.summary.SummaryActivity" />
+        </activity>
     </application>
 
 </manifest>

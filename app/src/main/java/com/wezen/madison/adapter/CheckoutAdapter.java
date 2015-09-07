@@ -16,8 +16,6 @@ import android.widget.TextView;
 
 import com.wezen.madison.R;
 import com.wezen.madison.fragment.AddressFragment;
-import com.wezen.madison.fragment.BeverageDetailFragment;
-import com.wezen.madison.fragment.OrderDialogFragment;
 import com.wezen.madison.model.ItemForCheckout;
 import com.wezen.madison.model.ShoppingCartItemType;
 

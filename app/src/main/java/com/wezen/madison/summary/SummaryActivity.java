@@ -1,13 +1,16 @@
 package com.wezen.madison.summary;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,15 +19,18 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.wezen.madison.R;
+import com.wezen.madison.order.OrderDialogFragment;
 import com.wezen.madison.map.MapActivity;
+import com.wezen.madison.order.OrderSentActivity;
 
-public class SummaryActivity extends AppCompatActivity {
+public class SummaryActivity extends AppCompatActivity implements  OrderDialogFragment.OnClickOrderDialog {
 
     private Toolbar toolbar;
     private MapView mapView;
     private GoogleMap map;
     private LatLng myLatLng;
     private TextView userAddress;
+    private FloatingActionButton fab;
 
 
     @Override
@@ -35,6 +41,7 @@ public class SummaryActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         mapView = (MapView)findViewById(R.id.mapview);
         userAddress = (TextView)findViewById(R.id.summaryUserAddress);
+        fab = (FloatingActionButton)findViewById(R.id.fabSummary);
 
         if(getIntent().getExtras()!= null){
             myLatLng = new LatLng(
@@ -45,6 +52,7 @@ public class SummaryActivity extends AppCompatActivity {
 
 
 
+        fab.setOnClickListener(fabListener);
         mapView.onCreate(savedInstanceState);
         map = mapView.getMap();
         map.getUiSettings().setMyLocationButtonEnabled(false);
@@ -82,6 +90,14 @@ public class SummaryActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    View.OnClickListener fabListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            OrderDialogFragment dialog = new OrderDialogFragment();
+            dialog.show( getSupportFragmentManager(),null);
+        }
+    };
+
     @Override
     protected void onResume() {
         mapView.onResume();
@@ -99,5 +115,12 @@ public class SummaryActivity extends AppCompatActivity {
     public void onLowMemory() {
         mapView.onLowMemory();
         super.onLowMemory();
+    }
+
+    @Override
+    public void onButtonClicked() {
+
+        Intent orderSent = new Intent(this, OrderSentActivity.class);
+        startActivity(orderSent);
     }
 }

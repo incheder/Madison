@@ -49,4 +49,5 @@
     <color name="transparent">#00000000</color>
     <color name="user_address_in_map">#ffffff</color>
     <color name="fab_map">#ffffff</color>
+    <color name="fab_summary">#F44336</color>
 </resources>

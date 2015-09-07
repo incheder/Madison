@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="DR Solucion"
                 android:textAppearance="?android:attr/textAppearanceLarge"
+
                 />
 
             <TextView
@@ -38,12 +39,13 @@
                 android:layout_height="wrap_content"
                 android:text="sdksldj lkjadkladj jdklsajd sds  fdfdfdfdf sdfdsf  fsfsdfsf sfsdsfsdf"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                />
+                android:layout_marginBottom="@dimen/elements_margin"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintTextAppearance="@style/ColorTextInputLayout">
+                app:hintTextAppearance="@style/ColorTextInputLayout"
+                android:layout_marginBottom="@dimen/elements_margin">
 
                 <EditText
                     android:layout_width="match_parent"
@@ -53,20 +55,43 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ubicacion"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+
+                />
+
             <com.google.android.gms.maps.MapView
                 android:id="@+id/mapview"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+                android:layout_marginBottom="@dimen/elements_margin"/>
 
 
             <TextView
                 android:id="@+id/summaryUserAddress"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
 
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        android:src="@drawable/ic_add_white_24dp"
+        android:id="@+id/fabSummary"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:elevation="@dimen/elevation_fab_map"
+        app:backgroundTint="@color/fab_summary" />
 
 </RelativeLayout>

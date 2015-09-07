@@ -25,7 +25,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.VisibleRegion;
 import com.wezen.madison.R;
-import com.wezen.madison.fragment.OrderDialogFragment;
 import com.wezen.madison.summary.SummaryActivity;
 
 import java.io.IOException;
@@ -222,18 +221,24 @@ public class MapActivity extends AppCompatActivity {
     View.OnClickListener fabClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-               /* OrderDialogFragment dialog = new OrderDialogFragment();
-                dialog.show( getSupportFragmentManager(),null);*/
+
                 Intent summary = new Intent(MapActivity.this, SummaryActivity.class);
                 LatLng latLng = getCenterOfMap(mMap);
-                summary.putExtra(LATITUDE,latLng.latitude);
-                summary.putExtra(LONGITUDE,latLng.longitude);
-                summary.putExtra(ADDRESS,
-                        userAddressEditText.getVisibility() == View.VISIBLE ?
-                        userAddressEditText.getText().toString() :
-                        userAddressTextView.getText().toString());
+                summary.putExtra(LATITUDE, latLng.latitude);
+                summary.putExtra(LONGITUDE, latLng.longitude);
+                String userAddress = null;
+                if (userAddressEditText.getVisibility() == View.VISIBLE) {
+                    userAddress = userAddressEditText.getText().toString();
 
-                startActivity(summary);
+                } else{
+                    userAddress = userAddressTextView.getText().toString();
+                }
+                if (userAddress != null && !userAddress.equals("")){
+                    summary.putExtra(ADDRESS,userAddress);
+                    startActivity(summary);
+                }
+
+
         }
     };
 

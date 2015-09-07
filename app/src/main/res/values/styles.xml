@@ -10,7 +10,7 @@
     </style>
 
     <style name="ColorTextInputLayout" parent="@android:style/TextAppearance">
-    <item name="android:textColor">#0f0</item>
+    <!--<item name="android:textColor">#0f0</item>-->
     </style>
 
 </resources>
