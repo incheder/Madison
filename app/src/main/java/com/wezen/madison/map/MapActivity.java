@@ -1,13 +1,17 @@
 package com.wezen.madison.map;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -41,6 +45,7 @@ public class MapActivity extends AppCompatActivity {
     private boolean firstTime = true;
     private TextView userAddressTextView;
     private FloatingActionButton fab;
+    GeoCoderResponseReceiver geoCoderResponseReceiver;
 
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -58,13 +63,21 @@ public class MapActivity extends AppCompatActivity {
         fab.hide();
         setSupportActionBar(toolbar);
         setUpMapIfNeeded();
-
+        geoCoderResponseReceiver = new GeoCoderResponseReceiver();
+        IntentFilter mStatusIntentFilter = new IntentFilter(GeoCoderIntentService.BROADCAST_SEND_ADDRESS);
+        LocalBroadcastManager.getInstance(this).registerReceiver(geoCoderResponseReceiver,mStatusIntentFilter);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         setUpMapIfNeeded();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(geoCoderResponseReceiver);
     }
 
     /**
@@ -108,14 +121,9 @@ public class MapActivity extends AppCompatActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-       // mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
 
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         mMap.setMyLocationEnabled(true);
-       /* mMap.animateCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(new LatLng(
-                        mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude()),
-                        16)
-        ));*/
         mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 
             @Override
@@ -127,12 +135,12 @@ public class MapActivity extends AppCompatActivity {
                         firstTime = false;
                         fab.show();
                     }
-                        userAddressTextView.setText(getAddress());
-                        //userAddressEditText.setText(getAddress());
-
+                    getAddress();
+                   // userAddressTextView.setText(getAddress());
                 }
             }
         });
+
         mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
             @Override
             public void onCameraChange(CameraPosition cameraPosition) {
@@ -143,9 +151,6 @@ public class MapActivity extends AppCompatActivity {
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-               // userAddressEditText.setVisibility(View.GONE);
-               // userAddressTextView.setVisibility(View.VISIBLE);
-               // userAddressTextView.setText(getAddress());
                 hideKeyboard(userAddressEditText);
             }
         });
@@ -170,12 +175,8 @@ public class MapActivity extends AppCompatActivity {
                     CameraPosition.fromLatLngZoom(
                             new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude()),
                             mMap.getCameraPosition().zoom)));
-
-            //mMap.addMarker(new MarkerOptions().position(getCenterOfMap(mMap)));
-
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -188,23 +189,11 @@ public class MapActivity extends AppCompatActivity {
         return  centerFromPoint;
     }
 
-    private String getAddress(){
-        String addressLabel = "";
-        Geocoder geo = new Geocoder(this, Locale.ENGLISH);
-        try {
-			List<Address> list = geo.getFromLocation(getCenterOfMap(mMap).latitude, getCenterOfMap(mMap).longitude,1);
-            if(list != null && list.size() > 0){
-                Address address = list.get(0);
-                for(int i = 0; i < address.getMaxAddressLineIndex(); i ++){
-                    if(address.getAddressLine(i) != null){
-                        addressLabel = addressLabel + " " + address.getAddressLine(i);
-                    }
-                }
-            }
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        return addressLabel;
+    private void getAddress(){
+
+        LatLng geo = getCenterOfMap(mMap);
+        GeoCoderIntentService.startActionGetAddress(this,geo.latitude,geo.longitude);
+
     }
 
     View.OnClickListener addressTextViewListener = new View.OnClickListener() {
@@ -237,8 +226,6 @@ public class MapActivity extends AppCompatActivity {
                     summary.putExtra(ADDRESS,userAddress);
                     startActivity(summary);
                 }
-
-
         }
     };
 
@@ -256,7 +243,20 @@ public class MapActivity extends AppCompatActivity {
     private void  noMoreInput(){
         userAddressEditText.setVisibility(View.GONE);
         userAddressTextView.setVisibility(View.VISIBLE);
-        userAddressTextView.setText(getAddress());
+       // userAddressTextView.setText(getAddress());
+        getAddress();
         hideKeyboard(userAddressEditText);
+    }
+
+    private class GeoCoderResponseReceiver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getExtras() != null){
+                String address = intent.getStringExtra(GeoCoderIntentService.DATA_ADDRESS);
+                userAddressTextView.setText(address);
+            }
+
+        }
     }
 }
