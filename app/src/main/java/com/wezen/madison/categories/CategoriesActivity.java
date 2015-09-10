@@ -30,38 +30,27 @@ import java.util.List;
 
 public class CategoriesActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private NavigationView navigationView;
-    private DrawerLayout drawerLayout;
-    private RecyclerView rvHome;
-    private RecyclerView.LayoutManager layoutManager;
     private BeverageMenuAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
-        toolbar = (Toolbar)findViewById(R.id.homeToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.homeToolbar);
         setSupportActionBar(toolbar);
 
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
-        /*ViewPager viewPager = (ViewPager) findViewById(R.id.home_viewpager);
-        setupViewPager(viewPager);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.home_tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);*/
-
-        rvHome = (RecyclerView)findViewById(R.id.rvHome);
-        layoutManager = new GridLayoutManager(this,2);
+        RecyclerView rvHome = (RecyclerView) findViewById(R.id.rvHome);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
         rvHome.setLayoutManager(layoutManager);
         rvHome.setHasFixedSize(true);
         adapter = new BeverageMenuAdapter(dummyList(),this,getSupportFragmentManager());
         rvHome.setAdapter(adapter);
 
         // Initializing Drawer Layout and ActionBarToggle
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.openDrawer, R.string.closeDrawer){
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.openDrawer, R.string.closeDrawer){
 
             @Override
             public void onDrawerClosed(View drawerView) {

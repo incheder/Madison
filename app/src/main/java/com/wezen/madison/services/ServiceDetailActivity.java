@@ -27,11 +27,7 @@ import com.wezen.madison.model.BeverageType;
 import com.wezen.madison.utils.Utils;
 
 public class ServiceDetailActivity extends AppCompatActivity {
-    private Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbar;
-    private RecyclerView recyclerView;
-    private GridAdapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
     private Context context;
     private FloatingActionButton fab;
 
@@ -40,8 +36,11 @@ public class ServiceDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_detail);
         context = this;
-        toolbar = (Toolbar) findViewById(R.id.anim_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.anim_toolbar);
         setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         fab = (FloatingActionButton)findViewById(R.id.serviceDetailFAB);
         collapsingToolbar.setTitle("Suleiman Ali Shakir");
@@ -49,11 +48,11 @@ public class ServiceDetailActivity extends AppCompatActivity {
         toolBarColoring();
 
 
-        recyclerView = (RecyclerView) findViewById(R.id.scrollableview);
-        layoutManager = new GridLayoutManager(this,1);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.scrollableview);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        adapter = new GridAdapter(Utils.fillDataSet(this, BeverageType.valueOf(1)),this,getSupportFragmentManager());
+        GridAdapter adapter = new GridAdapter(Utils.fillDataSet(this, BeverageType.valueOf(1)), this, getSupportFragmentManager());
         recyclerView.setAdapter(adapter);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

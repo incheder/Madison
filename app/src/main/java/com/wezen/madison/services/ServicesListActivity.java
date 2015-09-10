@@ -14,25 +14,23 @@ import com.wezen.madison.utils.Utils;
 
 public class ServicesListActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private GridAdapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private Toolbar toolbar;
     private int mType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_services_list);
-        toolbar = (Toolbar)findViewById(R.id.servicesListToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.servicesListToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
-        recyclerView = (RecyclerView) findViewById(R.id.rvServiceList);
-        layoutManager = new GridLayoutManager(this,1);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvServiceList);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        adapter = new GridAdapter(Utils.fillDataSet(this, BeverageType.valueOf(mType)),this,getSupportFragmentManager());
+        GridAdapter adapter = new GridAdapter(Utils.fillDataSet(this, BeverageType.valueOf(mType)), this, getSupportFragmentManager());
         recyclerView.setAdapter(adapter);
     }
 

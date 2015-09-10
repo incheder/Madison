@@ -228,6 +228,7 @@
     <string name="title_activity_summary">SummaryActivity</string>
     <string name="problem_description">Añade una breve descripción del problema</string>
     <string name="title_activity_order_sent">OrderSentActivity</string>
+    <string name="cd_comments_number">numero de comentarios</string>
 
 
 </resources>
