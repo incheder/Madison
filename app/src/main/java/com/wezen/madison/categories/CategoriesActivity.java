@@ -43,7 +43,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
         RecyclerView rvHome = (RecyclerView) findViewById(R.id.rvHome);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
-        rvHome.setLayoutManager(layoutManager);
+        //rvHome.setLayoutManager(layoutManager);
         rvHome.setHasFixedSize(true);
         adapter = new BeverageMenuAdapter(dummyList(),this,getSupportFragmentManager());
         rvHome.setAdapter(adapter);

@@ -10,6 +10,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.GridLayoutManager;
@@ -22,6 +24,8 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.wezen.madison.R;
+import com.wezen.madison.categories.DummyFragment;
+import com.wezen.madison.categories.ViewPagerAdapter;
 import com.wezen.madison.map.MapActivity;
 import com.wezen.madison.model.BeverageType;
 import com.wezen.madison.utils.Utils;
@@ -30,6 +34,7 @@ public class ServiceDetailActivity extends AppCompatActivity {
     private CollapsingToolbarLayout collapsingToolbar;
     private Context context;
     private FloatingActionButton fab;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +53,20 @@ public class ServiceDetailActivity extends AppCompatActivity {
         toolBarColoring();
 
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.scrollableview);
+        /*RecyclerView recyclerView = (RecyclerView) findViewById(R.id.scrollableview);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         GridAdapter adapter = new GridAdapter(Utils.fillDataSet(this, BeverageType.valueOf(1)), this, getSupportFragmentManager());
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);*/
+
+        ViewPager viewPager = (ViewPager) findViewById(R.id.service_viewpager);
+        setupViewPager(viewPager);
+        tabLayout = (TabLayout) findViewById(R.id.service_tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +100,7 @@ public class ServiceDetailActivity extends AppCompatActivity {
 
     private void toolBarColoring(){
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                R.drawable.beach);
+                R.drawable.doctor_solucion);
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
@@ -98,6 +111,8 @@ public class ServiceDetailActivity extends AppCompatActivity {
                collapsingToolbar.setContentScrimColor(toolbarColor);
                setStatusBarColor(context, statusBarColor);
                fab.setBackgroundTintList(createFabColors(fabColor));
+                tabLayout.setBackgroundColor(toolbarColor);
+                tabLayout.setSelectedTabIndicatorColor(fabColor);
             }
         });
     }
@@ -127,5 +142,12 @@ public class ServiceDetailActivity extends AppCompatActivity {
 
         ColorStateList myList = new ColorStateList(states, colors);
         return myList;
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new DummyFragment(), getResources().getString(R.string.service_info_tab));
+        adapter.addFrag(ReviewsFragment.newInstance("",""), getResources().getString(R.string.service_rating_tab));
+        viewPager.setAdapter(adapter);
     }
 }

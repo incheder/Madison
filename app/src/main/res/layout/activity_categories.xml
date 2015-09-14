@@ -38,12 +38,14 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
 
-        <android.support.v7.widget.RecyclerView
+        <com.wezen.madison.utils.AutofitRecyclerView
             android:id="@+id/rvHome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:columnWidth="@dimen/column_width"/>
 
     </android.support.design.widget.CoordinatorLayout>
 

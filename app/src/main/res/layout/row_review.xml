@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_marginBottom="@dimen/review_margin"
+    android:layout_marginTop="@dimen/review_margin"
+    android:padding="@dimen/review_padding">
+
+    <ImageView
+        android:id="@+id/reviewAvatar"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/common_ic_googleplayservices"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/reviewUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="name"
+
+            />
+
+        <RatingBar
+            android:id="@+id/reviewBar"
+            style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="4"
+            />
+        <TextView
+            android:id="@+id/reviewComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Comentariossssss sssss sssssssss ssssss "
+
+            />
+        <TextView
+            android:id="@+id/reviewDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="13/09/2015"
+
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

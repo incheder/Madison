@@ -229,6 +229,8 @@
     <string name="problem_description">Añade una breve descripción del problema</string>
     <string name="title_activity_order_sent">OrderSentActivity</string>
     <string name="cd_comments_number">numero de comentarios</string>
+    <string name="service_info_tab">Información</string>
+    <string name="service_rating_tab">Opiniones</string>
 
 
 </resources>
