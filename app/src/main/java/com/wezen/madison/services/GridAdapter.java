@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wezen.madison.R;
-import com.wezen.madison.fragment.BeverageDetailFragment;
 import com.wezen.madison.model.Beverage;
 
 import java.util.ArrayList;

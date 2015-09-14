@@ -1,8 +1,6 @@
 package com.wezen.madison.categories;
 
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +20,6 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.wezen.madison.R;
-import com.wezen.madison.adapter.BeverageMenuAdapter;
 import com.wezen.madison.model.BeverageMenu;
 
 import java.util.ArrayList;
@@ -30,7 +27,7 @@ import java.util.List;
 
 public class CategoriesActivity extends AppCompatActivity {
 
-    private BeverageMenuAdapter adapter;
+    private CategoriesAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +42,7 @@ public class CategoriesActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
         //rvHome.setLayoutManager(layoutManager);
         rvHome.setHasFixedSize(true);
-        adapter = new BeverageMenuAdapter(dummyList(),this,getSupportFragmentManager());
+        adapter = new CategoriesAdapter(dummyList(),this,getSupportFragmentManager());
         rvHome.setAdapter(adapter);
 
         // Initializing Drawer Layout and ActionBarToggle

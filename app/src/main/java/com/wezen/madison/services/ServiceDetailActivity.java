@@ -24,7 +24,6 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.wezen.madison.R;
-import com.wezen.madison.categories.DummyFragment;
 import com.wezen.madison.categories.ViewPagerAdapter;
 import com.wezen.madison.map.MapActivity;
 import com.wezen.madison.model.BeverageType;
@@ -146,7 +145,7 @@ public class ServiceDetailActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new DummyFragment(), getResources().getString(R.string.service_info_tab));
+        adapter.addFrag(InformationFragment.newInstance("",""), getResources().getString(R.string.service_info_tab));
         adapter.addFrag(ReviewsFragment.newInstance("",""), getResources().getString(R.string.service_rating_tab));
         viewPager.setAdapter(adapter);
     }

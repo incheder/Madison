@@ -1,12 +1,10 @@
-package com.wezen.madison.adapter;
+package com.wezen.madison.categories;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,12 +24,12 @@ import java.util.List;
 /**
  * Created by eder on 4/8/15.
  */
-public class BeverageMenuAdapter extends RecyclerView.Adapter<BeverageMenuAdapter.ViewHolder> {
+public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder> {
     private List<BeverageMenu> mDataset;
     private Context context;
     private FragmentManager fm;
 
-    public BeverageMenuAdapter(ArrayList<BeverageMenu> mDataset, Context context, FragmentManager fm){
+    public CategoriesAdapter(ArrayList<BeverageMenu> mDataset, Context context, FragmentManager fm){
         this.mDataset = mDataset;
         this.context = context;
         this.fm = fm;

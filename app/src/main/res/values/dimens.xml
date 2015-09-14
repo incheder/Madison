@@ -30,4 +30,5 @@
     <dimen name="column_width">150dp</dimen>
     <dimen name="review_margin">20dp</dimen>
     <dimen name="review_padding">5dp</dimen>
+    <dimen name="order_sent_margin_image">10dp</dimen>
 </resources>
