@@ -79,7 +79,8 @@
         <activity
             android:name=".order.OrderSentActivity"
             android:label="@string/title_activity_order_sent"
-            android:parentActivityName=".summary.SummaryActivity" >
+            android:parentActivityName=".summary.SummaryActivity"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.summary.SummaryActivity" />

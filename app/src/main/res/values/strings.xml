@@ -231,6 +231,7 @@
     <string name="cd_comments_number">numero de comentarios</string>
     <string name="service_info_tab">Información</string>
     <string name="service_rating_tab">Opiniones</string>
+    <string name="back">Volver</string>
 
 
 </resources>

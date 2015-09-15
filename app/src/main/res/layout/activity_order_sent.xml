@@ -21,14 +21,15 @@
             />
 
         <LinearLayout
+            android:id="@+id/orderSentLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_centerInParent="true"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <ImageView
-                android:id="@+id/orderSentImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/smiley_happy_icon_256"
@@ -37,10 +38,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Soicitud Enviada"
-
                 android:layout_marginTop="@dimen/order_sent_margin_image"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/order_sent_text"/>
+            <Button
+                android:id="@+id/orderGoBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/back"
+                android:layout_marginTop="@dimen/order_sent_margin_image"/>
 
         </LinearLayout>
 

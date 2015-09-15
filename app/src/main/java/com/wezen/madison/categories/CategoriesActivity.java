@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
@@ -28,6 +30,7 @@ import java.util.List;
 public class CategoriesActivity extends AppCompatActivity {
 
     private CategoriesAdapter adapter;
+    private FrameLayout progressIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +39,10 @@ public class CategoriesActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.homeToolbar);
         setSupportActionBar(toolbar);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
-
+        //NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        progressIndicator = (FrameLayout)findViewById(R.id.categoriesProgressIndicator);
         RecyclerView rvHome = (RecyclerView) findViewById(R.id.rvHome);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+       //RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
         //rvHome.setLayoutManager(layoutManager);
         rvHome.setHasFixedSize(true);
         adapter = new CategoriesAdapter(dummyList(),this,getSupportFragmentManager());
@@ -125,6 +128,7 @@ public class CategoriesActivity extends AppCompatActivity {
                                     list.add(new BeverageMenu(bytes,name));
                                     if(list.size() == sizeArrayRetrieved){
                                         adapter.notifyDataSetChanged();
+                                        progressIndicator.setVisibility(View.GONE);
                                     }
                                 }else{
 

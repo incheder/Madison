@@ -121,6 +121,7 @@ public class SummaryActivity extends AppCompatActivity implements  OrderDialogFr
     public void onButtonClicked() {
 
         Intent orderSent = new Intent(this, OrderSentActivity.class);
+        //orderSent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(orderSent);
     }
 }

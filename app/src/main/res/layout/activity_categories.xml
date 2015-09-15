@@ -10,7 +10,27 @@
     <android.support.design.widget.CoordinatorLayout
         tools:context="com.wezen.madison.categories.CategoriesActivity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/categoriesProgressIndicator"
+            >
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBarOrderSent"
+                android:layout_gravity="center"
+                />
+
+        </FrameLayout>
+
+
+
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
