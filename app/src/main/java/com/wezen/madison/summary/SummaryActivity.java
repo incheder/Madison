@@ -62,7 +62,7 @@ public class SummaryActivity extends AppCompatActivity implements  OrderDialogFr
 
         // Updates the location and zoom of the MapView
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myLatLng, 16);
-        map.animateCamera(cameraUpdate);
+        map.moveCamera(cameraUpdate);
         map.addMarker(new MarkerOptions().position(myLatLng));
         map.getUiSettings().setAllGesturesEnabled(false);
 

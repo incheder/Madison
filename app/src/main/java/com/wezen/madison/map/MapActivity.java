@@ -134,7 +134,7 @@ public class MapActivity extends AppCompatActivity {
                 if (location != null) {
                     LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                     if(firstTime){
-                        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(latLng,16)));
+                        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(latLng,16)));
                         firstTime = false;
                         fab.show();
                     }

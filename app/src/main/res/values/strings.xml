@@ -203,8 +203,8 @@
     <string name="category_two">Cerrajería</string>
     <string name="category_three">Jardinería</string>
     <string name="category_four">Limpieza</string>
-    <string name="drawer_menu_1">drawer1</string>
-    <string name="drawer_menu_2">menu2</string>
+    <string name="drawer_menu_account">Mi cuenta</string>
+    <string name="drawer_menu_history">Historial</string>
     <string name="openDrawer">Navigation Drawer Open</string>
     <string name="closeDrawer">Navigation Drawer Closed</string>
 
@@ -232,6 +232,8 @@
     <string name="service_info_tab">Información</string>
     <string name="service_rating_tab">Opiniones</string>
     <string name="back">Volver</string>
+    <string name="drawer_menu_settings">Configuración</string>
+    <string name="drawer_menu_help">Ayuda</string>
 
 
 </resources>
