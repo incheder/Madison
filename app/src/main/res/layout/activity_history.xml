@@ -14,7 +14,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <com.wezen.madison.utils.AutofitRecyclerView
-        android:id="@+id/rvHome"
+        android:id="@+id/rvHistory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"

@@ -2,11 +2,17 @@ package com.wezen.madison.history;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.wezen.madison.R;
+import com.wezen.madison.model.HistoryService;
+import com.wezen.madison.model.ServiceStatus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
 
@@ -19,6 +25,28 @@ public class HistoryActivity extends AppCompatActivity {
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        RecyclerView rvHistory = (RecyclerView) findViewById(R.id.rvHistory);
+        rvHistory.setHasFixedSize(true);
+        HistoryAdapter adapter = new HistoryAdapter(getDummyList());
+        rvHistory.setAdapter(adapter);
+
+    }
+
+    private List<HistoryService> getDummyList() {
+        List<HistoryService> list = new ArrayList<>();
+        HistoryService hs;
+        for (int i = 0; i < 10 ; i++) {
+           hs = new HistoryService();
+           hs.setDate("15/09/2015");
+           hs.setDescription("Such a great service, keep it going guys!!");
+           hs.setImage(null);
+           hs.setName("Doctor Solucion");
+           hs.setReview(3);
+           hs.setStatus(ServiceStatus.COMPLETO);
+           list.add(hs);
+        }
+        return list;
+
     }
 
     @Override

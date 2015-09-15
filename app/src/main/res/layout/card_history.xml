@@ -1,8 +1,8 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemGridContent"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="300dp"
+    android:layout_height="200dp"
     android:layout_gravity="center"
     android:layout_margin="@dimen/card_item_margin"
     card_view:cardCornerRadius="4dp">
@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/history_image"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
@@ -21,7 +22,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/history_item_name"
+            android:id="@+id/history_name"
             android:text="sdasd"
             android:layout_marginBottom="@dimen/elements_margin"/>
 
@@ -47,9 +48,17 @@
             android:layout_marginBottom="@dimen/elements_margin"/>
 
         <Button
+            android:id="@+id/buttonHistoryItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/add_review"/>
+
+        <RatingBar
+            android:id="@+id/historyItemRating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@android:style/Widget.DeviceDefault.RatingBar.Indicator"
+            android:numStars="5"/>
 
     </LinearLayout>
 
