@@ -13,4 +13,10 @@
     <!--<item name="android:textColor">#0f0</item>-->
     </style>
 
+    <style name="AppTheme.Button" parent="Base.Widget.AppCompat.Button">
+        <item name="colorButtonNormal">@color/primary</item>
+
+
+    </style>
+
 </resources>

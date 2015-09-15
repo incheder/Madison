@@ -31,4 +31,9 @@
     <dimen name="review_margin">20dp</dimen>
     <dimen name="review_padding">5dp</dimen>
     <dimen name="order_sent_margin_image">10dp</dimen>
+    <dimen name="account_image_top_margin">20dp</dimen>
+    <dimen name="account_image_bottom_margin">20dp</dimen>
+    <dimen name="account_activity_right_padding">20dp</dimen>
+    <dimen name="account_activity_left_padding">20dp</dimen>
+    <dimen name="button_padding_account">20dp</dimen>
 </resources>
