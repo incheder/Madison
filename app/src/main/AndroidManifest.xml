@@ -19,7 +19,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -38,14 +37,11 @@
         <activity
             android:name=".categories.CategoriesActivity"
             android:label="@string/title_activity_categories" >
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".services.ServiceDetailActivity"
@@ -61,12 +57,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.services.ServiceDetailActivity" />
-
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
         </activity>
         <activity
             android:name=".summary.SummaryActivity"
@@ -79,8 +69,7 @@
         <activity
             android:name=".order.OrderSentActivity"
             android:label="@string/title_activity_order_sent"
-            android:parentActivityName=".summary.SummaryActivity"
-            >
+            android:parentActivityName=".summary.SummaryActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.summary.SummaryActivity" />
@@ -90,6 +79,31 @@
             android:name=".map.GeoCoderIntentService"
             android:exported="false" >
         </service>
+
+        <activity
+            android:name=".account.AccountActivity"
+            android:label="@string/title_activity_account"
+            android:parentActivityName=".categories.CategoriesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wezen.madison.categories.CategoriesActivity" />
+        </activity>
+        <activity
+            android:name=".history.HistoryActivity"
+            android:label="@string/title_activity_history"
+            android:parentActivityName=".categories.CategoriesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wezen.madison.categories.CategoriesActivity" />
+        </activity>
+        <activity
+            android:name=".help.HelpActivity"
+            android:label="@string/title_activity_help"
+            android:parentActivityName=".categories.CategoriesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wezen.madison.categories.CategoriesActivity" />
+        </activity>
     </application>
 
 </manifest>

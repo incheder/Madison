@@ -25,23 +25,19 @@ import com.wezen.madison.order.OrderSentActivity;
 
 public class SummaryActivity extends AppCompatActivity implements  OrderDialogFragment.OnClickOrderDialog {
 
-    private Toolbar toolbar;
     private MapView mapView;
-    private GoogleMap map;
     private LatLng myLatLng;
-    private TextView userAddress;
-    private FloatingActionButton fab;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
-        toolbar = (Toolbar)findViewById(R.id.summaryToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.summaryToolbar);
         setSupportActionBar(toolbar);
         mapView = (MapView)findViewById(R.id.mapview);
-        userAddress = (TextView)findViewById(R.id.summaryUserAddress);
-        fab = (FloatingActionButton)findViewById(R.id.fabSummary);
+        TextView userAddress = (TextView) findViewById(R.id.summaryUserAddress);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabSummary);
 
         if(getIntent().getExtras()!= null){
             myLatLng = new LatLng(
@@ -54,7 +50,7 @@ public class SummaryActivity extends AppCompatActivity implements  OrderDialogFr
 
         fab.setOnClickListener(fabListener);
         mapView.onCreate(savedInstanceState);
-        map = mapView.getMap();
+        GoogleMap map = mapView.getMap();
         map.getUiSettings().setMyLocationButtonEnabled(false);
         map.setMyLocationEnabled(true);
         // Needs to call MapsInitializer before doing any CameraUpdateFactory calls

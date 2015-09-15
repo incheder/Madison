@@ -234,6 +234,9 @@
     <string name="back">Volver</string>
     <string name="drawer_menu_settings">Configuración</string>
     <string name="drawer_menu_help">Ayuda</string>
+    <string name="title_activity_account">AccountActivity</string>
+    <string name="title_activity_history">HistoryActivity</string>
+    <string name="title_activity_help">HelpActivity</string>
 
 
 </resources>

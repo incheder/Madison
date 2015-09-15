@@ -1,11 +1,11 @@
 package com.wezen.madison.categories;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
@@ -22,6 +21,9 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.wezen.madison.R;
+import com.wezen.madison.account.AccountActivity;
+import com.wezen.madison.help.HelpActivity;
+import com.wezen.madison.history.HistoryActivity;
 import com.wezen.madison.model.BeverageMenu;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
     private CategoriesAdapter adapter;
     private FrameLayout progressIndicator;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +41,9 @@ public class CategoriesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_categories);
         Toolbar toolbar = (Toolbar) findViewById(R.id.homeToolbar);
         setSupportActionBar(toolbar);
-
-        //NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener( navigationItemSelectedListener );
         progressIndicator = (FrameLayout)findViewById(R.id.categoriesProgressIndicator);
         RecyclerView rvHome = (RecyclerView) findViewById(R.id.rvHome);
        //RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
@@ -146,4 +150,29 @@ public class CategoriesActivity extends AppCompatActivity {
 
         return list;
     }
+
+    NavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = new NavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(MenuItem menuItem) {
+            Intent toLaunch = null;
+
+            int id = menuItem.getItemId();
+
+            if(id == R.id.menu_account){
+                toLaunch = new Intent(CategoriesActivity.this, AccountActivity.class);
+            } else if (id == R.id.menu_history){
+                toLaunch = new Intent(CategoriesActivity.this, HistoryActivity.class);
+            } else if (id == R.id.menu_settings){
+
+            } else if (id == R.id.menu_help){
+                toLaunch = new Intent(CategoriesActivity.this, HelpActivity.class);
+            }
+            if(toLaunch != null){
+                menuItem.setChecked(true);
+                startActivity(toLaunch);
+                drawerLayout.closeDrawers();
+            }
+            return true;
+        }
+    };
 }
