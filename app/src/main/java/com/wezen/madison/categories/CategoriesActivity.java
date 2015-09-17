@@ -124,6 +124,8 @@ public class CategoriesActivity extends AppCompatActivity {
                         Category category = new Category();
                         category.setImage(image);
                         category.setName(name);
+                        category.setMainColor(mainColor);
+                        category.setSecondaryColor(secondaryColor);
                         list.add(category);
                         /*image.getDataInBackground(new GetDataCallback() {
                             @Override

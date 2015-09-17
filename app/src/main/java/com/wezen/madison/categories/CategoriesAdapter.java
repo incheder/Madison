@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -49,18 +50,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         final Category item = mDataset.get(position);
         viewHolder.tvFooter.setText(item.getName());
         Picasso.with(context).load(item.getImage()).into(viewHolder.ivBeverage);
-        /*Bitmap bmp = decodeSampledBitmapFromResource(
-                item.getBeverageMenuImage(),
-                80,
-                100
-        );*/
-        //viewHolder.ivBeverage.setImageBitmap(bmp);
-        viewHolder.ivBeverage.setImageResource(R.drawable.ic_format_paint_white_48dp);
-        //viewHolder.ivBeverage.setBackgroundColor(context.getResources().getColor(R.color.palette_blue));
-        final TextView tvName = viewHolder.tvFooter;
-        final FrameLayout backColor = viewHolder.categoryColor;
-        setColors(position, viewHolder.categoryColor,viewHolder.tvFooter);
-
+        viewHolder.categoryColor.setBackgroundColor(Color.parseColor(item.getMainColor()));
+        //viewHolder.tvFooter.setBackgroundColor(Color.parseColor(item.getSecondaryColor()));
 
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +97,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         }
     }
 
-    public static int calculateInSampleSize(
+    /*public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image
         final int height = options.outHeight;
@@ -129,7 +120,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         return inSampleSize;
     }
 
-    public static Bitmap decodeSampledBitmapFromResource(byte[] res,
+   public static Bitmap decodeSampledBitmapFromResource(byte[] res,
                                                          int reqWidth, int reqHeight) {
 
         // First decode with inJustDecodeBounds=true to check dimensions
@@ -144,42 +135,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return  BitmapFactory.decodeByteArray(res,0,res.length);
-    }
+    }*/
 
-    private void setColors(int position, View view,TextView tvName){
-        switch (position){
-            case 0:
-                view.setBackgroundColor(context.getResources().getColor(R.color.palette_blue));
-                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_blue_dark));
-                break;
-            case 1:
-                view.setBackgroundColor(context.getResources().getColor(R.color.palette_amber));
-                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_amber_dark));
-                break;
-            case 2:
-                view.setBackgroundColor(context.getResources().getColor(R.color.palette_green));
-                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_green_dark));
-                break;
-            case 3:
-                view.setBackgroundColor(context.getResources().getColor(R.color.palette_brown));
-                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_brown_dark));
-                break;
-            case 4:
-                view.setBackgroundColor(context.getResources().getColor(R.color.palette_indigo));
-                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_indigo_dark));
-                break;
-            case 5:
-                view.setBackgroundColor(context.getResources().getColor(R.color.palette_deep_orange));
-                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_orange_dark));
-                break;
-            case 6:
-                view.setBackgroundColor(context.getResources().getColor(R.color.palette_purple));
-                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_purple_dark));
-                break;
-            case 7:
-                view.setBackgroundColor(context.getResources().getColor(R.color.palette_pink));
-                tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_pink_dark));
-                break;
-        }
-    }
 }
