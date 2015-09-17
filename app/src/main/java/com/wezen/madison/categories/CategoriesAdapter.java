@@ -13,9 +13,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wezen.madison.R;
 import com.wezen.madison.model.Beverage;
 import com.wezen.madison.model.BeverageMenu;
+import com.wezen.madison.model.Category;
 import com.wezen.madison.services.ServicesListActivity;
 
 import java.util.ArrayList;
@@ -25,11 +27,11 @@ import java.util.List;
  * Created by eder on 4/8/15.
  */
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder> {
-    private List<BeverageMenu> mDataset;
+    private List<Category> mDataset;
     private Context context;
     private FragmentManager fm;
 
-    public CategoriesAdapter(ArrayList<BeverageMenu> mDataset, Context context, FragmentManager fm){
+    public CategoriesAdapter(ArrayList<Category> mDataset, Context context, FragmentManager fm){
         this.mDataset = mDataset;
         this.context = context;
         this.fm = fm;
@@ -44,53 +46,25 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        final BeverageMenu item = mDataset.get(position);
-        viewHolder.tvFooter.setText(item.getBeverageMenuName());
-        Bitmap bmp = decodeSampledBitmapFromResource(
+        final Category item = mDataset.get(position);
+        viewHolder.tvFooter.setText(item.getName());
+        Picasso.with(context).load(item.getImage()).into(viewHolder.ivBeverage);
+        /*Bitmap bmp = decodeSampledBitmapFromResource(
                 item.getBeverageMenuImage(),
                 80,
                 100
-        );
+        );*/
         //viewHolder.ivBeverage.setImageBitmap(bmp);
         viewHolder.ivBeverage.setImageResource(R.drawable.ic_format_paint_white_48dp);
         //viewHolder.ivBeverage.setBackgroundColor(context.getResources().getColor(R.color.palette_blue));
         final TextView tvName = viewHolder.tvFooter;
         final FrameLayout backColor = viewHolder.categoryColor;
-
-       /* Palette.Builder builder = Palette.from(bmp);
-        builder.generate(new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                Palette.Swatch swatch = palette.getVibrantSwatch();
-                if (swatch != null) {
-                    tvName.setBackgroundColor(swatch.getBodyTextColor());
-                    tvName.setTextColor(swatch.getTitleTextColor());
-                    backColor.setBackgroundColor(swatch.getRgb());
-                }
-            }
-        });*/
-
         setColors(position, viewHolder.categoryColor,viewHolder.tvFooter);
-       /* Palette.generateAsync(bmp, new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                // Here's your generated palette
-                Palette.Swatch swatch = palette.getMutedSwatch();
-                if(swatch != null){
-                    tvName.setBackgroundColor(context.getResources().getColor(R.color.palette_blue_dark));
-                    tvName.setTextColor(swatch.getTitleTextColor());
-                }
-            }
-        });*/
 
 
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-                        ft.replace(R.id.container, GridFragment.newInstance(position));
-                        ft.addToBackStack(null);
-                        ft.commit();*/
                 Intent servicesList = new Intent(context, ServicesListActivity.class);
                 context.startActivity(servicesList);
             }
@@ -103,7 +77,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         return mDataset.size();
     }
 
-    public void add(int position, BeverageMenu item){
+    public void add(int position, Category item){
         mDataset.add(position,item);
         notifyItemInserted(position);
     }

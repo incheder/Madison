@@ -25,6 +25,7 @@ import com.wezen.madison.account.AccountActivity;
 import com.wezen.madison.help.HelpActivity;
 import com.wezen.madison.history.HistoryActivity;
 import com.wezen.madison.model.BeverageMenu;
+import com.wezen.madison.model.Category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,9 +47,9 @@ public class CategoriesActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener( navigationItemSelectedListener );
         progressIndicator = (FrameLayout)findViewById(R.id.categoriesProgressIndicator);
         RecyclerView rvHome = (RecyclerView) findViewById(R.id.rvHome);
-       //RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
-        //rvHome.setLayoutManager(layoutManager);
         rvHome.setHasFixedSize(true);
+        //dummyList();
+
         adapter = new CategoriesAdapter(dummyList(),this,getSupportFragmentManager());
         rvHome.setAdapter(adapter);
 
@@ -102,18 +103,10 @@ public class CategoriesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new DummyFragment(), getResources().getString(R.string.category_one));
-        adapter.addFrag(new DummyFragment(), getResources().getString(R.string.category_two));
-        adapter.addFrag(new DummyFragment(), getResources().getString(R.string.category_three));
-        adapter.addFrag(new DummyFragment(), getResources().getString(R.string.category_four));
-        viewPager.setAdapter(adapter);
-    }*/
 
-    private ArrayList<BeverageMenu> dummyList() {
-        final ArrayList<BeverageMenu> list = new ArrayList<>();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("BeverageMenu");
+    private ArrayList<Category> dummyList() {
+        final ArrayList<Category> list = new ArrayList<>();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Categories");
         //query.whereEqualTo("ruta", po);
         //query.setLimit(1000);
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -123,9 +116,13 @@ public class CategoriesActivity extends AppCompatActivity {
                     final int sizeArrayRetrieved = beverageMenuList.size();
                     for(ParseObject po : beverageMenuList){
                         //  list.add(new BeverageMenu());
-                        final String name = po.getString("name");
-                        ParseFile image = po.getParseFile("image");
-                        image.getDataInBackground(new GetDataCallback() {
+                        String name = po.getString("name");
+                        String image = po.getParseFile("image").getUrl();
+                        Category category = new Category();
+                        category.setImage(image);
+                        category.setName(name);
+                        list.add(category);
+                        /*image.getDataInBackground(new GetDataCallback() {
                             @Override
                             public void done(byte[] bytes, ParseException e) {
                                 if(e == null){
@@ -138,9 +135,11 @@ public class CategoriesActivity extends AppCompatActivity {
 
                                 }
                             }
-                        });
+                        });*/
 
                     }
+                    adapter.notifyDataSetChanged();
+                    progressIndicator.setVisibility(View.GONE);
 
                 } else {
                     Log.d("score", "Error: " + e.getMessage());
