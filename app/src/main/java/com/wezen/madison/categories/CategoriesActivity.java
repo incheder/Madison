@@ -118,6 +118,9 @@ public class CategoriesActivity extends AppCompatActivity {
                         //  list.add(new BeverageMenu());
                         String name = po.getString("name");
                         String image = po.getParseFile("image").getUrl();
+                        String mainColor = po.getString("mainColor");
+                        String secondaryColor = po.getString("secondaryColor");
+
                         Category category = new Category();
                         category.setImage(image);
                         category.setName(name);
