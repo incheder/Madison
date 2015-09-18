@@ -51,7 +51,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         viewHolder.tvFooter.setText(item.getName());
         Picasso.with(context).load(item.getImage()).into(viewHolder.ivBeverage);
         viewHolder.categoryColor.setBackgroundColor(Color.parseColor(item.getMainColor()));
-        //viewHolder.tvFooter.setBackgroundColor(Color.parseColor(item.getSecondaryColor()));
+        viewHolder.tvFooter.setBackgroundColor(Color.parseColor(item.getSecondaryColor()));
 
         viewHolder.content.setOnClickListener(new View.OnClickListener() {
             @Override
