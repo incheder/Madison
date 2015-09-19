@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 import com.wezen.madison.R;
 import com.wezen.madison.model.HistoryService;
-import com.wezen.madison.model.ServiceStatus;
+import com.wezen.madison.model.HomeServiceStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class HistoryActivity extends AppCompatActivity {
            hs.setImage(null);
            hs.setName("Doctor Solucion");
            hs.setReview(3);
-           hs.setStatus(ServiceStatus.COMPLETO);
+           hs.setStatus(HomeServiceStatus.COMPLETO);
            list.add(hs);
         }
         return list;

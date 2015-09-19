@@ -8,13 +8,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.wezen.madison.R;
 import com.wezen.madison.model.BeverageType;
+import com.wezen.madison.model.HomeService;
 import com.wezen.madison.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServicesListActivity extends AppCompatActivity {
 
     private int mType;
+    private List<HomeService> homeServicesList;
+    private HomeServicesAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +40,15 @@ public class ServicesListActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        GridAdapter adapter = new GridAdapter(Utils.fillDataSet(this, BeverageType.valueOf(mType)), this, getSupportFragmentManager());
+        homeServicesList = new ArrayList<>();
+        adapter = new HomeServicesAdapter(homeServicesList, this);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getHomeServicesList();
     }
 
     @Override
@@ -54,5 +71,43 @@ public class ServicesListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void getHomeServicesList(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("HomeServices");
+        //query.setLimit(1000);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                if(e == null){
+
+                    for (ParseObject po: list) {
+
+                        String id = po.getObjectId();
+                        String name = po.getString("name");
+                        String imageUrl = po.getParseFile("image").getUrl();
+                        String description = po.getString("description");
+                        int stars = po.getInt("stars");
+                        int comments = po.getInt("comments");
+
+                        HomeService homeService = new HomeService();
+                        homeService.setName(name);
+                        homeService.setDescription(description);
+                        homeService.setId(id);
+                        homeService.setUrlImage(imageUrl);
+                        homeService.setStars(stars);
+                        homeService.setComments(comments);
+
+                        homeServicesList.add(homeService);
+
+                    }
+
+                    adapter.notifyDataSetChanged();
+
+                } else {
+                    //show error message
+                }
+            }
+        });
     }
 }

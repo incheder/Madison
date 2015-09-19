@@ -12,7 +12,7 @@ public class HistoryService {
     private String description;
     private int review;
     private String date;
-    private ServiceStatus status;
+    private HomeServiceStatus status;
 
     public Bitmap getImage() {
         return image;
@@ -54,11 +54,11 @@ public class HistoryService {
         this.date = date;
     }
 
-    public ServiceStatus getStatus() {
+    public HomeServiceStatus getStatus() {
         return status;
     }
 
-    public void setStatus(ServiceStatus status) {
+    public void setStatus(HomeServiceStatus status) {
         this.status = status;
     }
 }

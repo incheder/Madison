@@ -107,7 +107,6 @@ public class CategoriesActivity extends AppCompatActivity {
     private ArrayList<Category> dummyList() {
         final ArrayList<Category> list = new ArrayList<>();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Categories");
-        //query.whereEqualTo("ruta", po);
         //query.setLimit(1000);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> beverageMenuList, ParseException e) {
