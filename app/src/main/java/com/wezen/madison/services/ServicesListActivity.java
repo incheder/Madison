@@ -1,7 +1,8 @@
 package com.wezen.madison.services;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,18 +14,18 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.wezen.madison.R;
-import com.wezen.madison.model.BeverageType;
 import com.wezen.madison.model.HomeService;
-import com.wezen.madison.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServicesListActivity extends AppCompatActivity {
 
-    private int mType;
+    public static final String CATEGORY_ID = "category_id";
+
     private List<HomeService> homeServicesList;
     private HomeServicesAdapter adapter;
+    private String categoryID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,10 @@ public class ServicesListActivity extends AppCompatActivity {
         homeServicesList = new ArrayList<>();
         adapter = new HomeServicesAdapter(homeServicesList, this);
         recyclerView.setAdapter(adapter);
+        if(getIntent().getExtras() != null && getIntent().getExtras().containsKey(CATEGORY_ID)){
+            categoryID = getIntent().getExtras().getString(CATEGORY_ID);
+        }
+
     }
 
     @Override
@@ -74,14 +79,16 @@ public class ServicesListActivity extends AppCompatActivity {
     }
 
     private void getHomeServicesList(){
+        ParseObject poCategory = new ParseObject("Categories");
+        poCategory.setObjectId(categoryID);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("HomeServices");
-        //query.setLimit(1000);
+        query.whereEqualTo("Category",poCategory);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                if(e == null){
+                if (e == null) {
 
-                    for (ParseObject po: list) {
+                    for (ParseObject po : list) {
 
                         String id = po.getObjectId();
                         String name = po.getString("name");
@@ -106,6 +113,7 @@ public class ServicesListActivity extends AppCompatActivity {
 
                 } else {
                     //show error message
+                    Snackbar.make(null,"error",Snackbar.LENGTH_SHORT).show();
                 }
             }
         });

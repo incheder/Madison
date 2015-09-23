@@ -112,35 +112,21 @@ public class CategoriesActivity extends AppCompatActivity {
             public void done(List<ParseObject> beverageMenuList, ParseException e) {
                 if (e == null) {
                     Log.d("beverageMenu", "Retrieved " + beverageMenuList.size() + " BeverageMenu");
-                    final int sizeArrayRetrieved = beverageMenuList.size();
                     for(ParseObject po : beverageMenuList){
                         //  list.add(new BeverageMenu());
                         String name = po.getString("name");
                         String image = po.getParseFile("image").getUrl();
                         String mainColor = po.getString("mainColor");
                         String secondaryColor = po.getString("secondaryColor");
+                        String id = po.getObjectId();
 
                         Category category = new Category();
                         category.setImage(image);
                         category.setName(name);
                         category.setMainColor(mainColor);
                         category.setSecondaryColor(secondaryColor);
+                        category.setId(id);
                         list.add(category);
-                        /*image.getDataInBackground(new GetDataCallback() {
-                            @Override
-                            public void done(byte[] bytes, ParseException e) {
-                                if(e == null){
-                                    list.add(new BeverageMenu(bytes,name));
-                                    if(list.size() == sizeArrayRetrieved){
-                                        adapter.notifyDataSetChanged();
-                                        progressIndicator.setVisibility(View.GONE);
-                                    }
-                                }else{
-
-                                }
-                            }
-                        });*/
-
                     }
                     adapter.notifyDataSetChanged();
                     progressIndicator.setVisibility(View.GONE);

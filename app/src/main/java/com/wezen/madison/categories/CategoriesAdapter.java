@@ -57,6 +57,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
             @Override
             public void onClick(View v) {
                 Intent servicesList = new Intent(context, ServicesListActivity.class);
+                servicesList.putExtra(ServicesListActivity.CATEGORY_ID, item.getId());
                 context.startActivity(servicesList);
             }
         });
