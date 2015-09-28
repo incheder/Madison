@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentResolver;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
@@ -20,15 +19,18 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 import com.wezen.madison.R;
 
 /**
@@ -55,7 +57,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private View mProgressView;
     private View mLoginFormView;
     private TextView signin;
-    private boolean signinMode = false;
+    private boolean loginMode = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,12 +108,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                     signin.setText(getResources().getString(R.string.action_register));
                     mEmailSignInButton.setText(getResources().getString(R.string.action_sign_in));
                     mRepeatPasswordView.setVisibility(View.GONE);
-                    signinMode=true;
+                    loginMode =true;
                 } else {
                     signin.setText(getResources().getString(R.string.action_sign_in));
                     mEmailSignInButton.setText(getResources().getString(R.string.action_register));
                     mRepeatPasswordView.setVisibility(View.VISIBLE);
-                    signinMode=false;
+                    loginMode =false;
                 }
 
             }
@@ -120,7 +122,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        if(signinMode){
+        if(loginMode){
           //
         } else {
             //
@@ -168,7 +170,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             cancel = true;
         }
 
-        if(!signinMode){
+        if(!loginMode){
 
             if (TextUtils.isEmpty(repeatPassword)) {
                 mRepeatPasswordView.setError(getString(R.string.error_field_required));
@@ -209,15 +211,54 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
+            /*showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            mAuthTask.execute((Void) null);*/
+            if(loginMode){
+                loginUser(email,password);
+            } else {
+                signUpUser(email,repeatPassword);
+
+            }
+
         }
+    }
+
+    private void signUpUser(String email, String password) {
+        ParseUser parseUser = new ParseUser();
+        parseUser.setEmail(email);
+        parseUser.setPassword(password);
+        parseUser.setUsername(email);
+        parseUser.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null){ //no problemo
+
+                } else { // ups!
+
+                }
+            }
+        });
+
+    }
+
+    private void  loginUser(String username, String password){
+        ParseUser.logInInBackground(username, password, new LogInCallback() {
+            @Override
+            public void done(ParseUser parseUser, ParseException e) {
+                if(parseUser != null){//no problemo
+                    Toast.makeText(LoginActivity.this, "ok", Toast.LENGTH_SHORT).show();
+                } else {//ups!
+                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return  android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+       // return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
