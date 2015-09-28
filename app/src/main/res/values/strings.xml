@@ -243,6 +243,7 @@
     <string name="account_hint_email">Email</string>
     <string name="account_save_changes">Guardar Cambios</string>
     <string name="add_review">Califica el servicio</string>
+    <string name="already_a_member">Inicia Sesión</string>
 
 
 </resources>
