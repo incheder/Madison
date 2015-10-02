@@ -64,11 +64,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if(currentUser != null){
+            goToCategories();
+        }
         setContentView(R.layout.activity_login);
 
+
         // Set up the login form.
-        mEmailView = (EditText) findViewById(R.id.email);
-        populateAutoComplete();
+        mEmailView = (EditText)findViewById(R.id.email);
+        //populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -125,11 +130,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        if(loginMode){
-          //
-        } else {
-            //
-        }
+
     }
 
     private void populateAutoComplete() {
@@ -228,7 +229,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     private void signUpUser(String email, String password) {
-        mProgressView.setVisibility(View.VISIBLE);
+        showProgress(true);
         ParseUser parseUser = new ParseUser();
         parseUser.setEmail(email);
         parseUser.setPassword(password);
@@ -236,7 +237,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         parseUser.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(ParseException e) {
-                mProgressView.setVisibility(View.GONE);
+                showProgress(false);
                 if (e == null) { //no problemo
                     goToCategories();
                 } else { // ups!
@@ -248,11 +249,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     private void  loginUser(String username, String password){
-        mProgressView.setVisibility(View.VISIBLE);
+        showProgress(true);
+       // mProgressView.setVisibility(View.VISIBLE);
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser parseUser, ParseException e) {
-                mProgressView.setVisibility(View.GONE);
+               // mProgressView.setVisibility(View.GONE);
+                showProgress(false);
                 if(parseUser != null){//no problemo
                     goToCategories();
                 } else {//ups!
@@ -422,6 +425,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     private void goToCategories(){
         Intent categories = new Intent(LoginActivity.this, CategoriesActivity.class);
+        categories.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(categories);
     }
 }

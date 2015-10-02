@@ -20,10 +20,12 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.wezen.madison.R;
 import com.wezen.madison.account.AccountActivity;
 import com.wezen.madison.help.HelpActivity;
 import com.wezen.madison.history.HistoryActivity;
+import com.wezen.madison.login.LoginActivity;
 import com.wezen.madison.model.BeverageMenu;
 import com.wezen.madison.model.Category;
 
@@ -155,6 +157,9 @@ public class CategoriesActivity extends AppCompatActivity {
 
             } else if (id == R.id.menu_help){
                 toLaunch = new Intent(CategoriesActivity.this, HelpActivity.class);
+            } else if (id == R.id.menu_sign_out){
+                ParseUser.logOut();
+                goToLogin();
             }
             if(toLaunch != null){
                 menuItem.setChecked(true);
@@ -164,4 +169,10 @@ public class CategoriesActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    private void goToLogin(){
+        Intent loginIntent = new Intent(CategoriesActivity.this, LoginActivity.class);
+        loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+    }
 }

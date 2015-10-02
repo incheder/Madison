@@ -1,5 +1,6 @@
 package com.wezen.madison.services;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,10 +23,13 @@ import java.util.List;
 public class ServicesListActivity extends AppCompatActivity {
 
     public static final String CATEGORY_ID = "category_id";
+    public static final String CATEGORY_ID_BUNDLE = "category_id_bundle";
 
     private List<HomeService> homeServicesList;
     private HomeServicesAdapter adapter;
     private String categoryID;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class ServicesListActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvServiceList);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
@@ -44,15 +49,19 @@ public class ServicesListActivity extends AppCompatActivity {
         homeServicesList = new ArrayList<>();
         adapter = new HomeServicesAdapter(homeServicesList, this);
         recyclerView.setAdapter(adapter);
-        //if(getIntent().getExtras() != null && getIntent().getExtras().containsKey(CATEGORY_ID)){
+        if(getIntent().getExtras() != null && getIntent().getExtras().containsKey(CATEGORY_ID)){
             categoryID = getIntent().getExtras().getString(CATEGORY_ID);
-       // }
+        } else if(savedInstanceState != null && savedInstanceState.containsKey(CATEGORY_ID_BUNDLE)){
+            categoryID = savedInstanceState.getString(CATEGORY_ID_BUNDLE);
+        }
+
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        homeServicesList.clear();
         getHomeServicesList();
     }
 
@@ -113,9 +122,11 @@ public class ServicesListActivity extends AppCompatActivity {
 
                 } else {
                     //show error message
-                    Snackbar.make(null,"error",Snackbar.LENGTH_SHORT).show();
+                   // Snackbar.make(null,"error",Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
+
 }

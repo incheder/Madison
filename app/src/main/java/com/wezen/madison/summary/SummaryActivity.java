@@ -35,6 +35,9 @@ public class SummaryActivity extends AppCompatActivity implements  OrderDialogFr
         setContentView(R.layout.activity_summary);
         Toolbar toolbar = (Toolbar) findViewById(R.id.summaryToolbar);
         setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         mapView = (MapView)findViewById(R.id.mapview);
         TextView userAddress = (TextView) findViewById(R.id.summaryUserAddress);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabSummary);

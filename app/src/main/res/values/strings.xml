@@ -244,6 +244,7 @@
     <string name="account_save_changes">Guardar Cambios</string>
     <string name="add_review">Califica el servicio</string>
     <string name="already_a_member">Inicia Sesión</string>
+    <string name="drawer_sign_out">Cerrar Sesión</string>
 
 
 </resources>
