@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
 import com.wezen.madison.R;
 import com.wezen.madison.categories.ViewPagerAdapter;
 import com.wezen.madison.map.MapActivity;
@@ -30,6 +31,13 @@ import com.wezen.madison.model.BeverageType;
 import com.wezen.madison.utils.Utils;
 
 public class ServiceDetailActivity extends AppCompatActivity {
+    public static final String PARAM_ID = "ID";
+    public static final String PARAM_COMMENTS = "COMMENTS";
+    public static final String PARAM_DESCRIPTION = "DESCRIPTION";
+    public static final String PARAM_NAME = "NAME";
+    public static final String PARAM_STARS = "STARS";
+    public static final String PARAM_URL_IMAGE = "URL_IMAGE";
+
     private CollapsingToolbarLayout collapsingToolbar;
     private Context context;
     private FloatingActionButton fab;
@@ -47,10 +55,18 @@ public class ServiceDetailActivity extends AppCompatActivity {
         }
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         fab = (FloatingActionButton)findViewById(R.id.serviceDetailFAB);
-        collapsingToolbar.setTitle("Suleiman Ali Shakir");
         ImageView header = (ImageView) findViewById(R.id.header);
         toolBarColoring();
 
+        String id = getIntent().getExtras().getString(PARAM_ID);
+       // int comments = getIntent().getExtras().getInt(PARAM_COMMENTS);
+        String description = getIntent().getExtras().getString(PARAM_DESCRIPTION);
+        String name = getIntent().getExtras().getString(PARAM_NAME);
+       // int stars = getIntent().getExtras().getInt(PARAM_STARS);
+        String urlImage = getIntent().getExtras().getString(PARAM_URL_IMAGE);
+
+        Picasso.with(context).load(urlImage).into(header);
+        collapsingToolbar.setTitle(name);
 
         /*RecyclerView recyclerView = (RecyclerView) findViewById(R.id.scrollableview);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
@@ -60,7 +76,7 @@ public class ServiceDetailActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);*/
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.service_viewpager);
-        setupViewPager(viewPager);
+        setupViewPager(viewPager,description,id);
         tabLayout = (TabLayout) findViewById(R.id.service_tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
@@ -143,10 +159,10 @@ public class ServiceDetailActivity extends AppCompatActivity {
         return myList;
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(ViewPager viewPager, String information, String homeServiceId) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(InformationFragment.newInstance("",""), getResources().getString(R.string.service_info_tab));
-        adapter.addFrag(ReviewsFragment.newInstance("",""), getResources().getString(R.string.service_rating_tab));
+        adapter.addFrag(InformationFragment.newInstance(information,""), getResources().getString(R.string.service_info_tab));
+        adapter.addFrag(ReviewsFragment.newInstance(homeServiceId,""), getResources().getString(R.string.service_rating_tab));
         viewPager.setAdapter(adapter);
     }
 }

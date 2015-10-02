@@ -51,6 +51,12 @@ public class HomeServicesAdapter extends RecyclerView.Adapter<HomeServicesAdapte
             @Override
             public void onClick(View v) {
                 Intent serviceDetail = new Intent(context, ServiceDetailActivity.class);
+                serviceDetail.putExtra(ServiceDetailActivity.PARAM_ID,homeService.getId());
+                //serviceDetail.putExtra(ServiceDetailActivity.PARAM_COMMENTS,homeService.getComments());
+                serviceDetail.putExtra(ServiceDetailActivity.PARAM_DESCRIPTION,homeService.getDescription());
+                serviceDetail.putExtra(ServiceDetailActivity.PARAM_NAME,homeService.getName());
+                //serviceDetail.putExtra(ServiceDetailActivity.PARAM_STARS,homeService.getStars());
+                serviceDetail.putExtra(ServiceDetailActivity.PARAM_URL_IMAGE,homeService.getUrlImage());;
                 context.startActivity(serviceDetail);
             }
         });
