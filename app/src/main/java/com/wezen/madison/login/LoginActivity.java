@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -32,6 +33,7 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 import com.wezen.madison.R;
+import com.wezen.madison.categories.CategoriesActivity;
 
 /**
  * A login screen that offers login via email/password.
@@ -96,6 +98,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 attemptLogin();
             }
         });
@@ -225,6 +228,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     private void signUpUser(String email, String password) {
+        mProgressView.setVisibility(View.VISIBLE);
         ParseUser parseUser = new ParseUser();
         parseUser.setEmail(email);
         parseUser.setPassword(password);
@@ -232,8 +236,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         parseUser.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(ParseException e) {
-                if (e == null){ //no problemo
-
+                mProgressView.setVisibility(View.GONE);
+                if (e == null) { //no problemo
+                    goToCategories();
                 } else { // ups!
 
                 }
@@ -243,11 +248,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     private void  loginUser(String username, String password){
+        mProgressView.setVisibility(View.VISIBLE);
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser parseUser, ParseException e) {
+                mProgressView.setVisibility(View.GONE);
                 if(parseUser != null){//no problemo
-                    Toast.makeText(LoginActivity.this, "ok", Toast.LENGTH_SHORT).show();
+                    goToCategories();
                 } else {//ups!
                     Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -411,6 +418,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+    private void goToCategories(){
+        Intent categories = new Intent(LoginActivity.this, CategoriesActivity.class);
+        startActivity(categories);
     }
 }
 
