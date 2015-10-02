@@ -10,6 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.wezen.madison.R;
 import com.wezen.madison.model.BeverageType;
 import com.wezen.madison.model.Review;
@@ -32,6 +36,7 @@ public class ReviewsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    List<Review> reviews;
 
 
     /**
@@ -81,8 +86,26 @@ public class ReviewsFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("HomeServices");
+        query.whereEqualTo("Service", mParam1);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                if(e == null){
+
+                } else {
+
+                }
+
+            }
+        });
+    }
+
     private List<Review> getDummyReviews() {
-        List<Review> reviews = new ArrayList<>();
+        reviews = new ArrayList<>();
         Review review;
         for (int i = 0; i < 20; i++) {
             review = new Review();

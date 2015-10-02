@@ -44,9 +44,9 @@ public class ServicesListActivity extends AppCompatActivity {
         homeServicesList = new ArrayList<>();
         adapter = new HomeServicesAdapter(homeServicesList, this);
         recyclerView.setAdapter(adapter);
-        if(getIntent().getExtras() != null && getIntent().getExtras().containsKey(CATEGORY_ID)){
+        //if(getIntent().getExtras() != null && getIntent().getExtras().containsKey(CATEGORY_ID)){
             categoryID = getIntent().getExtras().getString(CATEGORY_ID);
-        }
+       // }
 
     }
 
@@ -79,8 +79,8 @@ public class ServicesListActivity extends AppCompatActivity {
     }
 
     private void getHomeServicesList(){
-        ParseObject poCategory = new ParseObject("Categories");
-        poCategory.setObjectId(categoryID);
+        ParseObject poCategory = ParseObject.createWithoutData("Categories",categoryID);
+       // poCategory.setObjectId(categoryID);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("HomeServices");
         query.whereEqualTo("Category",poCategory);
         query.findInBackground(new FindCallback<ParseObject>() {
