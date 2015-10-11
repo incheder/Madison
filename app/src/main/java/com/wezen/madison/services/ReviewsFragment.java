@@ -3,9 +3,9 @@ package com.wezen.madison.services;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +15,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.wezen.madison.R;
-import com.wezen.madison.model.BeverageType;
 import com.wezen.madison.model.Review;
-import com.wezen.madison.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,15 +26,14 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class ReviewsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+
+    private static final String ARG_HOME_SERVICE_ID = "home_service_id";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
+    private String mHomeServiceId;
     private String mParam2;
-    List<Review> reviews;
+    private List<Review> reviews;
+    private ReviewsAdapter adapter;
 
 
     /**
@@ -51,7 +48,7 @@ public class ReviewsFragment extends Fragment {
     public static ReviewsFragment newInstance(String param1, String param2) {
         ReviewsFragment fragment = new ReviewsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_HOME_SERVICE_ID, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -65,7 +62,7 @@ public class ReviewsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mHomeServiceId = getArguments().getString(ARG_HOME_SERVICE_ID);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -81,7 +78,9 @@ public class ReviewsFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        ReviewsAdapter adapter = new ReviewsAdapter(getDummyReviews());
+
+        reviews = new ArrayList<>();
+        adapter = new ReviewsAdapter(reviews, getActivity());
         recyclerView.setAdapter(adapter);
         return view;
     }
@@ -89,36 +88,41 @@ public class ReviewsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("HomeServices");
-        query.whereEqualTo("Service", mParam1);
+        ParseObject holder = ParseObject.createWithoutData("HomeServices",mHomeServiceId);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Review");
+        query.orderByDescending("createdAt");
+        query.include("fromUser");
+        query.whereEqualTo("homeService", holder);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 if(e == null){
-
+                    Log.d("TAG","list");
+                    for (ParseObject po: list) {
+                        Review review = new Review();
+                        review.setId(po.getObjectId());
+                        review.setComment(po.getString("comment"));
+                        review.setStars(po.getInt("numStars"));
+                        review.setDate(po.getCreatedAt().toString());
+                        ParseObject user = po.getParseObject("fromUser");
+                        if(user!= null){
+                            if(user.getParseFile("userImage")!= null){
+                                review.setUserAvatar(user.getParseFile("userImage").getUrl());
+                            }
+                            review.setUserName(user.getString("username"));
+                        }
+                        reviews.add(review);
+                    }
+                    adapter.notifyDataSetChanged();
                 } else {
-
+                    Log.e("TAG",e.getMessage());
                 }
 
             }
         });
     }
 
-    private List<Review> getDummyReviews() {
-        reviews = new ArrayList<>();
-        Review review;
-        for (int i = 0; i < 20; i++) {
-            review = new Review();
-            review.setComment("such a great job! lal la la la lalal lalalal la lalalala");
-            review.setDate("13/09/2015");
-            review.setId("34895");
-            review.setStars(3);
-            review.setUserName("Han");
-            review.setUserAvatar(null);
-            reviews.add(review);
-        }
-        return reviews;
-    }
+
 
 
 }

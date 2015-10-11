@@ -56,7 +56,7 @@ public class CategoriesActivity extends AppCompatActivity {
         rvHome.setAdapter(adapter);
 
         // Initializing Drawer Layout and ActionBarToggle
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        //DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,R.string.openDrawer, R.string.closeDrawer){
 
             @Override

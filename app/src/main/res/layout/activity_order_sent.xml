@@ -32,12 +32,11 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/smiley_happy_icon_256"
                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Soicitud Enviada"
+                android:text="Solicitud Enviada"
                 android:layout_marginTop="@dimen/order_sent_margin_image"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/order_sent_text"/>

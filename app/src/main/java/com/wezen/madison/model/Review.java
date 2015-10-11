@@ -12,7 +12,7 @@ public class Review {
     private String date;
     private String comment;
     private Integer stars;
-    private Bitmap userAvatar;
+    private String userAvatar;
 
     public String getId() {
         return id;
@@ -54,11 +54,11 @@ public class Review {
         this.stars = stars;
     }
 
-    public Bitmap getUserAvatar() {
+    public String getUserAvatar() {
         return userAvatar;
     }
 
-    public void setUserAvatar(Bitmap userAvatar) {
+    public void setUserAvatar(String userAvatar) {
         this.userAvatar = userAvatar;
     }
 }

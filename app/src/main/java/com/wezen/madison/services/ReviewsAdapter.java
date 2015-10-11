@@ -1,5 +1,6 @@
 package com.wezen.madison.services;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,13 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wezen.madison.R;
 import com.wezen.madison.model.Review;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by eder on 9/13/15.
@@ -19,9 +23,11 @@ import java.util.List;
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHolder> {
 
     private List<Review> reviews;
+    private Context context;
 
-    public ReviewsAdapter(List<Review> reviews){
+    public ReviewsAdapter(List<Review> reviews, Context context){
         this.reviews = reviews;
+        this.context = context;
     }
 
 
@@ -42,8 +48,9 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
         holder.name.setText(review.getUserName());
         holder.date.setText(review.getDate());
         holder.comment.setText(review.getComment());
+        holder.date.setText(review.getDate());
         holder.stars.setRating(review.getStars());
-        //holder.avatar.setImageBitmap(review.getUserAvatar());
+        Picasso.with(context).load(review.getUserAvatar()).into(holder.avatar);
     }
 
     @Override
@@ -57,7 +64,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
         public TextView date;
         public TextView comment;
         public RatingBar stars;
-        public ImageView avatar;
+        public CircleImageView avatar;
 
         public ReviewHolder(View itemView) {
             super(itemView);
@@ -66,7 +73,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
             date = (TextView)itemView.findViewById(R.id.reviewDate);
             comment = (TextView)itemView.findViewById(R.id.reviewComment);
             stars = (RatingBar)itemView.findViewById(R.id.reviewBar);
-            avatar = (ImageView)itemView.findViewById(R.id.reviewAvatar);
+            avatar = (CircleImageView)itemView.findViewById(R.id.reviewAvatar);
         }
     }
 

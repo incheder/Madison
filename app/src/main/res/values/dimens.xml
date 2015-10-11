@@ -28,7 +28,7 @@
     <dimen name="elements_margin">15dp</dimen>
     <dimen name="comment_margin_in_service_list">10dp</dimen>
     <dimen name="column_width">150dp</dimen>
-    <dimen name="review_margin">20dp</dimen>
+    <dimen name="review_margin">10dp</dimen>
     <dimen name="review_padding">5dp</dimen>
     <dimen name="order_sent_margin_image">10dp</dimen>
     <dimen name="account_image_top_margin">20dp</dimen>

@@ -38,7 +38,8 @@
         <activity
             android:name=".services.ServicesListActivity"
             android:label="@string/title_activity_services_list"
-            android:parentActivityName=".categories.CategoriesActivity" >
+            android:parentActivityName=".categories.CategoriesActivity"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.categories.CategoriesActivity" />
@@ -55,14 +56,16 @@
         <activity
             android:name=".services.ServiceDetailActivity"
             android:label="@string/title_activity_service_detail"
-            android:parentActivityName=".services.ServicesListActivity" >
+            android:parentActivityName=".services.ServicesListActivity"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.services.ServicesListActivity" />
         </activity>
         <activity
             android:name=".map.MapActivity"
-            android:label="@string/title_activity_map" >
+            android:label="@string/title_activity_map"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.services.ServiceDetailActivity" />
@@ -70,7 +73,8 @@
         <activity
             android:name=".summary.SummaryActivity"
             android:label="@string/title_activity_summary"
-            android:parentActivityName=".map.MapActivity" >
+            android:parentActivityName=".map.MapActivity"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.map.MapActivity" />
