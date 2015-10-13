@@ -1,15 +1,5 @@
 <resources>
     <string name="app_name">Madison</string>
-    <string name="title_section0">Brandy</string>
-    <string name="title_section1">Cerveza</string>
-    <string name="title_section2">Champagne</string>
-    <string name="title_section3">Ginebra</string>
-    <string name="title_section4">Licor</string>
-    <string name="title_section5">Ron</string>
-    <string name="title_section6">Tequila</string>
-    <string name="title_section7">Vino</string>
-    <string name="title_section8">Vodka</string>
-    <string name="title_section9">Whiskey</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -19,160 +9,13 @@
     <string name="action_settings">Settings</string>
     <string name="amount">Cantidad:</string>
 
-<!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</string>
     <string name="total_checkout_label">Total:</string>
     <string name="continuar">continuar</string>
 
-    <array name="brandy">
-        <item>Terry Centenario 700ml</item>
-        <item>Torres 10 700ml</item>
-    </array>
 
-    <array name="brandy_prices">
-        <item>$275.00</item>
-        <item>$290.00</item>
-    </array>
-
-    <array name="beer">
-        <item>Corona Light Six Pack</item>
-        <item>Corona Six Pack</item>
-        <item>Leon Six Pack</item>
-        <item>Modelo Especial Six Pack</item>
-        <item>Montejo Six Pack</item>
-        <item>Pacifico Six Pack</item>
-        <item>Victoria Six Pack</item>
-    </array>
-
-    <array name="beer_prices">
-        <item>$95.00</item>
-        <item>$95.00</item>
-        <item>$90.00</item>
-        <item>$95.00</item>
-        <item>$90.00</item>
-        <item>$90.00</item>
-        <item>$90.00</item>
-    </array>
-
-    <array name="champagne">
-        <item>Moet Chandom Imp 750ml</item>
-    </array>
-
-    <array name="champagne_prices">
-        <item>$800.00</item>
-    </array>
-
-    <array name="ginebra">
-        <item>Bombay Shapire</item>
-    </array>
-
-    <array name="ginebra_prices">
-        <item>$395.00</item>
-    </array>
-
-    <array name="licores">
-        <item>Baileys 750ml</item>
-        <item>Jagermeister 700ml</item>
-    </array>
-
-    <array name="licores_prices">
-        <item>$285.00</item>
-        <item>$370.00</item>
-    </array>
-
-    <array name="ron">
-        <item>Appleton Estate V/X</item>
-        <item>Appleton Special</item>
-        <item>Appleton White</item>
-        <item>Bacardi Blanco 1750ml</item>
-        <item>Bacardi Blanco 1lt</item>
-        <item>Bacardi Solera 750ml</item>
-        <item>Capitan Morgan 750ml</item>
-        <item>Kraken</item>
-        <item>Matusalem Clasico 750ml</item>
-        <item>Matusalem Gran Reserva 750ml</item>
-        <item>Matusalem Platino 750ml</item>
-    </array>
-
-    <array name="ron_prices">
-        <item>$285.00</item>
-        <item>$185.00</item>
-        <item>$160.00</item>
-        <item>$300.00</item>
-        <item>$175.00</item>
-        <item>$220.00</item>
-        <item>$205.00</item>
-        <item>$215.00</item>
-        <item>$245.00</item>
-        <item>$320.00</item>
-        <item>$190.00</item>
-    </array>
-
-    <array name="tequila">
-        <item>Azul Centenario</item>
-        <item>Cazador Reposado 750ml</item>
-        <item>Cuervo Espacial 990ml</item>
-        <item>Cuervo Tradicional 950ml</item>
-        <item>Dob Julio Reposado 750ml</item>
-        <item>Don Ramon</item>
-    </array>
-
-    <array name="tequila_prices">
-        <item>$225.00</item>
-        <item>$335.00</item>
-        <item>$215.00</item>
-        <item>$375.00</item>
-        <item>$455.00</item>
-        <item>$215.00</item>
-    </array>
-
-    <array name="vino">
-        <item>Concha y Toro Blanco 750ml</item>
-        <item>Concha y Toro Cab. S. 750ml</item>
-        <item>Concha y Toro Mer. 750ml</item>
-    </array>
-
-    <array name="vino_prices">
-        <item>$130.00</item>
-        <item>$125.00</item>
-        <item>$125.00</item>
-    </array>
-
-    <array name="vodka">
-        <item>Absolut Azul 750ml</item>
-        <item>Absolut Mandarin 750ml</item>
-        <item>Grey Goose 700ml</item>
-        <item>Smirnof 1lt</item>
-        <item>Stolichnaya 750ml</item>
-    </array>
-
-    <array name="vodka_prices">
-        <item>$315.00</item>
-        <item>$295.00</item>
-        <item>$500.00</item>
-        <item>$255.00</item>
-        <item>$330.00</item>
-    </array>
-
-    <array name="whiskey">
-        <item>Buchanans 700ml</item>
-        <item>Chivas Regal 700ml</item>
-        <item>J&amp;B 700ml</item>
-        <item>J.W Etiqueta Negra 750ml</item>
-        <item>J.W Etiqueta Roja 750ml</item>
-        <item>Jack Daniels 700ml</item>
-    </array>
-
-    <array name="whiskey_prices">
-        <item>$670.00</item>
-        <item>$558.00</item>
-        <item>$300.00</item>
-        <item>$595.00</item>
-        <item>$365.00</item>
-        <item>$378.00</item>
-    </array>
     <string name="title_activity_maps">Map</string>
     <string name="street">Calle</string>
     <string name="number">Número</string>
@@ -186,14 +29,6 @@
     <string name="no">No</string>
     <string name="order_title">¿Realizar pedido?</string>
 
-    <array name="nav_drawer_menu">
-        <item>Inicio</item>
-        <item>Favoritos</item>
-        <item>Últimos Pedidos</item>
-        <item>Configuración</item>
-        <item>Ayuda</item>
-
-    </array>
     <string name="title_activity_beverage_list">BeverageListActivity</string>
 
     <string name="hello_world">Hello world!</string>
@@ -207,19 +42,6 @@
     <string name="drawer_menu_history">Historial</string>
     <string name="openDrawer">Navigation Drawer Open</string>
     <string name="closeDrawer">Navigation Drawer Closed</string>
-
-
-    <array name="categories">
-        <item>Categoria 1</item>
-        <item>Categoria 2</item>
-        <item>Categoria 3</item>
-        <item>Categoria 4</item>
-        <item>Categoria 5</item>
-        <item>Categoria 6</item>
-        <item>Categoria 7</item>
-        <item>Categoria 8</item>
-
-    </array>
 
     <string name="title_activity_service_detail">ServiceDetailActivity</string>
     <string name="title_activity_map">Map</string>
