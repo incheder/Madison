@@ -5,11 +5,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,6 +28,8 @@ public class SummaryActivity extends AppCompatActivity implements  OrderDialogFr
 
     private MapView mapView;
     private LatLng myLatLng;
+    private String id;
+    private EditText editTextPtoblem;
 
 
     @Override
@@ -41,11 +44,14 @@ public class SummaryActivity extends AppCompatActivity implements  OrderDialogFr
         mapView = (MapView)findViewById(R.id.mapview);
         TextView userAddress = (TextView) findViewById(R.id.summaryUserAddress);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabSummary);
+        editTextPtoblem = (EditText)findViewById(R.id.edit_text_problem);
 
         if(getIntent().getExtras()!= null){
             myLatLng = new LatLng(
                     getIntent().getDoubleExtra(MapActivity.LATITUDE,0),
                     getIntent().getDoubleExtra(MapActivity.LONGITUDE,0));
+            id =  getIntent().getStringExtra(MapActivity.HOME_SERVICE_ID);
+
             userAddress.setText(getIntent().getStringExtra(MapActivity.ADDRESS));
         }
 
@@ -92,6 +98,11 @@ public class SummaryActivity extends AppCompatActivity implements  OrderDialogFr
     View.OnClickListener fabListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            if(TextUtils.isEmpty(editTextPtoblem.getText().toString())){
+                editTextPtoblem.setError(getResources().getString(R.string.please_add_a_description));
+                return;
+            }
+
             OrderDialogFragment dialog = new OrderDialogFragment();
             dialog.show( getSupportFragmentManager(),null);
         }
@@ -120,7 +131,11 @@ public class SummaryActivity extends AppCompatActivity implements  OrderDialogFr
     public void onButtonClicked() {
 
         Intent orderSent = new Intent(this, OrderSentActivity.class);
-        //orderSent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        orderSent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        orderSent.putExtra(OrderSentActivity.LATITUDE, myLatLng.latitude);
+        orderSent.putExtra(OrderSentActivity.LONGITUDE,myLatLng.longitude);
+        orderSent.putExtra(OrderSentActivity.ID,id);
+        orderSent.putExtra(OrderSentActivity.PROBLEM,editTextPtoblem.getText().toString());
         startActivity(orderSent);
     }
 }

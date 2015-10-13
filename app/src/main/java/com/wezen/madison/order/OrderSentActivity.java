@@ -9,17 +9,32 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.wezen.madison.R;
 import com.wezen.madison.categories.CategoriesActivity;
+import com.wezen.madison.map.MapActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class OrderSentActivity extends AppCompatActivity {
+    public  static final String LATITUDE = "latitud";
+    public  static final String LONGITUDE = "longitud";
+    public  static final String ID = "id";
+    public  static final String PROBLEM = "problem";
 
-    ProgressBar progressBar;
-    LinearLayout orderSent;
+    private ProgressBar progressBar;
+    private LinearLayout orderSent;
+    private LatLng myLatLng;
+    private String id;
+    private String problem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +44,16 @@ public class OrderSentActivity extends AppCompatActivity {
         orderSent = (LinearLayout)findViewById(R.id.orderSentLayout);
         Button btnBack = (Button)findViewById(R.id.orderGoBack);
         btnBack.setOnClickListener(goBackClickListener);
+        if(getIntent().getExtras()!= null){
+            myLatLng = new LatLng(
+                    getIntent().getDoubleExtra(LATITUDE,0),
+                    getIntent().getDoubleExtra(LONGITUDE,0));
+            id =  getIntent().getStringExtra(ID);
+            problem =  getIntent().getStringExtra(PROBLEM);
+        }
         Timer timer = new Timer();
-        timer.schedule(task,3000);
+       // timer.schedule(task, 3000);
+        sendRequest();
 
     }
 
@@ -87,4 +110,32 @@ public class OrderSentActivity extends AppCompatActivity {
             goHome();
         }
     };
+
+    private void sendRequest(){
+
+        ParseGeoPoint geoPoint = new ParseGeoPoint(myLatLng.latitude,myLatLng.longitude);
+        ParseObject homeServices = ParseObject.createWithoutData("HomeServices",id);
+        ParseObject po = new ParseObject("HomeServiceRequest");
+        po.put("userLocation",geoPoint);
+        po.put("homeService",homeServices);
+        po.put("user",ParseUser.getCurrentUser());
+        po.put("problemDescription",problem);
+        po.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                progressBar.setVisibility(View.GONE);
+                orderSent.setVisibility(View.VISIBLE);
+                if(e==null){
+
+                } else {
+                    TextView textViewOrderSent = (TextView)orderSent.findViewById(R.id.textview_order_sent);
+                    if(textViewOrderSent!= null){
+                        textViewOrderSent.setText(getResources().getString(R.string.order_not_sent));
+                    }
+                }
+
+            }
+        });
+
+    }
 }

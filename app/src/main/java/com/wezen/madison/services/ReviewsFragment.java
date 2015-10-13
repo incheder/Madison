@@ -88,6 +88,11 @@ public class ReviewsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        reviews.clear();
+        getReviews();
+    }
+
+    private void getReviews(){
         ParseObject holder = ParseObject.createWithoutData("HomeServices",mHomeServiceId);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Review");
         query.orderByDescending("createdAt");
@@ -97,7 +102,6 @@ public class ReviewsFragment extends Fragment {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 if(e == null){
-                    Log.d("TAG","list");
                     for (ParseObject po: list) {
                         Review review = new Review();
                         review.setId(po.getObjectId());

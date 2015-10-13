@@ -42,6 +42,7 @@ public class ServiceDetailActivity extends AppCompatActivity {
     private Context context;
     private FloatingActionButton fab;
     private TabLayout tabLayout;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class ServiceDetailActivity extends AppCompatActivity {
         ImageView header = (ImageView) findViewById(R.id.header);
         toolBarColoring();
 
-        String id = getIntent().getExtras().getString(PARAM_ID);
+        id = getIntent().getExtras().getString(PARAM_ID);
        // int comments = getIntent().getExtras().getInt(PARAM_COMMENTS);
         String description = getIntent().getExtras().getString(PARAM_DESCRIPTION);
         String name = getIntent().getExtras().getString(PARAM_NAME);
@@ -86,6 +87,7 @@ public class ServiceDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent mapIntent = new Intent(ServiceDetailActivity.this, MapActivity.class);
+                mapIntent.putExtra(MapActivity.HOME_SERVICE_ID,id);
                 startActivity(mapIntent);
             }
         });

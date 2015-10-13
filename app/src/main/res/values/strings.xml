@@ -245,6 +245,8 @@
     <string name="add_review">Califica el servicio</string>
     <string name="already_a_member">Inicia Sesión</string>
     <string name="drawer_sign_out">Cerrar Sesión</string>
+    <string name="please_add_a_description">Por favor añade una descripción</string>
+    <string name="order_not_sent">Hubo un problema al enviar la petición. Se ha guardado en el historial para que lo intentes más tarde</string>
 
 
 </resources>

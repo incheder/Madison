@@ -7,21 +7,20 @@
     android:layout_marginBottom="@dimen/review_margin"
     android:layout_marginTop="@dimen/review_margin"
     android:padding="@dimen/review_padding"
-    android:background="#ff0">
+    android:gravity="center_vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/reviewAvatar"
-        android:layout_width="76dp"
-        android:layout_height="76dp"
-        android:src="@drawable/common_ic_googleplayservices"
-        android:layout_weight="1"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:src="@drawable/mcfly"
         app:border_color="#FF000000"
-
+        android:layout_marginRight="@dimen/review_margin"
         />
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="4"
         android:gravity="center_vertical"
         android:orientation="vertical">
@@ -32,7 +31,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="name"
-
+            android:layout_marginBottom="@dimen/review_margin_row"
             />
 
         <RatingBar
@@ -42,6 +41,7 @@
             android:layout_height="wrap_content"
             android:numStars="5"
             android:rating="4"
+            android:layout_marginBottom="@dimen/review_margin_row"
             />
         <TextView
             android:id="@+id/reviewComment"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Comentariossssss sssss sssssssss ssssss "
-
+            android:layout_marginBottom="@dimen/review_margin_row"
             />
         <TextView
             android:id="@+id/reviewDate"
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="13/09/2015"
-
+            android:layout_marginBottom="@dimen/review_margin_row"
             />
 
     </LinearLayout>

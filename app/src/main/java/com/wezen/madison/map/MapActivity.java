@@ -39,13 +39,14 @@ public class MapActivity extends AppCompatActivity {
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
     public static final String ADDRESS = "address";
+    public static final String HOME_SERVICE_ID = "id";
 
-    private Toolbar toolbar;
     private EditText userAddressEditText;
     private boolean firstTime = true;
     private TextView userAddressTextView;
     private FloatingActionButton fab;
     GeoCoderResponseReceiver geoCoderResponseReceiver;
+    String id;
 
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -54,7 +55,7 @@ public class MapActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        toolbar = (Toolbar)findViewById(R.id.mapToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.mapToolbar);
         userAddressEditText = (EditText)findViewById(R.id.mapAddressEditTex);
         userAddressTextView = (TextView)findViewById(R.id.mapAddressTextView);
         userAddressTextView.setOnClickListener(addressTextViewListener);
@@ -65,6 +66,7 @@ public class MapActivity extends AppCompatActivity {
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        id = getIntent().getExtras().getString(HOME_SERVICE_ID);
         setUpMapIfNeeded();
         geoCoderResponseReceiver = new GeoCoderResponseReceiver();
         IntentFilter mStatusIntentFilter = new IntentFilter(GeoCoderIntentService.BROADCAST_SEND_ADDRESS);
@@ -188,8 +190,7 @@ public class MapActivity extends AppCompatActivity {
         Point x = mMap.getProjection().toScreenLocation(visibleRegion.farRight);
         Point y = mMap.getProjection().toScreenLocation(visibleRegion.nearRight);
         Point centerPoint = new Point((x.x / 2), (y.y / 2));
-        LatLng centerFromPoint = mMap.getProjection().fromScreenLocation(centerPoint);
-        return  centerFromPoint;
+        return mMap.getProjection().fromScreenLocation(centerPoint);
     }
 
     private void getAddress(){
@@ -218,6 +219,7 @@ public class MapActivity extends AppCompatActivity {
                 LatLng latLng = getCenterOfMap(mMap);
                 summary.putExtra(LATITUDE, latLng.latitude);
                 summary.putExtra(LONGITUDE, latLng.longitude);
+                summary.putExtra(HOME_SERVICE_ID, id);
                 String userAddress = null;
                 if (userAddressEditText.getVisibility() == View.VISIBLE) {
                     userAddress = userAddressEditText.getText().toString();
@@ -225,7 +227,7 @@ public class MapActivity extends AppCompatActivity {
                 } else{
                     userAddress = userAddressTextView.getText().toString();
                 }
-                if (userAddress != null && !userAddress.equals("")){
+                if (!userAddress.equals("")){
                     summary.putExtra(ADDRESS,userAddress);
                     startActivity(summary);
                 }
