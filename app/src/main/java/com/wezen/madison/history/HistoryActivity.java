@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.wezen.madison.R;
 import com.wezen.madison.model.HistoryService;
 import com.wezen.madison.model.HomeServiceStatus;
+import com.wezen.madison.utils.AutofitRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class HistoryActivity extends AppCompatActivity {
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        RecyclerView rvHistory = (RecyclerView) findViewById(R.id.rvHistory);
+        AutofitRecyclerView rvHistory = (AutofitRecyclerView) findViewById(R.id.rvHistory);
         rvHistory.setHasFixedSize(true);
         HistoryAdapter adapter = new HistoryAdapter(getDummyList());
         rvHistory.setAdapter(adapter);

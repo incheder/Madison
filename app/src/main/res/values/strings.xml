@@ -27,7 +27,7 @@
     <string name="order_example">Productos: 5 \nTotal: $1500.00 \nDirección: 21 pte, 3708, Belisario Domingez</string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
-    <string name="order_title">¿Realizar pedido?</string>
+    <string name="order_title">¿Enviar solicitud?</string>
 
     <string name="title_activity_beverage_list">BeverageListActivity</string>
 
@@ -69,6 +69,7 @@
     <string name="drawer_sign_out">Cerrar Sesión</string>
     <string name="please_add_a_description">Por favor añade una descripción</string>
     <string name="order_not_sent">Hubo un problema al enviar la petición. Se ha guardado en el historial para que lo intentes más tarde</string>
+    <string name="order_dialog">Servicio: %1$s \nTu dirección: %2$s</string>
 
 
 </resources>

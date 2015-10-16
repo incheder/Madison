@@ -40,13 +40,15 @@ public class MapActivity extends AppCompatActivity {
     public static final String LONGITUDE = "longitude";
     public static final String ADDRESS = "address";
     public static final String HOME_SERVICE_ID = "id";
+    public static final String HOME_SERVICE_NAME = "name";
 
     private EditText userAddressEditText;
     private boolean firstTime = true;
     private TextView userAddressTextView;
     private FloatingActionButton fab;
-    GeoCoderResponseReceiver geoCoderResponseReceiver;
-    String id;
+    private GeoCoderResponseReceiver geoCoderResponseReceiver;
+    private String id;
+    private String name;
 
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -67,6 +69,7 @@ public class MapActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         id = getIntent().getExtras().getString(HOME_SERVICE_ID);
+        name = getIntent().getExtras().getString(HOME_SERVICE_NAME);
         setUpMapIfNeeded();
         geoCoderResponseReceiver = new GeoCoderResponseReceiver();
         IntentFilter mStatusIntentFilter = new IntentFilter(GeoCoderIntentService.BROADCAST_SEND_ADDRESS);
@@ -220,6 +223,7 @@ public class MapActivity extends AppCompatActivity {
                 summary.putExtra(LATITUDE, latLng.latitude);
                 summary.putExtra(LONGITUDE, latLng.longitude);
                 summary.putExtra(HOME_SERVICE_ID, id);
+                summary.putExtra(HOME_SERVICE_NAME, name);
                 String userAddress = null;
                 if (userAddressEditText.getVisibility() == View.VISIBLE) {
                     userAddress = userAddressEditText.getText().toString();

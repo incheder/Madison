@@ -30,6 +30,8 @@ public class SummaryActivity extends AppCompatActivity implements  OrderDialogFr
     private LatLng myLatLng;
     private String id;
     private EditText editTextPtoblem;
+    private String address;
+    private String name;
 
 
     @Override
@@ -52,10 +54,10 @@ public class SummaryActivity extends AppCompatActivity implements  OrderDialogFr
                     getIntent().getDoubleExtra(MapActivity.LONGITUDE,0));
             id =  getIntent().getStringExtra(MapActivity.HOME_SERVICE_ID);
 
-            userAddress.setText(getIntent().getStringExtra(MapActivity.ADDRESS));
+           address = getIntent().getStringExtra(MapActivity.ADDRESS);
+           name = getIntent().getStringExtra(MapActivity.HOME_SERVICE_NAME);
         }
-
-
+        userAddress.setText(address);
 
         fab.setOnClickListener(fabListener);
         mapView.onCreate(savedInstanceState);
@@ -103,7 +105,7 @@ public class SummaryActivity extends AppCompatActivity implements  OrderDialogFr
                 return;
             }
 
-            OrderDialogFragment dialog = new OrderDialogFragment();
+            OrderDialogFragment dialog = OrderDialogFragment.newInstance(name,address);
             dialog.show( getSupportFragmentManager(),null);
         }
     };
