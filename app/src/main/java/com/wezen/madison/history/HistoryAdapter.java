@@ -10,8 +10,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.wezen.madison.R;
-import com.wezen.madison.model.HistoryService;
-import com.wezen.madison.model.Review;
+import com.wezen.madison.model.HomeServiceRequest;
 
 import java.util.List;
 
@@ -20,9 +19,9 @@ import java.util.List;
  */
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryHolder> {
 
-    private List<HistoryService> list;
+    private List<HomeServiceRequest> list;
 
-    public HistoryAdapter(List<HistoryService> list){
+    public HistoryAdapter(List<HomeServiceRequest> list){
         this.list = list;
     }
 
@@ -40,13 +39,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
 
     @Override
     public void onBindViewHolder(HistoryHolder holder, int position) {
-        HistoryService item = list.get(position);
+        HomeServiceRequest item = list.get(position);
         holder.name.setText(item.getName());
         holder.date.setText(item.getDate());
         holder.description.setText(item.getDescription());
         holder.review.setMax(item.getReview());
-      //  holder.image.setImageBitmap(item.getImage());
-        holder.status.setText(item.getStatus().toString());
+        //holder.image.setImageBitmap(item.getImage());
+        if(item.getStatus()!=null){
+            holder.status.setText(item.getStatus().toString());
+        }
         holder.rating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

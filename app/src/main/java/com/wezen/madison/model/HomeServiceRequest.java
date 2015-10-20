@@ -1,24 +1,26 @@
 package com.wezen.madison.model;
 
-import android.graphics.Bitmap;
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by eder on 15/09/2015.
  */
-public class HistoryService {
+public class HomeServiceRequest {
 
-    private Bitmap image;
+    private String image;
     private String name;
     private String description;
     private int review;
     private String date;
-    private HomeServiceStatus status;
+    private HomeServiceRequestStatus status;
+    private LatLng userLocation;
+    private String homeServiceID;
 
-    public Bitmap getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
@@ -54,11 +56,27 @@ public class HistoryService {
         this.date = date;
     }
 
-    public HomeServiceStatus getStatus() {
+    public HomeServiceRequestStatus getStatus() {
         return status;
     }
 
-    public void setStatus(HomeServiceStatus status) {
+    public void setStatus(HomeServiceRequestStatus status) {
         this.status = status;
+    }
+
+    public LatLng getLocation() {
+        return userLocation;
+    }
+
+    public void setLocation(LatLng location) {
+        this.userLocation = location;
+    }
+
+    public String getHomeServiceID() {
+        return homeServiceID;
+    }
+
+    public void setHomeServiceID(String homeServiceID) {
+        this.homeServiceID = homeServiceID;
     }
 }

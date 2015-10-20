@@ -138,6 +138,7 @@ public class SummaryActivity extends AppCompatActivity implements  OrderDialogFr
         orderSent.putExtra(OrderSentActivity.LONGITUDE,myLatLng.longitude);
         orderSent.putExtra(OrderSentActivity.ID,id);
         orderSent.putExtra(OrderSentActivity.PROBLEM,editTextPtoblem.getText().toString());
+
         startActivity(orderSent);
     }
 }

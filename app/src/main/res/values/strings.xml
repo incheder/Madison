@@ -68,8 +68,14 @@
     <string name="already_a_member">Inicia Sesión</string>
     <string name="drawer_sign_out">Cerrar Sesión</string>
     <string name="please_add_a_description">Por favor añade una descripción</string>
-    <string name="order_not_sent">Hubo un problema al enviar la petición. Se ha guardado en el historial para que lo intentes más tarde</string>
+    <string name="order_not_sent">Hubo un problema al enviar la petición.</string>
     <string name="order_dialog">Servicio: %1$s \nTu dirección: %2$s</string>
+    <string name="action_filter">Filtrar</string>
+    <string name="all">Todos</string>
+    <string name="canceled">Cancelados</string>
+    <string name="send">Enviados</string>
+    <string name="asigned">Asignados</string>
+    <string name="done">Completos</string>
 
 
 </resources>

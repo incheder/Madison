@@ -2,7 +2,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemGridContent"
     android:layout_width="500dp"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_margin="@dimen/card_item_margin"
     card_view:cardCornerRadius="4dp">
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/history_image"
@@ -24,28 +24,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/history_name"
-            android:text="sdasd"
+            android:text="Nombre"
             android:layout_marginBottom="@dimen/elements_margin"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/history_item_description"
-            android:text="sdasd"
+            android:text="descripcion"
             android:layout_marginBottom="@dimen/elements_margin"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/history_item_status"
-            android:text="sdasd"
+            android:text="status"
             android:layout_marginBottom="@dimen/elements_margin"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/history_item_date"
-            android:text="sdasd"
+            android:text="fecha"
             android:layout_marginBottom="@dimen/elements_margin"/>
 
         <Button
@@ -56,10 +56,12 @@
 
         <RatingBar
             android:id="@+id/historyItemRating"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@android:style/Widget.DeviceDefault.RatingBar.Indicator"
-            android:numStars="5"/>
+            android:numStars="5"
+            android:visibility="gone"
+           />
 
     </LinearLayout>
 

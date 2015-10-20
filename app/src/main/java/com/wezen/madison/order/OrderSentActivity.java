@@ -115,11 +115,12 @@ public class OrderSentActivity extends AppCompatActivity {
 
         ParseGeoPoint geoPoint = new ParseGeoPoint(myLatLng.latitude,myLatLng.longitude);
         ParseObject homeServices = ParseObject.createWithoutData("HomeServices",id);
-        ParseObject po = new ParseObject("HomeServiceRequest");
+        final ParseObject po = new ParseObject("HomeServiceRequest");
         po.put("userLocation",geoPoint);
         po.put("homeService",homeServices);
         po.put("user",ParseUser.getCurrentUser());
         po.put("problemDescription",problem);
+        po.put("status",0);
         po.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -128,6 +129,8 @@ public class OrderSentActivity extends AppCompatActivity {
                 if(e==null){
 
                 } else {
+                    //TODO guardar en el historial de NO enviados
+                    //po.pinInBackground("NoEnviados");
                     TextView textViewOrderSent = (TextView)orderSent.findViewById(R.id.textview_order_sent);
                     if(textViewOrderSent!= null){
                         textViewOrderSent.setText(getResources().getString(R.string.order_not_sent));
