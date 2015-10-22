@@ -129,8 +129,6 @@ public class OrderSentActivity extends AppCompatActivity {
                 if(e==null){
 
                 } else {
-                    //TODO guardar en el historial de NO enviados
-                    //po.pinInBackground("NoEnviados");
                     TextView textViewOrderSent = (TextView)orderSent.findViewById(R.id.textview_order_sent);
                     if(textViewOrderSent!= null){
                         textViewOrderSent.setText(getResources().getString(R.string.order_not_sent));

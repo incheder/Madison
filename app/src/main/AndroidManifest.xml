@@ -38,8 +38,8 @@
         <activity
             android:name=".services.ServicesListActivity"
             android:label="@string/title_activity_services_list"
-            android:parentActivityName=".categories.CategoriesActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".categories.CategoriesActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.categories.CategoriesActivity" />
@@ -47,17 +47,20 @@
         <activity
             android:name=".categories.CategoriesActivity"
             android:label="@string/title_activity_categories" >
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".services.ServiceDetailActivity"
             android:label="@string/title_activity_service_detail"
-            android:parentActivityName=".services.ServicesListActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".services.ServicesListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.services.ServicesListActivity" />
@@ -65,7 +68,7 @@
         <activity
             android:name=".map.MapActivity"
             android:label="@string/title_activity_map"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.services.ServiceDetailActivity" />
@@ -73,8 +76,8 @@
         <activity
             android:name=".summary.SummaryActivity"
             android:label="@string/title_activity_summary"
-            android:parentActivityName=".map.MapActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".map.MapActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.map.MapActivity" />
@@ -126,7 +129,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
 
+        <receiver
+            android:name=".utils.ConnectionChange"
+            android:label="NetworkConnection" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".utils.DialogActivity"
+            android:label="@string/title_activity_dialog">
         </activity>
     </application>
 

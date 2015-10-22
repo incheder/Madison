@@ -28,11 +28,12 @@ import com.wezen.madison.history.HistoryActivity;
 import com.wezen.madison.login.LoginActivity;
 import com.wezen.madison.model.BeverageMenu;
 import com.wezen.madison.model.Category;
+import com.wezen.madison.utils.DialogActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriesActivity extends AppCompatActivity {
+public class CategoriesActivity extends DialogActivity {
 
     private CategoriesAdapter adapter;
     private FrameLayout progressIndicator;
