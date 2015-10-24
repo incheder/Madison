@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 public class DialogActivity extends AppCompatActivity implements NetworkDialogFragment.OnClickOrderDialog {
 
     protected NetworkResponseReceiver networkResponseReceiver;
+    NetworkDialogFragment dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,8 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
 
     @Override
     public void onButtonClicked() {
+        Utils.isNetworkEnable(DialogActivity.this);
+        dialog = null;
 
     }
 
@@ -32,8 +35,10 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
         public void onReceive(Context context, Intent intent) {
            // if(intent.getExtras() != null){
                 //String address = intent.getStringExtra(GeoCoderIntentService.DATA_ADDRESS);
-                NetworkDialogFragment dialog = NetworkDialogFragment.newInstance("","");
-                 dialog.show(getSupportFragmentManager(), null);
+            if(dialog == null){
+                dialog = NetworkDialogFragment.newInstance("","");
+                dialog.show(getSupportFragmentManager(), null);
+            }
            // }
 
         }

@@ -15,7 +15,8 @@ import com.wezen.madison.order.OrderDialogFragment;
  */
 public class ConnectionChange extends BroadcastReceiver {
 
-    public static String SHOW_DIALOG = "action_show_sialog";
+    public static String SHOW_DIALOG = "action_show_dialog";
+    private static  boolean isConnected;
 
 
     @Override
@@ -23,22 +24,17 @@ public class ConnectionChange extends BroadcastReceiver {
 
         ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        boolean isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
-        int type = activeNetworkInfo != null ? activeNetworkInfo.getType() : -1;
-        if(isConnected){
-            Toast.makeText(context, "Connected " + type, Toast.LENGTH_SHORT).show();
-        } else {
-            //Toast.makeText(context, "Not Connected "+ type, Toast.LENGTH_SHORT).show();
-            //NetworkDialogFragment dialog = NetworkDialogFragment.newInstance("","");
-           // dialog.show(context.gegetSupportFragmentManager(), null);
-            //Intent dialogActivity = new Intent(context,DialogActivity.class);
-            //dialogActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-          //  context.startActivity(dialogActivity);
+        //if(isConnected){
+            isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+            if(!isConnected){
+                // Toast.makeText(context, "Connected " + type, Toast.LENGTH_SHORT).show();
+                Intent addressResultIntent = new Intent(SHOW_DIALOG);
+                //addressResultIntent.putExtra(DATA_ADDRESS,address);
+                LocalBroadcastManager.getInstance(context).sendBroadcast(addressResultIntent);
+            }
+        //}
+       // int type = activeNetworkInfo != null ? activeNetworkInfo.getType() : -1;
 
-            Intent addressResultIntent = new Intent(SHOW_DIALOG);
-            //addressResultIntent.putExtra(DATA_ADDRESS,address);
-            LocalBroadcastManager.getInstance(context).sendBroadcast(addressResultIntent);
-        }
 
 
     }
