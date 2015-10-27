@@ -37,5 +37,6 @@
     <dimen name="account_activity_left_padding">20dp</dimen>
     <dimen name="button_padding_account">20dp</dimen>
     <dimen name="review_margin_row">2dp</dimen>
+    <dimen name="rating_bottom_sheet_padding">20dp</dimen>
 
 </resources>

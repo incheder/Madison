@@ -73,7 +73,6 @@ public class OrderDialogFragment extends DialogFragment {
                 .setMessage(message)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // FIRE ZE MISSILES!
                         mListener.onButtonClicked();
                     }
                 })

@@ -1,18 +1,21 @@
 package com.wezen.madison.history;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.wezen.madison.R;
-import com.wezen.madison.model.HomeService;
 import com.wezen.madison.model.HomeServiceRequest;
 import com.wezen.madison.model.HomeServiceRequestStatus;
 import com.wezen.madison.utils.AutofitRecyclerView;
@@ -20,10 +23,11 @@ import com.wezen.madison.utils.AutofitRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryActivity extends AppCompatActivity {
+public class HistoryActivity extends AppCompatActivity implements ReviewDialogFragment.OnClickReviewDialog {
 
     private  List<HomeServiceRequest> requestList;
     private HistoryAdapter adapter;
+    private ReviewDialogFragment dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,7 @@ public class HistoryActivity extends AppCompatActivity {
         AutofitRecyclerView rvHistory = (AutofitRecyclerView) findViewById(R.id.rvHistory);
         rvHistory.setHasFixedSize(true);
         requestList = new ArrayList<>();
-        adapter = new HistoryAdapter(requestList);
+        adapter = new HistoryAdapter(requestList,this);
         rvHistory.setAdapter(adapter);
         getList(null);
 
@@ -60,7 +64,7 @@ public class HistoryActivity extends AppCompatActivity {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                if(e == null){
+                if (e == null) {
                     requestList.clear();
                     for (ParseObject po : list) {
                         HomeServiceRequest request = new HomeServiceRequest();
@@ -69,6 +73,7 @@ public class HistoryActivity extends AppCompatActivity {
                         request.setDescription(po.getString("problemDescription"));
                         int status = po.getInt("status");
                         request.setStatus(HomeServiceRequestStatus.valueOf(status));
+                        request.setHomeServiceID((po.getParseObject("homeService").getObjectId()));
                         requestList.add(request);
                     }
 
@@ -113,5 +118,40 @@ public class HistoryActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showBottomSheet(int position){
+        //bottomSheetLayout.showWithSheetView(LayoutInflater.from(this).inflate(R.layout.bottom_sheet_rating, bottomSheetLayout, false));
+        //bottomSheetLayout.expandSheet();
+        dialog = ReviewDialogFragment.newInstance(position);
+        dialog.show(getSupportFragmentManager(), null);
+    }
+
+    @Override
+    public void onButtonClicked(int numStars, String comment,int position) {
+        dialog.dismiss();
+        ParseObject review = new ParseObject("Review");
+        review.put("numStars", numStars);
+        review.put("comment",comment);
+        review.put("fromUser", ParseUser.getCurrentUser());
+        String id = requestList.get(position).getHomeServiceID();
+        ParseObject homeServiceID = ParseObject.createWithoutData("HomeServices",id);
+        review.put("homeService",homeServiceID);
+        review.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    Toast.makeText(HistoryActivity.this, getResources().getString(R.string.raview_saved), Toast.LENGTH_SHORT).show();
+                    //TODO actualizar el campo wasRated en la clase de los request, quitamos el boton y mostramos el rating bar con la calificaion recien mandada
+
+
+                } else { //ups
+                    Toast.makeText(HistoryActivity.this, getResources().getString(R.string.raview_not_saved), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+
     }
 }

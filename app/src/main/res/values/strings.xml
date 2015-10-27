@@ -80,6 +80,11 @@
     <string name="network_dialog_title">Sin Conexión</string>
     <string name="title_activity_dialog">DialogActivity</string>
     <string name="try_again">Intentar de nuevo</string>
+    <string name="write_review">Escribe una reseña</string>
+    <string name="save_review">Guardar</string>
+    <string name="rate_the_service">Califica el servicio</string>
+    <string name="raview_saved">Tu reseña se ha guardado</string>
+    <string name="raview_not_saved">Hubo un problema al guardar tu reseña, intentalo más tarde</string>
 
 
 </resources>

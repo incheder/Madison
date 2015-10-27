@@ -1,5 +1,6 @@
 package com.wezen.madison.history;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +21,13 @@ import java.util.List;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryHolder> {
 
     private List<HomeServiceRequest> list;
+    private Context context;
 
-    public HistoryAdapter(List<HomeServiceRequest> list){
+    public HistoryAdapter(List<HomeServiceRequest> list, Context context){
         this.list = list;
+        this.context = context;
     }
+
 
 
 
@@ -38,7 +42,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
     }
 
     @Override
-    public void onBindViewHolder(HistoryHolder holder, int position) {
+    public void onBindViewHolder(HistoryHolder holder, final int position) {
         HomeServiceRequest item = list.get(position);
         holder.name.setText(item.getName());
         holder.date.setText(item.getDate());
@@ -54,6 +58,16 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
 
             }
         });
+
+        holder.rating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((HistoryActivity) context).showBottomSheet(position);
+            }
+        });
+
+
+
 
     }
 
