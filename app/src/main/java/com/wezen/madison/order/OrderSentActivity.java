@@ -20,11 +20,12 @@ import com.parse.SaveCallback;
 import com.wezen.madison.R;
 import com.wezen.madison.categories.CategoriesActivity;
 import com.wezen.madison.map.MapActivity;
+import com.wezen.madison.utils.DialogActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class OrderSentActivity extends AppCompatActivity {
+public class OrderSentActivity extends DialogActivity {
     public  static final String LATITUDE = "latitud";
     public  static final String LONGITUDE = "longitud";
     public  static final String ID = "id";
@@ -121,6 +122,7 @@ public class OrderSentActivity extends AppCompatActivity {
         po.put("user",ParseUser.getCurrentUser());
         po.put("problemDescription",problem);
         po.put("status",0);
+        po.put("wasRated",false);
         po.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

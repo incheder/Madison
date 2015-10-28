@@ -25,7 +25,7 @@ public class ConnectionChange extends BroadcastReceiver {
         ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         //if(isConnected){
-            isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+            isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnected();
             if(!isConnected){
                 // Toast.makeText(context, "Connected " + type, Toast.LENGTH_SHORT).show();
                 Intent addressResultIntent = new Intent(SHOW_DIALOG);

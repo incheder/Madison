@@ -23,9 +23,26 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(!Utils.isNetworkEnable(this)){
+            if(dialog == null){
+                dialog = NetworkDialogFragment.newInstance("","");
+                dialog.setCancelable(false);
+            }
+            if(!dialog. isAdded() && !dialog.isVisible()){
+                dialog.show(getSupportFragmentManager(), null);
+            }
+        }
+    }
+
+    @Override
     public void onButtonClicked() {
-        Utils.isNetworkEnable(DialogActivity.this);
-        dialog = null;
+
+        dialog.dismiss();
+        if(!Utils.isNetworkEnable(DialogActivity.this)){
+            dialog.show(getSupportFragmentManager(), null);
+        }
 
     }
 

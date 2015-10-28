@@ -37,7 +37,7 @@
                 android:id="@+id/textview_order_sent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Solicitud Enviada"
+                android:text="@string/order_sent"
                 android:layout_marginTop="@dimen/order_sent_margin_image"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/order_sent_text"

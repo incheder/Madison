@@ -28,9 +28,10 @@ import com.wezen.madison.R;
 import com.wezen.madison.categories.ViewPagerAdapter;
 import com.wezen.madison.map.MapActivity;
 import com.wezen.madison.model.BeverageType;
+import com.wezen.madison.utils.DialogActivity;
 import com.wezen.madison.utils.Utils;
 
-public class ServiceDetailActivity extends AppCompatActivity {
+public class ServiceDetailActivity extends DialogActivity {
     public static final String PARAM_ID = "ID";
     public static final String PARAM_COMMENTS = "COMMENTS";
     public static final String PARAM_DESCRIPTION = "DESCRIPTION";

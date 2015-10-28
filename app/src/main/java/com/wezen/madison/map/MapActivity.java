@@ -30,12 +30,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.VisibleRegion;
 import com.wezen.madison.R;
 import com.wezen.madison.summary.SummaryActivity;
+import com.wezen.madison.utils.DialogActivity;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class MapActivity extends AppCompatActivity {
+public class MapActivity extends DialogActivity {
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
     public static final String ADDRESS = "address";

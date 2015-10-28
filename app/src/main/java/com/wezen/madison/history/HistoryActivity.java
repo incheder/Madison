@@ -19,11 +19,12 @@ import com.wezen.madison.R;
 import com.wezen.madison.model.HomeServiceRequest;
 import com.wezen.madison.model.HomeServiceRequestStatus;
 import com.wezen.madison.utils.AutofitRecyclerView;
+import com.wezen.madison.utils.DialogActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryActivity extends AppCompatActivity implements ReviewDialogFragment.OnClickReviewDialog {
+public class HistoryActivity extends DialogActivity implements ReviewDialogFragment.OnClickReviewDialog {
 
     private  List<HomeServiceRequest> requestList;
     private HistoryAdapter adapter;
@@ -60,6 +61,7 @@ public class HistoryActivity extends AppCompatActivity implements ReviewDialogFr
         if(status != null){
             query.whereEqualTo("status",status.getValue());
         }
+        query.whereEqualTo("wasRated",false);
         query.include("homeService");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override

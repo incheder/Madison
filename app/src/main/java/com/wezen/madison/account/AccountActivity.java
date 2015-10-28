@@ -7,8 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.wezen.madison.R;
+import com.wezen.madison.utils.DialogActivity;
 
-public class AccountActivity extends AppCompatActivity {
+public class AccountActivity extends DialogActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

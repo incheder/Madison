@@ -16,11 +16,12 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.wezen.madison.R;
 import com.wezen.madison.model.HomeService;
+import com.wezen.madison.utils.DialogActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServicesListActivity extends AppCompatActivity {
+public class ServicesListActivity extends DialogActivity {
 
     public static final String CATEGORY_ID = "category_id";
     public static final String CATEGORY_ID_BUNDLE = "category_id_bundle";

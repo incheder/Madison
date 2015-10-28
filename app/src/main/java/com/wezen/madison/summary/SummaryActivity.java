@@ -23,8 +23,9 @@ import com.wezen.madison.R;
 import com.wezen.madison.order.OrderDialogFragment;
 import com.wezen.madison.map.MapActivity;
 import com.wezen.madison.order.OrderSentActivity;
+import com.wezen.madison.utils.DialogActivity;
 
-public class SummaryActivity extends AppCompatActivity implements  OrderDialogFragment.OnClickOrderDialog {
+public class SummaryActivity extends DialogActivity implements  OrderDialogFragment.OnClickOrderDialog {
 
     private MapView mapView;
     private LatLng myLatLng;
