@@ -22,26 +22,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/activity_horizontal_margin"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:focusableInTouchMode="true">
 
             <TextView
                 android:id="@+id/summaryServiceName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="DR Solucion"
-                android:textAppearance="?android:attr/textAppearanceLarge"
 
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 />
 
             <TextView
                 android:id="@+id/summaryServiceDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="sdksldj lkjadkladj jdklsajd sds  fdfdfdfdf sdfdsf  fsfsdfsf sfsdsfsdf"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_marginBottom="@dimen/elements_margin"/>
 
             <android.support.design.widget.TextInputLayout
+                android:layout_marginTop="@dimen/elements_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:hintTextAppearance="@style/ColorTextInputLayout"
@@ -52,26 +52,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/problem_description"
+                    android:maxLength="250"
                     />
 
             </android.support.design.widget.TextInputLayout>
 
             <TextView
+                android:layout_marginTop="@dimen/elements_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ubicacion"
+                android:text="@string/your_location"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-
+                android:layout_marginBottom="@dimen/elements_margin"
                 />
 
             <com.google.android.gms.maps.MapView
                 android:id="@+id/mapview"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginBottom="@dimen/elements_margin"/>
+               />
 
 
             <TextView
+                android:layout_marginTop="@dimen/elements_margin"
                 android:id="@+id/summaryUserAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

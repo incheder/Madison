@@ -37,11 +37,12 @@ import java.util.List;
 import java.util.Locale;
 
 public class MapActivity extends DialogActivity {
-    public static final String LATITUDE = "latitude";
-    public static final String LONGITUDE = "longitude";
-    public static final String ADDRESS = "address";
+    //public static final String LATITUDE = "latitude";
+    //public static final String LONGITUDE = "longitude";
+    //public static final String ADDRESS = "address";
     public static final String HOME_SERVICE_ID = "id";
     public static final String HOME_SERVICE_NAME = "name";
+    public static final String HOME_SERVICE_DESCRIPTION = "description";
 
     private EditText userAddressEditText;
     private boolean firstTime = true;
@@ -50,6 +51,7 @@ public class MapActivity extends DialogActivity {
     private GeoCoderResponseReceiver geoCoderResponseReceiver;
     private String id;
     private String name;
+    private String description;
 
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -71,6 +73,8 @@ public class MapActivity extends DialogActivity {
         }
         id = getIntent().getExtras().getString(HOME_SERVICE_ID);
         name = getIntent().getExtras().getString(HOME_SERVICE_NAME);
+        description = getIntent().getExtras().getString(HOME_SERVICE_DESCRIPTION);
+
         setUpMapIfNeeded();
         geoCoderResponseReceiver = new GeoCoderResponseReceiver();
         IntentFilter mStatusIntentFilter = new IntentFilter(GeoCoderIntentService.BROADCAST_SEND_ADDRESS);
@@ -221,10 +225,11 @@ public class MapActivity extends DialogActivity {
 
                 Intent summary = new Intent(MapActivity.this, SummaryActivity.class);
                 LatLng latLng = getCenterOfMap(mMap);
-                summary.putExtra(LATITUDE, latLng.latitude);
-                summary.putExtra(LONGITUDE, latLng.longitude);
-                summary.putExtra(HOME_SERVICE_ID, id);
-                summary.putExtra(HOME_SERVICE_NAME, name);
+                summary.putExtra(SummaryActivity.LATITUDE, latLng.latitude);
+                summary.putExtra(SummaryActivity.LONGITUDE, latLng.longitude);
+                summary.putExtra(SummaryActivity.HOME_SERVICE_ID, id);
+                summary.putExtra(SummaryActivity.HOME_SERVICE_NAME, name);
+                summary.putExtra(SummaryActivity.HOME_SERVICE_DESCRIPTION, description);
                 String userAddress = null;
                 if (userAddressEditText.getVisibility() == View.VISIBLE) {
                     userAddress = userAddressEditText.getText().toString();
@@ -233,7 +238,7 @@ public class MapActivity extends DialogActivity {
                     userAddress = userAddressTextView.getText().toString();
                 }
                 if (!userAddress.equals("")){
-                    summary.putExtra(ADDRESS,userAddress);
+                    summary.putExtra(SummaryActivity.ADDRESS,userAddress);
                     startActivity(summary);
                 }
         }

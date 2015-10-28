@@ -27,12 +27,20 @@ import com.wezen.madison.utils.DialogActivity;
 
 public class SummaryActivity extends DialogActivity implements  OrderDialogFragment.OnClickOrderDialog {
 
+    public static final String LATITUDE = "latitude";
+    public static final String LONGITUDE = "longitude";
+    public static final String ADDRESS = "address";
+    public static final String HOME_SERVICE_ID = "id";
+    public static final String HOME_SERVICE_NAME = "name";
+    public static final String HOME_SERVICE_DESCRIPTION = "description";
+
     private MapView mapView;
     private LatLng myLatLng;
     private String id;
     private EditText editTextPtoblem;
     private String address;
     private String name;
+    private String description;
 
 
     @Override
@@ -46,25 +54,31 @@ public class SummaryActivity extends DialogActivity implements  OrderDialogFragm
         }
         mapView = (MapView)findViewById(R.id.mapview);
         TextView userAddress = (TextView) findViewById(R.id.summaryUserAddress);
+        TextView serviceDescription = (TextView) findViewById(R.id.summaryServiceDescription);
+        TextView serviceName = (TextView) findViewById(R.id.summaryServiceName);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabSummary);
         editTextPtoblem = (EditText)findViewById(R.id.edit_text_problem);
 
         if(getIntent().getExtras()!= null){
             myLatLng = new LatLng(
-                    getIntent().getDoubleExtra(MapActivity.LATITUDE,0),
-                    getIntent().getDoubleExtra(MapActivity.LONGITUDE,0));
-            id =  getIntent().getStringExtra(MapActivity.HOME_SERVICE_ID);
+                    getIntent().getDoubleExtra(LATITUDE,0),
+                    getIntent().getDoubleExtra(LONGITUDE,0));
+            id =  getIntent().getStringExtra(HOME_SERVICE_ID);
 
-           address = getIntent().getStringExtra(MapActivity.ADDRESS);
-           name = getIntent().getStringExtra(MapActivity.HOME_SERVICE_NAME);
+           address = getIntent().getStringExtra(ADDRESS);
+           name = getIntent().getStringExtra(HOME_SERVICE_NAME);
+           description = getIntent().getStringExtra(HOME_SERVICE_DESCRIPTION);
+
         }
         userAddress.setText(address);
+        serviceDescription.setText(description);
+        serviceName.setText(name);
 
         fab.setOnClickListener(fabListener);
         mapView.onCreate(savedInstanceState);
         GoogleMap map = mapView.getMap();
         map.getUiSettings().setMyLocationButtonEnabled(false);
-        map.setMyLocationEnabled(true);
+        //map.setMyLocationEnabled(true);
         // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
         MapsInitializer.initialize(this);
 
@@ -82,6 +96,7 @@ public class SummaryActivity extends DialogActivity implements  OrderDialogFragm
         public void onClick(View view) {
             if(TextUtils.isEmpty(editTextPtoblem.getText().toString())){
                 editTextPtoblem.setError(getResources().getString(R.string.please_add_a_description));
+                editTextPtoblem.requestFocus();
                 return;
             }
 

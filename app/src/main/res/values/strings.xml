@@ -16,7 +16,7 @@
     <string name="continuar">continuar</string>
 
 
-    <string name="title_activity_maps">Map</string>
+
     <string name="street">Calle</string>
     <string name="number">Número</string>
     <string name="district">Colonia</string>
@@ -29,11 +29,10 @@
     <string name="no">No</string>
     <string name="order_title">¿Enviar solicitud?</string>
 
-    <string name="title_activity_beverage_list">BeverageListActivity</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_services_list">ServicesListActivity</string>
-    <string name="title_activity_categories">CategoriesActivity</string>
+    <string name="title_activity_services_list">Servicios</string>
+    <string name="title_activity_categories">Categorias</string>
     <string name="category_one">Plomería</string>
     <string name="category_two">Cerrajería</string>
     <string name="category_three">Jardinería</string>
@@ -43,11 +42,11 @@
     <string name="openDrawer">Navigation Drawer Open</string>
     <string name="closeDrawer">Navigation Drawer Closed</string>
 
-    <string name="title_activity_service_detail">ServiceDetailActivity</string>
-    <string name="title_activity_map">Map</string>
+    <string name="title_activity_service_detail">Información</string>
+    <string name="title_activity_map">¿Dónde necesitas la ayuda?</string>
     <string name="action_location">ubicacion</string>
     <string name="add_address">Ingresa tu dirección</string>
-    <string name="title_activity_summary">SummaryActivity</string>
+    <string name="title_activity_summary">Resumen</string>
     <string name="problem_description">Añade una breve descripción del problema</string>
     <string name="title_activity_order_sent">OrderSentActivity</string>
     <string name="cd_comments_number">numero de comentarios</string>
@@ -56,9 +55,9 @@
     <string name="back">Volver</string>
     <string name="drawer_menu_settings">Configuración</string>
     <string name="drawer_menu_help">Ayuda</string>
-    <string name="title_activity_account">AccountActivity</string>
-    <string name="title_activity_history">HistoryActivity</string>
-    <string name="title_activity_help">HelpActivity</string>
+    <string name="title_activity_account">Mi Cuenta</string>
+    <string name="title_activity_history">Historial</string>
+    <string name="title_activity_help">Ayuda</string>
     <string name="account_hint_name">Nombre</string>
     <string name="account_hint_lastname">Apellidos</string>
     <string name="account_hint_phone">Teléfono</string>
@@ -86,6 +85,7 @@
     <string name="raview_saved">Tu reseña se ha guardado</string>
     <string name="raview_not_saved">Hubo un problema al guardar tu reseña, intentalo más tarde</string>
     <string name="order_sent">Solicitud enviada. Puedes verificar su estatus en el Historial</string>
+    <string name="your_location">Ubicación</string>
 
 
 </resources>

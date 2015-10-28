@@ -45,6 +45,7 @@ public class ServiceDetailActivity extends DialogActivity {
     private TabLayout tabLayout;
     private String id;
     private String name;
+    private String description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class ServiceDetailActivity extends DialogActivity {
 
         id = getIntent().getExtras().getString(PARAM_ID);
        // int comments = getIntent().getExtras().getInt(PARAM_COMMENTS);
-        String description = getIntent().getExtras().getString(PARAM_DESCRIPTION);
+        description = getIntent().getExtras().getString(PARAM_DESCRIPTION);
         name = getIntent().getExtras().getString(PARAM_NAME);
        // int stars = getIntent().getExtras().getInt(PARAM_STARS);
         String urlImage = getIntent().getExtras().getString(PARAM_URL_IMAGE);
@@ -91,6 +92,7 @@ public class ServiceDetailActivity extends DialogActivity {
                 Intent mapIntent = new Intent(ServiceDetailActivity.this, MapActivity.class);
                 mapIntent.putExtra(MapActivity.HOME_SERVICE_ID,id);
                 mapIntent.putExtra(MapActivity.HOME_SERVICE_NAME,name);
+                mapIntent.putExtra(MapActivity.HOME_SERVICE_DESCRIPTION,description);
                 startActivity(mapIntent);
             }
         });

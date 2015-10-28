@@ -139,10 +139,7 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".utils.DialogActivity"
-            android:label="@string/title_activity_dialog">
-        </activity>
+
     </application>
 
 </manifest>

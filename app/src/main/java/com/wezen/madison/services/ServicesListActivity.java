@@ -56,14 +56,14 @@ public class ServicesListActivity extends DialogActivity {
             categoryID = savedInstanceState.getString(CATEGORY_ID_BUNDLE);
         }
 
-
+        getHomeServicesList();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        homeServicesList.clear();
-        getHomeServicesList();
+       // homeServicesList.clear();
+
     }
 
 
