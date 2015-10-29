@@ -61,7 +61,7 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
         if(status != null){
             query.whereEqualTo("status",status.getValue());
         }
-        query.whereEqualTo("wasRated",false);
+        //query.whereEqualTo("wasRated",false);
         query.include("homeService");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -76,6 +76,8 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
                         int status = po.getInt("status");
                         request.setStatus(HomeServiceRequestStatus.valueOf(status));
                         request.setHomeServiceID((po.getParseObject("homeService").getObjectId()));
+                        request.setDate(po.getCreatedAt().toString());
+                        request.setImage(po.getParseObject("homeService").getParseFile("image").getUrl());
                         requestList.add(request);
                     }
 

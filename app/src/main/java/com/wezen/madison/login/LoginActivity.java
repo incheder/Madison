@@ -234,6 +234,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         parseUser.setEmail(email);
         parseUser.setPassword(password);
         parseUser.setUsername(email);
+        parseUser.put("userType",1);
         parseUser.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(ParseException e) {

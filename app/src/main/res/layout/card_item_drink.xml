@@ -30,7 +30,6 @@
             android:background="@color/service_name_background"
             android:gravity="center_vertical"
             android:padding="@dimen/abc_control_padding_material"
-            android:text="Doctor Solución"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/abc_primary_text_material_dark" />
 
@@ -41,7 +40,6 @@
             android:layout_above="@+id/ratingBar"
             android:gravity="center_vertical"
             android:padding="@dimen/abc_control_padding_material"
-            android:text="Resolvemos desde reparaciones sencillas hasta las remodelaciones más exigentes con diferentes servicios especializados"
             android:textAppearance="?android:attr/textAppearanceSmall"
             />
 
@@ -69,7 +67,6 @@
                 android:gravity="center"
                 android:layout_alignBaseline="@+id/ratingBar"
                 android:layout_alignParentBottom="true"
-                android:text="5 comentarios"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="@dimen/comment_margin_in_service_list"

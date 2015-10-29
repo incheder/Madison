@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wezen.madison.R;
 import com.wezen.madison.model.HomeServiceRequest;
 
@@ -48,16 +49,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         holder.date.setText(item.getDate());
         holder.description.setText(item.getDescription());
         holder.review.setMax(item.getReview());
-        //holder.image.setImageBitmap(item.getImage());
+        Picasso.with(context).load(item.getImage()).into(holder.image);
         if(item.getStatus()!=null){
             holder.status.setText(item.getStatus().toString());
         }
-        holder.rating.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         holder.rating.setOnClickListener(new View.OnClickListener() {
             @Override
