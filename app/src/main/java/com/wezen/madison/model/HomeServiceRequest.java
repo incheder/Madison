@@ -14,7 +14,7 @@ public class HomeServiceRequest {
     private String date;
     private HomeServiceRequestStatus status;
     private LatLng userLocation;
-    private String homeServiceID;
+    private String homeServiceRequestID;
 
     public String getImage() {
         return image;
@@ -72,11 +72,11 @@ public class HomeServiceRequest {
         this.userLocation = location;
     }
 
-    public String getHomeServiceID() {
-        return homeServiceID;
+    public String getHomeServiceRequestID() {
+        return homeServiceRequestID;
     }
 
-    public void setHomeServiceID(String homeServiceID) {
-        this.homeServiceID = homeServiceID;
+    public void setHomeServiceRequestID(String homeServiceRequestID) {
+        this.homeServiceRequestID = homeServiceRequestID;
     }
 }

@@ -1,8 +1,6 @@
 package com.wezen.madison.history;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -75,7 +73,8 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
                         request.setDescription(po.getString("problemDescription"));
                         int status = po.getInt("status");
                         request.setStatus(HomeServiceRequestStatus.valueOf(status));
-                        request.setHomeServiceID((po.getParseObject("homeService").getObjectId()));
+                        //request.setHomeServiceRequestID((po.getParseObject("homeService").getObjectId()));
+                        request.setHomeServiceRequestID(po.getObjectId());
                         request.setDate(po.getCreatedAt().toString());
                         request.setImage(po.getParseObject("homeService").getParseFile("image").getUrl());
                         requestList.add(request);
@@ -138,9 +137,9 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
         review.put("numStars", numStars);
         review.put("comment",comment);
         review.put("fromUser", ParseUser.getCurrentUser());
-        String id = requestList.get(position).getHomeServiceID();
-        ParseObject homeServiceID = ParseObject.createWithoutData("HomeServices",id);
-        review.put("homeService",homeServiceID);
+        String id = requestList.get(position).getHomeServiceRequestID();
+        ParseObject homeServiceID = ParseObject.createWithoutData("HomeServiceRequest",id);
+        review.put("homeServiceRequest",homeServiceID);
         review.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
