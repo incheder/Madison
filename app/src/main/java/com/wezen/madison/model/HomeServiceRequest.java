@@ -15,6 +15,7 @@ public class HomeServiceRequest {
     private HomeServiceRequestStatus status;
     private LatLng userLocation;
     private String homeServiceRequestID;
+    private Boolean wasRated;
 
     public String getImage() {
         return image;
@@ -78,5 +79,13 @@ public class HomeServiceRequest {
 
     public void setHomeServiceRequestID(String homeServiceRequestID) {
         this.homeServiceRequestID = homeServiceRequestID;
+    }
+
+    public Boolean getWasRated() {
+        return wasRated;
+    }
+
+    public void setWasRated(Boolean wasRated) {
+        this.wasRated = wasRated;
     }
 }

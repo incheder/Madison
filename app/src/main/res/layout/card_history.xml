@@ -14,12 +14,40 @@
         android:visibility="visible"
        >
 
-        <ImageView
-            android:id="@+id/history_image"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:scaleType="centerCrop"
-            android:layout_marginBottom="@dimen/elements_margin_history_item"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/elements_margin_history_item">
+
+            <ImageView
+                android:id="@+id/history_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+
+               />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/history_item_rating_background"
+                android:layout_gravity="bottom|center"
+                >
+                <RatingBar
+                    android:id="@+id/historyItemRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@android:style/Widget.DeviceDefault.RatingBar.Indicator"
+                    android:numStars="5"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    />
+
+            </FrameLayout>
+
+        </FrameLayout>
+
+
 
         <TextView
             android:layout_width="match_parent"
@@ -67,14 +95,7 @@
             android:layout_height="wrap_content"
             android:text="@string/add_review"/>
 
-        <RatingBar
-            android:id="@+id/historyItemRating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@android:style/Widget.DeviceDefault.RatingBar.Indicator"
-            android:numStars="5"
-            android:visibility="gone"
-           />
+
 
     </LinearLayout>
 

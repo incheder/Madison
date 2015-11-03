@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.wezen.madison.R;
 import com.wezen.madison.model.HomeServiceRequest;
+import com.wezen.madison.model.HomeServiceRequestStatus;
 
 import java.util.List;
 
@@ -52,6 +53,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         Picasso.with(context).load(item.getImage()).into(holder.image);
         if(item.getStatus()!=null){
             holder.status.setText(item.getStatus().toString());
+        }
+        if(item.getWasRated()){
+            holder.rating.setVisibility(View.GONE);
+            holder.review.setVisibility(View.VISIBLE);
+        }
+        if( item.getStatus() != HomeServiceRequestStatus.COMPLETO){
+            holder.rating.setVisibility(View.GONE);
+        } else if(!item.getWasRated()){
+            holder.rating.setVisibility(View.VISIBLE);
         }
 
         holder.rating.setOnClickListener(new View.OnClickListener() {

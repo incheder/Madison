@@ -93,11 +93,17 @@ public class ReviewsFragment extends Fragment {
     }
 
     private void getReviews(){
+
+
         ParseObject holder = ParseObject.createWithoutData("HomeServices",mHomeServiceId);
+        ParseQuery<ParseObject> innerQuery = ParseQuery.getQuery("HomeServiceRequest");
+        innerQuery.whereEqualTo("homeService",holder);
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Review");
         query.orderByDescending("createdAt");
         query.include("fromUser");
-        query.whereEqualTo("homeService", holder);
+        query.whereMatchesQuery("homeServiceRequest",innerQuery);
+        //query.whereEqualTo("homeService", holder);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {

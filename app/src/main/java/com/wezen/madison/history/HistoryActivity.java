@@ -77,6 +77,7 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
                         request.setHomeServiceRequestID(po.getObjectId());
                         request.setDate(po.getCreatedAt().toString());
                         request.setImage(po.getParseObject("homeService").getParseFile("image").getUrl());
+                        request.setWasRated(po.getBoolean("wasRated"));
                         requestList.add(request);
                     }
 
@@ -131,7 +132,7 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
     }
 
     @Override
-    public void onButtonClicked(int numStars, String comment,int position) {
+    public void onButtonClicked(int numStars, String comment, final int position) {
         dialog.dismiss();
         ParseObject review = new ParseObject("Review");
         review.put("numStars", numStars);
@@ -139,17 +140,24 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
         review.put("fromUser", ParseUser.getCurrentUser());
         String id = requestList.get(position).getHomeServiceRequestID();
         ParseObject homeServiceID = ParseObject.createWithoutData("HomeServiceRequest",id);
-        review.put("homeServiceRequest",homeServiceID);
+        review.put("homeServiceRequest", homeServiceID);
+
         review.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
+
+                requestList.get(position).setWasRated(true);
+                adapter.notifyDataSetChanged();
+
                 if (e == null) {
-                    Toast.makeText(HistoryActivity.this, getResources().getString(R.string.raview_saved), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HistoryActivity.this, getResources().getString(R.string.review_saved), Toast.LENGTH_SHORT).show();
                     //TODO actualizar el campo wasRated en la clase de los request, quitamos el boton y mostramos el rating bar con la calificaion recien mandada
 
 
                 } else { //ups
-                    Toast.makeText(HistoryActivity.this, getResources().getString(R.string.raview_not_saved), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HistoryActivity.this, getResources().getString(R.string.review_not_saved), Toast.LENGTH_SHORT).show();
+                    requestList.get(position).setWasRated(false);
+                    adapter.notifyDataSetChanged();
 
                 }
             }

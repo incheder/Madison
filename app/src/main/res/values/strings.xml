@@ -82,10 +82,11 @@
     <string name="write_review">Escribe una reseña</string>
     <string name="save_review">Guardar</string>
     <string name="rate_the_service">Califica el servicio</string>
-    <string name="raview_saved">Tu reseña se ha guardado</string>
-    <string name="raview_not_saved">Hubo un problema al guardar tu reseña, intentalo más tarde</string>
+    <string name="review_saved">Tu reseña se ha guardado</string>
+    <string name="review_not_saved">Hubo un problema al guardar tu reseña, intentalo más tarde</string>
     <string name="order_sent">Solicitud enviada. Puedes verificar su estatus en el Historial</string>
     <string name="your_location">Ubicación</string>
+    <string name="wrong_credentials">Datos incorrectos</string>
 
 
 </resources>
