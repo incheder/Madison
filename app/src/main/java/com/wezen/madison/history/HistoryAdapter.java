@@ -49,7 +49,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         holder.name.setText(item.getName());
         holder.date.setText(item.getDate());
         holder.description.setText(item.getDescription());
-        holder.review.setMax(item.getReview());
+        if(item.getReview()!= null){
+            holder.review.setRating(item.getReview());
+        }
         Picasso.with(context).load(item.getImage()).into(holder.image);
         if(item.getStatus()!=null){
             holder.status.setText(item.getStatus().toString());

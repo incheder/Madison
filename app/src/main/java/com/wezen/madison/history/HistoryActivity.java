@@ -78,6 +78,7 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
                         request.setDate(po.getCreatedAt().toString());
                         request.setImage(po.getParseObject("homeService").getParseFile("image").getUrl());
                         request.setWasRated(po.getBoolean("wasRated"));
+                        request.setReview(po.getInt("rating"));
                         requestList.add(request);
                     }
 

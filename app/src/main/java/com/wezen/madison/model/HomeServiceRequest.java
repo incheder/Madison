@@ -10,7 +10,7 @@ public class HomeServiceRequest {
     private String image;
     private String name;
     private String description;
-    private int review;
+    private Integer review;
     private String date;
     private HomeServiceRequestStatus status;
     private LatLng userLocation;
@@ -41,11 +41,11 @@ public class HomeServiceRequest {
         this.description = description;
     }
 
-    public int getReview() {
+    public Integer getReview() {
         return review;
     }
 
-    public void setReview(int review) {
+    public void setReview(Integer review) {
         this.review = review;
     }
 
