@@ -78,6 +78,7 @@ public class SummaryActivity extends DialogActivity implements  OrderDialogFragm
         mapView.onCreate(savedInstanceState);
         GoogleMap map = mapView.getMap();
         map.getUiSettings().setMyLocationButtonEnabled(false);
+        map.getUiSettings().setMapToolbarEnabled(false);
         //map.setMyLocationEnabled(true);
         // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
         MapsInitializer.initialize(this);
@@ -133,6 +134,7 @@ public class SummaryActivity extends DialogActivity implements  OrderDialogFragm
         orderSent.putExtra(OrderSentActivity.LONGITUDE,myLatLng.longitude);
         orderSent.putExtra(OrderSentActivity.ID,id);
         orderSent.putExtra(OrderSentActivity.PROBLEM,editTextPtoblem.getText().toString());
+        orderSent.putExtra(OrderSentActivity.ADDRESS,address);
 
         startActivity(orderSent);
     }

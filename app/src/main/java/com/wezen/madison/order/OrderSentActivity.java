@@ -30,12 +30,14 @@ public class OrderSentActivity extends DialogActivity {
     public  static final String LONGITUDE = "longitud";
     public  static final String ID = "id";
     public  static final String PROBLEM = "problem";
+    public  static final String ADDRESS = "address";
 
     private ProgressBar progressBar;
     private LinearLayout orderSent;
     private LatLng myLatLng;
     private String id;
     private String problem;
+    private String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class OrderSentActivity extends DialogActivity {
                     getIntent().getDoubleExtra(LONGITUDE,0));
             id =  getIntent().getStringExtra(ID);
             problem =  getIntent().getStringExtra(PROBLEM);
+            address =  getIntent().getStringExtra(ADDRESS);
         }
         Timer timer = new Timer();
        // timer.schedule(task, 3000);
@@ -102,6 +105,7 @@ public class OrderSentActivity extends DialogActivity {
         po.put("problemDescription",problem);
         po.put("status",0);
         po.put("wasRated",false);
+        po.put("address",address);
         po.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
