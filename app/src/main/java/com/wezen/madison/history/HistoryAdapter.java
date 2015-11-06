@@ -1,6 +1,7 @@
 package com.wezen.madison.history;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +56,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         Picasso.with(context).load(item.getImage()).into(holder.image);
         if(item.getStatus()!=null){
             holder.status.setText(item.getStatus().toString());
+            setColorByStatus(holder.status,item.getStatus());
         }
         if(item.getWasRated()){
             holder.rating.setVisibility(View.GONE);
@@ -105,6 +107,30 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
             rating = (Button)itemView.findViewById(R.id.buttonHistoryItem);
         }
     }
+
+    private void setColorByStatus(TextView textView, HomeServiceRequestStatus status){
+        int color = ContextCompat.getColor(context, R.color.transparent);
+        switch (status) {
+            case ENVIADO:
+                color = ContextCompat.getColor(context, R.color.palette_green);
+                break;
+            case ASIGNADO:
+                color = ContextCompat.getColor(context, R.color.palette_yellow_dark);
+                break;
+            case CANCELADO:
+                color = ContextCompat.getColor(context, R.color.palette_red);
+                break;
+            case COMPLETO:
+                color = ContextCompat.getColor(context, R.color.palette_blue);
+                break;
+            case RECHAZADO:
+                color = ContextCompat.getColor(context, R.color.palette_red);
+                break;
+        }
+        textView.setBackgroundColor(color);
+
+    }
+
 
 
 }

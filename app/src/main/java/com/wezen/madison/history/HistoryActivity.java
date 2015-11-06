@@ -2,6 +2,7 @@ package com.wezen.madison.history;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -59,8 +60,8 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
         if(status != null){
             query.whereEqualTo("status",status.getValue());
         }
-        //query.whereEqualTo("wasRated",false);
         query.include("homeService");
+        query.orderByDescending("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
@@ -84,7 +85,7 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
 
                     adapter.notifyDataSetChanged();
                 } else { // ups
-
+                    Log.e("ERROR",e.getMessage());
                 }
             }
         });

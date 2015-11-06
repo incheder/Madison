@@ -70,13 +70,18 @@
             android:maxLines="2"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/history_item_status"
-            android:layout_marginBottom="@dimen/elements_margin_history_item"
+            android:layout_marginTop="@dimen/elements_margin_history_item"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:paddingLeft="@dimen/card_item_padding"
-            android:paddingRight="@dimen/card_item_padding"/>
+            android:paddingRight="@dimen/card_item_padding"
+            android:gravity="center"
+            android:layout_gravity="end"
+            android:layout_marginRight="@dimen/elements_margin_history_item"
+            android:layout_marginEnd="@dimen/elements_margin_history_item"
+            android:textColor="@color/status_label_color"/>
 
         <TextView
             android:layout_width="match_parent"

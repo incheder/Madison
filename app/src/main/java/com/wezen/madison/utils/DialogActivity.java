@@ -38,8 +38,9 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
 
     @Override
     public void onButtonClicked() {
-
-        dialog.dismiss();
+        if(dialog != null){
+            dialog.dismiss();
+        }
         if(!Utils.isNetworkEnable(DialogActivity.this)){
             dialog.show(getSupportFragmentManager(), null);
         }
