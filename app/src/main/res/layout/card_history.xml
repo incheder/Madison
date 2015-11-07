@@ -92,7 +92,8 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:paddingLeft="@dimen/card_item_padding"
             android:paddingRight="@dimen/card_item_padding"
-            android:gravity="right"/>
+            android:gravity="end"
+            />
 
         <Button
             android:id="@+id/buttonHistoryItem"
