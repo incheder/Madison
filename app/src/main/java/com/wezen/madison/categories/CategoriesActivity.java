@@ -1,6 +1,8 @@
 package com.wezen.madison.categories;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,9 +20,11 @@ import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.wezen.madison.R;
 import com.wezen.madison.account.AccountActivity;
 import com.wezen.madison.help.HelpActivity;
@@ -79,7 +83,7 @@ public class CategoriesActivity extends DialogActivity {
 
         //calling sync state is necessay or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
-
+        saveInstallationData();
 
 
     }
@@ -153,5 +157,29 @@ public class CategoriesActivity extends DialogActivity {
         Intent loginIntent = new Intent(CategoriesActivity.this, LoginActivity.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
+    }
+
+    private void saveInstallationData(){
+        final SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        int isSaved = sharedPref.getInt(getString(R.string.installation_already_saved), 0);
+        if(isSaved == 0){
+            ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+            installation.put("user",ParseUser.getCurrentUser());
+            installation.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if(e == null){
+                        Log.d("SUCCESS", "installation saved");
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putInt(getString(R.string.installation_already_saved), 1);
+                        editor.apply();
+                    } else {
+                        Log.e("ERROR", "installation not saved: "+ e.getMessage());
+                    }
+                }
+            });
+
+        }
+
     }
 }
