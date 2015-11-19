@@ -15,7 +15,7 @@ import com.wezen.madison.order.OrderDialogFragment;
  */
 public class ConnectionChange extends BroadcastReceiver {
 
-    public static String SHOW_DIALOG = "action_show_dialog";
+    public static String SHOW_DIALOG = "action_show_dialog_client";
     private static  boolean isConnected;
 
 

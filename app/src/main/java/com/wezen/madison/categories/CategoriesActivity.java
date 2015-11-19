@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
@@ -24,13 +26,15 @@ import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
 import com.parse.SaveCallback;
+
+import com.squareup.picasso.Picasso;
 import com.wezen.madison.R;
 import com.wezen.madison.account.AccountActivity;
 import com.wezen.madison.help.HelpActivity;
 import com.wezen.madison.history.HistoryActivity;
 import com.wezen.madison.login.LoginActivity;
-import com.wezen.madison.model.BeverageMenu;
 import com.wezen.madison.model.Category;
 import com.wezen.madison.utils.DialogActivity;
 
@@ -42,6 +46,11 @@ public class CategoriesActivity extends DialogActivity {
     private CategoriesAdapter adapter;
     private FrameLayout progressIndicator;
     private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private String userName;
+    private String userEmail;
+    private String imageUrl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +59,7 @@ public class CategoriesActivity extends DialogActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.homeToolbar);
         setSupportActionBar(toolbar);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener( navigationItemSelectedListener );
         progressIndicator = (FrameLayout)findViewById(R.id.categoriesProgressIndicator);
         RecyclerView rvHome = (RecyclerView) findViewById(R.id.rvHome);
@@ -83,8 +92,10 @@ public class CategoriesActivity extends DialogActivity {
 
         //calling sync state is necessay or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
+
         saveInstallationData();
 
+        fillNavigationViewHeader();
 
     }
 
@@ -134,6 +145,9 @@ public class CategoriesActivity extends DialogActivity {
 
             if(id == R.id.menu_account){
                 toLaunch = new Intent(CategoriesActivity.this, AccountActivity.class);
+                toLaunch.putExtra(AccountActivity.USERNAME,userName);
+                toLaunch.putExtra(AccountActivity.EMAIL,userEmail);
+                toLaunch.putExtra(AccountActivity.IMAGE_URL,imageUrl);
             } else if (id == R.id.menu_history){
                 toLaunch = new Intent(CategoriesActivity.this, HistoryActivity.class);
             } else if (id == R.id.menu_settings){
@@ -159,12 +173,13 @@ public class CategoriesActivity extends DialogActivity {
         startActivity(loginIntent);
     }
 
+
     private void saveInstallationData(){
         final SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         int isSaved = sharedPref.getInt(getString(R.string.installation_already_saved), 0);
         if(isSaved == 0){
             ParseInstallation installation = ParseInstallation.getCurrentInstallation();
-            installation.put("user",ParseUser.getCurrentUser());
+            installation.put("user", ParseUser.getCurrentUser());
             installation.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -178,8 +193,25 @@ public class CategoriesActivity extends DialogActivity {
                     }
                 }
             });
+        }
+    }
+
+
+    private void fillNavigationViewHeader(){
+        ImageView imageAvatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.profile_image);
+        TextView textViewUsername = (TextView) navigationView.getHeaderView(0).findViewById(R.id.username);
+        TextView textViewEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.email);
+        ParseUser user = ParseUser.getCurrentUser();
+        userName = user.getUsername();
+        userEmail = user.getEmail();
+        textViewUsername.setText(userName);
+        textViewEmail.setText(userEmail);
+        if(user.getParseFile("userImage")!= null){
+            imageUrl = user.getParseFile("userImage").getUrl();
+            Picasso.with(this).load(imageUrl).into(imageAvatar);
 
         }
 
     }
+
 }
