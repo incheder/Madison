@@ -87,6 +87,7 @@
     <string name="order_sent">Solicitud enviada. Puedes verificar su estatus en el Historial</string>
     <string name="your_location">Ubicación</string>
     <string name="wrong_credentials">Datos incorrectos</string>
+    <string name="installation_already_saved">installation_saved_client</string>
 
 
 </resources>
