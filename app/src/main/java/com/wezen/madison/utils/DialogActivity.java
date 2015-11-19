@@ -55,6 +55,7 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
                 //String address = intent.getStringExtra(GeoCoderIntentService.DATA_ADDRESS);
             if(dialog == null){
                 dialog = NetworkDialogFragment.newInstance("","");
+                dialog.setCancelable(false);
                 dialog.show(getSupportFragmentManager(), null);
             }
            // }

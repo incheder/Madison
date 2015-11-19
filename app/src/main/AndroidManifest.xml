@@ -145,7 +145,7 @@
 
         <receiver
             android:name=".utils.ConnectionChange"
-            android:label="NetworkConnection" >
+            android:label="NetworkConnectionClient" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
