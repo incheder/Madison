@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -24,6 +25,7 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.wezen.madison.R;
 import com.wezen.madison.categories.ViewPagerAdapter;
 import com.wezen.madison.map.MapActivity;
@@ -46,6 +48,7 @@ public class ServiceDetailActivity extends DialogActivity {
     private String id;
     private String name;
     private String description;
+    private ImageView header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +62,8 @@ public class ServiceDetailActivity extends DialogActivity {
         }
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         fab = (FloatingActionButton)findViewById(R.id.serviceDetailFAB);
-        ImageView header = (ImageView) findViewById(R.id.header);
-        toolBarColoring();
+        header = (ImageView) findViewById(R.id.header);
+        //toolBarColoring();
 
         id = getIntent().getExtras().getString(PARAM_ID);
        // int comments = getIntent().getExtras().getInt(PARAM_COMMENTS);
@@ -69,7 +72,7 @@ public class ServiceDetailActivity extends DialogActivity {
        // int stars = getIntent().getExtras().getInt(PARAM_STARS);
         String urlImage = getIntent().getExtras().getString(PARAM_URL_IMAGE);
 
-        Picasso.with(context).load(urlImage).into(header);
+        Picasso.with(context).load(urlImage).into(target);
         collapsingToolbar.setTitle(name);
 
         /*RecyclerView recyclerView = (RecyclerView) findViewById(R.id.scrollableview);
@@ -99,9 +102,8 @@ public class ServiceDetailActivity extends DialogActivity {
     }
 
 
-    private void toolBarColoring(){
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                R.drawable.doctor_solucion);
+    private void toolBarColoring(Bitmap bitmap){
+       // Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.doctor_solucion);
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
@@ -116,6 +118,7 @@ public class ServiceDetailActivity extends DialogActivity {
                 tabLayout.setSelectedTabIndicatorColor(fabColor);
             }
         });
+        header.setImageBitmap(bitmap);
     }
 
 
@@ -151,4 +154,24 @@ public class ServiceDetailActivity extends DialogActivity {
         adapter.addFrag(ReviewsFragment.newInstance(homeServiceId,""), getResources().getString(R.string.service_rating_tab));
         viewPager.setAdapter(adapter);
     }
+
+    Target target = new Target() {
+        @Override
+        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+            // do something with the Bitmap
+           toolBarColoring(bitmap);
+          // header.setImageBitmap(bitmap);
+        }
+
+        @Override
+        public void onBitmapFailed(Drawable errorDrawable) {
+
+        }
+
+        @Override
+        public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+        }
+
+    };
 }

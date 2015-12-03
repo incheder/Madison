@@ -88,6 +88,7 @@
     <string name="your_location">Ubicación</string>
     <string name="wrong_credentials">Datos incorrectos</string>
     <string name="installation_already_saved">installation_saved_client</string>
+    <string name="title_activity_request">RequestActivity</string>
 
 
 </resources>
