@@ -6,7 +6,7 @@ import com.google.android.gms.maps.model.LatLng;
  * Created by eder on 15/09/2015.
  */
 public class HomeServiceRequest {
-
+    private String id;
     private String image;
     private String name;
     private String description;
@@ -87,5 +87,13 @@ public class HomeServiceRequest {
 
     public void setWasRated(Boolean wasRated) {
         this.wasRated = wasRated;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

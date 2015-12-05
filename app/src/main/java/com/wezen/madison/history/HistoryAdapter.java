@@ -1,7 +1,9 @@
 package com.wezen.madison.history;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,8 @@ import com.squareup.picasso.Picasso;
 import com.wezen.madison.R;
 import com.wezen.madison.model.HomeServiceRequest;
 import com.wezen.madison.model.HomeServiceRequestStatus;
+import com.wezen.madison.request.RequestActivity;
+import com.wezen.madison.services.ServicesListActivity;
 
 import java.util.List;
 
@@ -46,7 +50,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
 
     @Override
     public void onBindViewHolder(HistoryHolder holder, final int position) {
-        HomeServiceRequest item = list.get(position);
+        final HomeServiceRequest item = list.get(position);
         holder.name.setText(item.getName());
         holder.date.setText(item.getDate());
         holder.description.setText(item.getDescription());
@@ -75,8 +79,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
             }
         });
 
-
-
+        holder.content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent request = new Intent(context, RequestActivity.class);
+                request.putExtra(RequestActivity.REQUEST_ID, item.getId());
+                context.startActivity(request);
+            }
+        });
 
     }
 
@@ -94,6 +104,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         public ImageView image;
         public Button rating;
         public TextView status;
+        public CardView content;
 
         public HistoryHolder(View itemView) {
             super(itemView);
@@ -105,6 +116,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
             date = (TextView)itemView.findViewById(R.id.history_item_date);
             review = (RatingBar)itemView.findViewById(R.id.historyItemRating);
             rating = (Button)itemView.findViewById(R.id.buttonHistoryItem);
+            content = (CardView)itemView.findViewById(R.id.historyItemContent);
         }
     }
 
