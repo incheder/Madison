@@ -89,6 +89,9 @@
     <string name="wrong_credentials">Datos incorrectos</string>
     <string name="installation_already_saved">installation_saved_client</string>
     <string name="title_activity_request">RequestActivity</string>
+    <string name="your_service_will_be_attended_by">Tu servicio será atendido por:</string>
+    <string name="request_problem_description">Solicitaste ayuda para:</string>
+    <string name="blablabla">Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.</string>
 
 
 </resources>
