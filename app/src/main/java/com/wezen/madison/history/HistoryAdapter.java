@@ -83,7 +83,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
             @Override
             public void onClick(View v) {
                 Intent request = new Intent(context, RequestActivity.class);
-                request.putExtra(RequestActivity.REQUEST_ID, item.getId());
+                //request.putExtra(RequestActivity.REQUEST_ID, item.getId());
+                request.putExtra(RequestActivity.REQUEST_IMAGE_URL,item.getImage());
                 context.startActivity(request);
             }
         });

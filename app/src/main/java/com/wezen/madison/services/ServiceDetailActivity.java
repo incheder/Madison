@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
@@ -107,15 +108,15 @@ public class ServiceDetailActivity extends DialogActivity {
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
-             int  toolbarColor = palette.getMutedColor(getResources().getColor(R.color.primary));
-             int statusBarColor = palette.getDarkMutedColor(getResources().getColor(R.color.primaryDark));
-             int fabColor = palette.getVibrantColor(getResources().getColor(R.color.accent));
+                int  toolbarColor = palette.getMutedColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.primary));
+                int statusBarColor = palette.getDarkMutedColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.primaryDark));
+             int fabColor = palette.getVibrantColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.accent));
 
-               collapsingToolbar.setContentScrimColor(toolbarColor);
-               setStatusBarColor(context, statusBarColor);
-               fab.setBackgroundTintList(createFabColors(fabColor));
-                tabLayout.setBackgroundColor(toolbarColor);
-                tabLayout.setSelectedTabIndicatorColor(fabColor);
+             collapsingToolbar.setContentScrimColor(toolbarColor);
+             setStatusBarColor(context, statusBarColor);
+             fab.setBackgroundTintList(createFabColors(fabColor));
+             tabLayout.setBackgroundColor(toolbarColor);
+             tabLayout.setSelectedTabIndicatorColor(fabColor);
             }
         });
         header.setImageBitmap(bitmap);
