@@ -32,6 +32,7 @@ public class RequestActivity extends AppCompatActivity {
     public static final String REQUEST_IMAGE_URL = "imageUrl";
     public static final String REQUEST_COLOR_STATUS = "colorStatus";
     public static final String REQUEST_STATUS = "status";
+    public static final String REQUEST_HOME_SERVICE_NAME = "homeServiceName";
 
     private ImageView imageHeader;
     private CollapsingToolbarLayout collapsingToolbar;
@@ -68,6 +69,8 @@ public class RequestActivity extends AppCompatActivity {
                 yourServiceWillBe.setVisibility(View.INVISIBLE);
 
             }
+            String title = getIntent().getStringExtra(REQUEST_HOME_SERVICE_NAME);
+            collapsingToolbar.setTitle(title);
         }
     }
 

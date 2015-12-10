@@ -62,6 +62,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         if(item.getStatus()!=null){
             holder.status.setText(item.getStatus().toString());
             setColorByStatus(holder.status,item.getStatus());
+        } else {
+            color = -1;//TODO el color del status no coincide con el valor del label
         }
         if(item.getWasRated()){
             holder.rating.setVisibility(View.GONE);
@@ -88,6 +90,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
                 request.putExtra(RequestActivity.REQUEST_IMAGE_URL,item.getImage());
                 request.putExtra(RequestActivity.REQUEST_COLOR_STATUS,color);
                 request.putExtra(RequestActivity.REQUEST_STATUS,item.getStatus().getValue());
+                request.putExtra(RequestActivity.REQUEST_HOME_SERVICE_NAME,item.getName());
                 context.startActivity(request);
             }
         });
