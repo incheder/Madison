@@ -50,6 +50,7 @@ public class RequestActivity extends AppCompatActivity {
         LinearLayout layoutStatus = (LinearLayout)findViewById(R.id.request_layout_status);
         RelativeLayout attendedLayout = (RelativeLayout)findViewById(R.id.request_attended_by_layout);
         TextView yourServiceWillBe = (TextView)findViewById(R.id.request_your_service_will_be);
+        TextView statusLabel = (TextView)findViewById(R.id.request_status_label);
         if(getIntent().getExtras()!= null){
             String imageUrl = getIntent().getStringExtra(REQUEST_IMAGE_URL);
             Picasso.with(this).load(imageUrl).into(target);
@@ -58,12 +59,13 @@ public class RequestActivity extends AppCompatActivity {
                 layoutStatus.setBackgroundColor(color);
             }
             int status = getIntent().getIntExtra(REQUEST_STATUS,-1);
+            statusLabel.setText(status == -1 ? "" : HomeServiceRequestStatus.valueOf(status).toString());
             if(status!= -1 && status == HomeServiceRequestStatus.CONFIRMADO.getValue()){
                 attendedLayout.setVisibility(View.VISIBLE);
                 yourServiceWillBe.setVisibility(View.VISIBLE);
             } else {
                 attendedLayout.setVisibility(View.GONE);
-                yourServiceWillBe.setVisibility(View.GONE);
+                yourServiceWillBe.setVisibility(View.INVISIBLE);
 
             }
         }
