@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public enum HomeServiceRequestStatus {
     ENVIADO(0),
-    ASIGNADO(1),
+    CONFIRMADO(1),
     CANCELADO(2),
     COMPLETO(3),
     RECHAZADO(4);

@@ -115,7 +115,7 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
                 getList(HomeServiceRequestStatus.ENVIADO);
                 break;
             case R.id.asigned:
-                getList(HomeServiceRequestStatus.ASIGNADO);
+                getList(HomeServiceRequestStatus.CONFIRMADO);
                 break;
             case R.id.done:
                 getList(HomeServiceRequestStatus.COMPLETO);

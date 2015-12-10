@@ -14,17 +14,25 @@ import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.wezen.madison.R;
+import com.wezen.madison.model.HomeServiceRequestStatus;
 
 public class RequestActivity extends AppCompatActivity {
 
     public static final String REQUEST_ID = "clientRequestId";
     public static final String REQUEST_IMAGE_URL = "imageUrl";
+    public static final String REQUEST_COLOR_STATUS = "colorStatus";
+    public static final String REQUEST_STATUS = "status";
+
     private ImageView imageHeader;
     private CollapsingToolbarLayout collapsingToolbar;
 
@@ -39,9 +47,25 @@ public class RequestActivity extends AppCompatActivity {
         }
         imageHeader = (ImageView)findViewById(R.id.headerRequest);
         collapsingToolbar = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar_request);
+        LinearLayout layoutStatus = (LinearLayout)findViewById(R.id.request_layout_status);
+        RelativeLayout attendedLayout = (RelativeLayout)findViewById(R.id.request_attended_by_layout);
+        TextView yourServiceWillBe = (TextView)findViewById(R.id.request_your_service_will_be);
         if(getIntent().getExtras()!= null){
             String imageUrl = getIntent().getStringExtra(REQUEST_IMAGE_URL);
             Picasso.with(this).load(imageUrl).into(target);
+            int color = getIntent().getIntExtra(REQUEST_COLOR_STATUS,-1);
+            if(color!= -1){
+                layoutStatus.setBackgroundColor(color);
+            }
+            int status = getIntent().getIntExtra(REQUEST_STATUS,-1);
+            if(status!= -1 && status == HomeServiceRequestStatus.CONFIRMADO.getValue()){
+                attendedLayout.setVisibility(View.VISIBLE);
+                yourServiceWillBe.setVisibility(View.VISIBLE);
+            } else {
+                attendedLayout.setVisibility(View.GONE);
+                yourServiceWillBe.setVisibility(View.GONE);
+
+            }
         }
     }
 

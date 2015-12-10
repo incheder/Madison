@@ -29,6 +29,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
 
     private List<HomeServiceRequest> list;
     private Context context;
+    private int color;
 
     public HistoryAdapter(List<HomeServiceRequest> list, Context context){
         this.list = list;
@@ -85,6 +86,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
                 Intent request = new Intent(context, RequestActivity.class);
                 //request.putExtra(RequestActivity.REQUEST_ID, item.getId());
                 request.putExtra(RequestActivity.REQUEST_IMAGE_URL,item.getImage());
+                request.putExtra(RequestActivity.REQUEST_COLOR_STATUS,color);
+                request.putExtra(RequestActivity.REQUEST_STATUS,item.getStatus());
                 context.startActivity(request);
             }
         });
@@ -122,12 +125,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
     }
 
     private void setColorByStatus(TextView textView, HomeServiceRequestStatus status){
-        int color = ContextCompat.getColor(context, R.color.transparent);
+        color = ContextCompat.getColor(context, R.color.transparent);
         switch (status) {
             case ENVIADO:
                 color = ContextCompat.getColor(context, R.color.palette_green);
                 break;
-            case ASIGNADO:
+            case CONFIRMADO:
                 color = ContextCompat.getColor(context, R.color.palette_yellow_dark);
                 break;
             case CANCELADO:
