@@ -29,7 +29,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
 
     private List<HomeServiceRequest> list;
     private Context context;
-    private int color;
 
     public HistoryAdapter(List<HomeServiceRequest> list, Context context){
         this.list = list;
@@ -61,9 +60,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         Picasso.with(context).load(item.getImage()).into(holder.image);
         if(item.getStatus()!=null){
             holder.status.setText(item.getStatus().toString());
-            setColorByStatus(holder.status,item.getStatus());
-        } else {
-            color = -1;//TODO el color del status no coincide con el valor del label
+            setColorByStatus(holder.status,item.getStatus(),position);
         }
         if(item.getWasRated()){
             holder.rating.setVisibility(View.GONE);
@@ -88,7 +85,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
                 Intent request = new Intent(context, RequestActivity.class);
                 //request.putExtra(RequestActivity.REQUEST_ID, item.getId());
                 request.putExtra(RequestActivity.REQUEST_IMAGE_URL,item.getImage());
-                request.putExtra(RequestActivity.REQUEST_COLOR_STATUS,color);
+                request.putExtra(RequestActivity.REQUEST_COLOR_STATUS,item.getColorForStatus());
                 request.putExtra(RequestActivity.REQUEST_STATUS,item.getStatus().getValue());
                 request.putExtra(RequestActivity.REQUEST_HOME_SERVICE_NAME,item.getName());
                 context.startActivity(request);
@@ -127,8 +124,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         }
     }
 
-    private void setColorByStatus(TextView textView, HomeServiceRequestStatus status){
-        color = ContextCompat.getColor(context, R.color.transparent);
+    private void setColorByStatus(TextView textView, HomeServiceRequestStatus status, int position){
+        int color = ContextCompat.getColor(context, R.color.transparent);
         switch (status) {
             case ENVIADO:
                 color = ContextCompat.getColor(context, R.color.palette_green);
@@ -146,6 +143,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
                 color = ContextCompat.getColor(context, R.color.palette_red);
                 break;
         }
+        list.get(position).setColorForStatus(color);
         textView.setBackgroundColor(color);
 
     }

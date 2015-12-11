@@ -16,6 +16,7 @@ public class HomeServiceRequest {
     private LatLng userLocation;
     private String homeServiceRequestID;
     private Boolean wasRated;
+    private Integer colorForStatus;
 
     public String getImage() {
         return image;
@@ -95,5 +96,13 @@ public class HomeServiceRequest {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Integer getColorForStatus() {
+        return colorForStatus;
+    }
+
+    public void setColorForStatus(Integer colorForStatus) {
+        this.colorForStatus = colorForStatus;
     }
 }
