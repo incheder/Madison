@@ -19,6 +19,7 @@ import com.wezen.madison.model.HomeServiceRequest;
 import com.wezen.madison.model.HomeServiceRequestStatus;
 import com.wezen.madison.request.RequestActivity;
 import com.wezen.madison.services.ServicesListActivity;
+import com.wezen.madison.utils.Utils;
 
 import java.util.List;
 
@@ -60,7 +61,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         Picasso.with(context).load(item.getImage()).into(holder.image);
         if(item.getStatus()!=null){
             holder.status.setText(item.getStatus().toString());
-            setColorByStatus(holder.status,item.getStatus(),position);
+            setColorByStatus(holder.status, item.getStatus(), position);
+            holder.status.setBackgroundColor(Utils.getColorByStatus(context,item.getStatus()));
         }
         if(item.getWasRated()){
             holder.rating.setVisibility(View.GONE);
@@ -85,9 +87,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
                 Intent request = new Intent(context, RequestActivity.class);
                 //request.putExtra(RequestActivity.REQUEST_ID, item.getId());
                 request.putExtra(RequestActivity.REQUEST_IMAGE_URL,item.getImage());
-                request.putExtra(RequestActivity.REQUEST_COLOR_STATUS,item.getColorForStatus());
                 request.putExtra(RequestActivity.REQUEST_STATUS,item.getStatus().getValue());
-                request.putExtra(RequestActivity.REQUEST_HOME_SERVICE_NAME,item.getName());
+                request.putExtra(RequestActivity.REQUEST_HOME_SERVICE_NAME, item.getName());
+                request.putExtra(RequestActivity.REQUEST_PROBLEM_DESCRIPTION,item.getDescription());
                 context.startActivity(request);
             }
         });

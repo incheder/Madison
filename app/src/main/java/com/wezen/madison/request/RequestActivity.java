@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +24,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.wezen.madison.R;
 import com.wezen.madison.model.HomeServiceRequestStatus;
+import com.wezen.madison.utils.Utils;
 
 public class RequestActivity extends AppCompatActivity {
 
@@ -33,6 +33,7 @@ public class RequestActivity extends AppCompatActivity {
     public static final String REQUEST_COLOR_STATUS = "colorStatus";
     public static final String REQUEST_STATUS = "status";
     public static final String REQUEST_HOME_SERVICE_NAME = "homeServiceName";
+    public static final String REQUEST_PROBLEM_DESCRIPTION = "problemDescription";
 
     private ImageView imageHeader;
     private CollapsingToolbarLayout collapsingToolbar;
@@ -52,15 +53,14 @@ public class RequestActivity extends AppCompatActivity {
         RelativeLayout attendedLayout = (RelativeLayout)findViewById(R.id.request_attended_by_layout);
         TextView yourServiceWillBe = (TextView)findViewById(R.id.request_your_service_will_be);
         TextView statusLabel = (TextView)findViewById(R.id.request_status_label);
+        TextView requestProblemDescription = (TextView)findViewById(R.id.request_problem_description);
+
         if(getIntent().getExtras()!= null){
             String imageUrl = getIntent().getStringExtra(REQUEST_IMAGE_URL);
             Picasso.with(this).load(imageUrl).into(target);
-            int color = getIntent().getIntExtra(REQUEST_COLOR_STATUS,-1);
-            if(color!= -1){
-                layoutStatus.setBackgroundColor(color);
-            }
             int status = getIntent().getIntExtra(REQUEST_STATUS,-1);
             statusLabel.setText(status == -1 ? "" : HomeServiceRequestStatus.valueOf(status).toString());
+            layoutStatus.setBackgroundColor(Utils.getColorByStatus(this,HomeServiceRequestStatus.valueOf(status)));
             if(status!= -1 && status == HomeServiceRequestStatus.CONFIRMADO.getValue()){
                 attendedLayout.setVisibility(View.VISIBLE);
                 yourServiceWillBe.setVisibility(View.VISIBLE);
@@ -71,6 +71,9 @@ public class RequestActivity extends AppCompatActivity {
             }
             String title = getIntent().getStringExtra(REQUEST_HOME_SERVICE_NAME);
             collapsingToolbar.setTitle(title);
+            String desc = getIntent().getStringExtra(REQUEST_PROBLEM_DESCRIPTION);
+            requestProblemDescription.setText(desc);
+
         }
     }
 
