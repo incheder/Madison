@@ -5,6 +5,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -28,6 +30,7 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
     private  List<HomeServiceRequest> requestList;
     private HistoryAdapter adapter;
     private ReviewDialogFragment dialog;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         AutofitRecyclerView rvHistory = (AutofitRecyclerView) findViewById(R.id.rvHistory);
+        progressBar = (ProgressBar)findViewById(R.id.progressBarHistory);
         rvHistory.setHasFixedSize(true);
         requestList = new ArrayList<>();
         adapter = new HistoryAdapter(requestList,this);
@@ -65,6 +69,7 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
+                progressBar.setVisibility(View.GONE);
                 if (e == null) {
                     requestList.clear();
                     for (ParseObject po : list) {
