@@ -30,13 +30,13 @@ public class RequestActivity extends AppCompatActivity {
 
     public static final String REQUEST_ID = "clientRequestId";
     public static final String REQUEST_IMAGE_URL = "imageUrl";
-    public static final String REQUEST_COLOR_STATUS = "colorStatus";
     public static final String REQUEST_STATUS = "status";
     public static final String REQUEST_HOME_SERVICE_NAME = "homeServiceName";
     public static final String REQUEST_PROBLEM_DESCRIPTION = "problemDescription";
 
     private ImageView imageHeader;
     private CollapsingToolbarLayout collapsingToolbar;
+    private String problemDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +71,8 @@ public class RequestActivity extends AppCompatActivity {
             }
             String title = getIntent().getStringExtra(REQUEST_HOME_SERVICE_NAME);
             collapsingToolbar.setTitle(title);
-            String desc = getIntent().getStringExtra(REQUEST_PROBLEM_DESCRIPTION);
-            requestProblemDescription.setText(desc);
+            problemDesc = getIntent().getStringExtra(REQUEST_PROBLEM_DESCRIPTION);
+            requestProblemDescription.setText(problemDesc);
 
         }
     }
