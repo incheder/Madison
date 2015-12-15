@@ -19,11 +19,11 @@ public class StatusRequestBroadcastReceiver extends com.parse.ParsePushBroadcast
         //super.onPushOpen(context, intent);
         JSONObject jObject= getDataFromIntent(intent);
         Intent incomingRequest = new Intent(context,RequestActivity.class);
-        try {
+        /*try {
             incomingRequest.putExtra(RequestActivity.REQUEST_ID,jObject.getString(PARSE_INCOMING_REQUEST));
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
         incomingRequest.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(incomingRequest);
     }

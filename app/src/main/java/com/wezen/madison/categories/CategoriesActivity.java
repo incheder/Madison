@@ -6,12 +6,10 @@ import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -19,12 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
-import com.parse.GetDataCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRole;
 import com.parse.ParseUser;
 
 import com.parse.SaveCallback;
@@ -43,6 +41,10 @@ import java.util.List;
 
 public class CategoriesActivity extends DialogActivity {
 
+    private static final int INSTALLATION_DATA_SAVED = 1;
+    private static final int INSTALLATION_DATA_NOT_SAVED = 0;
+    private static final int USER_ADDED_TO_ROLE = 1;
+    private static final int USER_NOT_ADDED_TO_ROLE = 0;
     private CategoriesAdapter adapter;
     private FrameLayout progressIndicator;
     private DrawerLayout drawerLayout;
@@ -50,6 +52,7 @@ public class CategoriesActivity extends DialogActivity {
     private String userName;
     private String userEmail;
     private String imageUrl;
+    private SharedPreferences sharedPref;
 
 
     @Override
@@ -93,7 +96,7 @@ public class CategoriesActivity extends DialogActivity {
         //calling sync state is necessay or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
 
-        saveInstallationData();
+        saveSharedPrefData();
 
         fillNavigationViewHeader();
 
@@ -108,7 +111,7 @@ public class CategoriesActivity extends DialogActivity {
             public void done(List<ParseObject> beverageMenuList, ParseException e) {
                 if (e == null) {
                     Log.d("beverageMenu", "Retrieved " + beverageMenuList.size() + " BeverageMenu");
-                    for(ParseObject po : beverageMenuList){
+                    for (ParseObject po : beverageMenuList) {
                         //  list.add(new BeverageMenu());
                         String name = po.getString("name");
                         String image = po.getParseFile("image").getUrl();
@@ -174,10 +177,10 @@ public class CategoriesActivity extends DialogActivity {
     }
 
 
-    private void saveInstallationData(){
-        final SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-        int isSaved = sharedPref.getInt(getString(R.string.installation_already_saved), 0);
-        if(isSaved == 0){
+    private void saveSharedPrefData(){
+        sharedPref = getPreferences(Context.MODE_PRIVATE);
+        int isSaved = sharedPref.getInt(getString(R.string.installation_already_saved), INSTALLATION_DATA_NOT_SAVED);
+        if(isSaved == INSTALLATION_DATA_NOT_SAVED){
             ParseInstallation installation = ParseInstallation.getCurrentInstallation();
             installation.put("user", ParseUser.getCurrentUser());
             installation.saveInBackground(new SaveCallback() {
@@ -185,15 +188,33 @@ public class CategoriesActivity extends DialogActivity {
                 public void done(ParseException e) {
                     if(e == null){
                         Log.d("SUCCESS", "installation saved");
-                        SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putInt(getString(R.string.installation_already_saved), 1);
-                        editor.apply();
+                        updateSharedPref(R.string.installation_already_saved,INSTALLATION_DATA_SAVED);
                     } else {
-                        Log.e("ERROR", "installation not saved: "+ e.getMessage());
+                        Log.e("ERROR", "installation not saved: " + e.getMessage());
+                        updateSharedPref(R.string.installation_already_saved, INSTALLATION_DATA_NOT_SAVED);
                     }
                 }
             });
         }
+
+        /*isSaved = sharedPref.getInt(getString(R.string.role_already_added),USER_NOT_ADDED_TO_ROLE);
+        if(isSaved == USER_NOT_ADDED_TO_ROLE){
+            ParseQuery<ParseRole> query = ParseRole.getQuery();
+            query.whereEqualTo("name","Client");
+            query.getFirstInBackground(new GetCallback<ParseRole>() {
+                @Override
+                public void done(ParseRole parseRole, ParseException e) {
+                    if (e == null) {
+                        addUserToRole(parseRole);
+                    } else {
+                        //ups
+                        Log.e("ERROR", "Ocurrio un prooblema al obtener el rol "+ e.getMessage());
+                    }
+                }
+            });
+        }*/
+
+
     }
 
 
@@ -212,6 +233,29 @@ public class CategoriesActivity extends DialogActivity {
 
         }
 
+    }
+
+    private void updateSharedPref(int key, int value){
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(getString(key), value);
+        editor.apply();
+    }
+
+    private void addUserToRole(ParseRole role){
+        role.getUsers().add(ParseUser.getCurrentUser());
+        role.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e==null){
+                    Log.d("SUCCESS", "user added to role");
+                    updateSharedPref(R.string.role_already_added,USER_ADDED_TO_ROLE);
+                } else {
+                    //ups
+                    Log.e("ERROR", "user not added to role" + e.getMessage());
+                    updateSharedPref(R.string.role_already_added, USER_NOT_ADDED_TO_ROLE);
+                }
+            }
+        });
     }
 
 }
