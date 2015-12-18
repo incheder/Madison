@@ -85,6 +85,7 @@ public class ServicesListActivity extends DialogActivity {
                         String description = po.getString("description");
                         int stars = po.getInt("stars");
                         int comments = po.getInt("comments");
+                        String serviceProvider = po.getString("serviceProvider");
 
                         HomeService homeService = new HomeService();
                         homeService.setName(name);
@@ -93,6 +94,7 @@ public class ServicesListActivity extends DialogActivity {
                         homeService.setUrlImage(imageUrl);
                         homeService.setStars(stars);
                         homeService.setComments(comments);
+                        homeService.setServiceProvider(serviceProvider);
 
                         homeServicesList.add(homeService);
 

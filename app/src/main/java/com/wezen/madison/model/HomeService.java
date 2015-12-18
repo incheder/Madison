@@ -11,6 +11,7 @@ public class HomeService {
     private String description;
     private  int stars;
     private int comments;
+    private String serviceProvider;
 
     public int getComments() {
         return comments;
@@ -60,5 +61,13 @@ public class HomeService {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getServiceProvider() {
+        return serviceProvider;
+    }
+
+    public void setServiceProvider(String serviceProvider) {
+        this.serviceProvider = serviceProvider;
     }
 }

@@ -33,6 +33,7 @@ public class SummaryActivity extends DialogActivity implements  OrderDialogFragm
     public static final String HOME_SERVICE_ID = "id";
     public static final String HOME_SERVICE_NAME = "name";
     public static final String HOME_SERVICE_DESCRIPTION = "description";
+    public static final String HOME_SERVICE_PROVIDER = "serviceProvider";
 
     private MapView mapView;
     private LatLng myLatLng;
@@ -41,6 +42,7 @@ public class SummaryActivity extends DialogActivity implements  OrderDialogFragm
     private String address;
     private String name;
     private String description;
+    private String serviceProvider;
 
 
     @Override
@@ -68,6 +70,7 @@ public class SummaryActivity extends DialogActivity implements  OrderDialogFragm
            address = getIntent().getStringExtra(ADDRESS);
            name = getIntent().getStringExtra(HOME_SERVICE_NAME);
            description = getIntent().getStringExtra(HOME_SERVICE_DESCRIPTION);
+           serviceProvider = getIntent().getStringExtra(HOME_SERVICE_PROVIDER);
 
         }
         userAddress.setText(address);
@@ -135,6 +138,7 @@ public class SummaryActivity extends DialogActivity implements  OrderDialogFragm
         orderSent.putExtra(OrderSentActivity.ID,id);
         orderSent.putExtra(OrderSentActivity.PROBLEM,editTextPtoblem.getText().toString());
         orderSent.putExtra(OrderSentActivity.ADDRESS,address);
+        orderSent.putExtra(OrderSentActivity.SERVICE_PROVIDER,serviceProvider);
 
         startActivity(orderSent);
     }

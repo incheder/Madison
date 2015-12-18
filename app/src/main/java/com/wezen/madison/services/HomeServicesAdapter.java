@@ -56,7 +56,8 @@ public class HomeServicesAdapter extends RecyclerView.Adapter<HomeServicesAdapte
                 serviceDetail.putExtra(ServiceDetailActivity.PARAM_DESCRIPTION,homeService.getDescription());
                 serviceDetail.putExtra(ServiceDetailActivity.PARAM_NAME,homeService.getName());
                 //serviceDetail.putExtra(ServiceDetailActivity.PARAM_STARS,homeService.getStars());
-                serviceDetail.putExtra(ServiceDetailActivity.PARAM_URL_IMAGE,homeService.getUrlImage());;
+                serviceDetail.putExtra(ServiceDetailActivity.PARAM_URL_IMAGE,homeService.getUrlImage());
+                serviceDetail.putExtra(ServiceDetailActivity.PARAM_SERVICE_PROVIDER,homeService.getServiceProvider());
                 context.startActivity(serviceDetail);
             }
         });

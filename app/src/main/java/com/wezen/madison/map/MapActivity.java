@@ -43,6 +43,7 @@ public class MapActivity extends DialogActivity {
     public static final String HOME_SERVICE_ID = "id";
     public static final String HOME_SERVICE_NAME = "name";
     public static final String HOME_SERVICE_DESCRIPTION = "description";
+    public static final String HOME_SERVICE_PROVIDER = "serviceProvider";
 
     private EditText userAddressEditText;
     private boolean firstTime = true;
@@ -52,6 +53,7 @@ public class MapActivity extends DialogActivity {
     private String id;
     private String name;
     private String description;
+    private String serviceProvider;
 
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -74,6 +76,7 @@ public class MapActivity extends DialogActivity {
         id = getIntent().getExtras().getString(HOME_SERVICE_ID);
         name = getIntent().getExtras().getString(HOME_SERVICE_NAME);
         description = getIntent().getExtras().getString(HOME_SERVICE_DESCRIPTION);
+        serviceProvider = getIntent().getExtras().getString(HOME_SERVICE_PROVIDER);
 
         setUpMapIfNeeded();
         geoCoderResponseReceiver = new GeoCoderResponseReceiver();
@@ -230,6 +233,7 @@ public class MapActivity extends DialogActivity {
                 summary.putExtra(SummaryActivity.HOME_SERVICE_ID, id);
                 summary.putExtra(SummaryActivity.HOME_SERVICE_NAME, name);
                 summary.putExtra(SummaryActivity.HOME_SERVICE_DESCRIPTION, description);
+                summary.putExtra(SummaryActivity.HOME_SERVICE_PROVIDER, serviceProvider);
                 String userAddress = null;
                 if (userAddressEditText.getVisibility() == View.VISIBLE) {
                     userAddress = userAddressEditText.getText().toString();

@@ -31,6 +31,7 @@ public class OrderSentActivity extends DialogActivity {
     public  static final String ID = "id";
     public  static final String PROBLEM = "problem";
     public  static final String ADDRESS = "address";
+    public  static final String SERVICE_PROVIDER = "serviceProvider";
 
     private ProgressBar progressBar;
     private LinearLayout orderSent;
@@ -38,6 +39,7 @@ public class OrderSentActivity extends DialogActivity {
     private String id;
     private String problem;
     private String address;
+    private String serviceProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class OrderSentActivity extends DialogActivity {
             id =  getIntent().getStringExtra(ID);
             problem =  getIntent().getStringExtra(PROBLEM);
             address =  getIntent().getStringExtra(ADDRESS);
+            serviceProvider =  getIntent().getStringExtra(SERVICE_PROVIDER);
         }
         Timer timer = new Timer();
        // timer.schedule(task, 3000);
@@ -96,8 +99,9 @@ public class OrderSentActivity extends DialogActivity {
 
     private void sendRequest(){
 
-        ParseGeoPoint geoPoint = new ParseGeoPoint(myLatLng.latitude,myLatLng.longitude);
+
         ParseObject homeServices = ParseObject.createWithoutData("HomeServices",id);
+        ParseGeoPoint geoPoint = new ParseGeoPoint(myLatLng.latitude,myLatLng.longitude);
         final ParseObject po = new ParseObject("HomeServiceRequest");
         po.put("userLocation",geoPoint);
         po.put("homeService",homeServices);
@@ -106,6 +110,7 @@ public class OrderSentActivity extends DialogActivity {
         po.put("status",0);
         po.put("wasRated",false);
         po.put("address",address);
+        po.put("serviceProvider",serviceProvider);
         po.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

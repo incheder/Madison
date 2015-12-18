@@ -41,6 +41,7 @@ public class ServiceDetailActivity extends DialogActivity {
     public static final String PARAM_NAME = "NAME";
     public static final String PARAM_STARS = "STARS";
     public static final String PARAM_URL_IMAGE = "URL_IMAGE";
+    public static final String PARAM_SERVICE_PROVIDER = "SERVICE_PROVIDER";
 
     private CollapsingToolbarLayout collapsingToolbar;
     private Context context;
@@ -50,6 +51,7 @@ public class ServiceDetailActivity extends DialogActivity {
     private String name;
     private String description;
     private ImageView header;
+    private String serviceProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +74,12 @@ public class ServiceDetailActivity extends DialogActivity {
         name = getIntent().getExtras().getString(PARAM_NAME);
        // int stars = getIntent().getExtras().getInt(PARAM_STARS);
         String urlImage = getIntent().getExtras().getString(PARAM_URL_IMAGE);
+        serviceProvider = getIntent().getExtras().getString(PARAM_SERVICE_PROVIDER);
 
         Picasso.with(context).load(urlImage).into(target);
         collapsingToolbar.setTitle(name);
+
+
 
         /*RecyclerView recyclerView = (RecyclerView) findViewById(R.id.scrollableview);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
@@ -97,6 +102,7 @@ public class ServiceDetailActivity extends DialogActivity {
                 mapIntent.putExtra(MapActivity.HOME_SERVICE_ID,id);
                 mapIntent.putExtra(MapActivity.HOME_SERVICE_NAME,name);
                 mapIntent.putExtra(MapActivity.HOME_SERVICE_DESCRIPTION,description);
+                mapIntent.putExtra(MapActivity.HOME_SERVICE_PROVIDER,serviceProvider);
                 startActivity(mapIntent);
             }
         });
