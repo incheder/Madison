@@ -18,7 +18,6 @@ import com.wezen.madison.R;
 import com.wezen.madison.model.HomeServiceRequest;
 import com.wezen.madison.model.HomeServiceRequestStatus;
 import com.wezen.madison.request.RequestActivity;
-import com.wezen.madison.services.ServicesListActivity;
 import com.wezen.madison.utils.Utils;
 
 import java.util.List;
@@ -77,7 +76,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         holder.rating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((HistoryActivity) context).showBottomSheet(position);
+                ((HistoryActivity) context).showRatingDialog(position);
             }
         });
 

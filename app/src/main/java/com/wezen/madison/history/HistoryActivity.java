@@ -132,7 +132,7 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
         return super.onOptionsItemSelected(item);
     }
 
-    public void showBottomSheet(int position){
+    public void showRatingDialog(int position){
         //bottomSheetLayout.showWithSheetView(LayoutInflater.from(this).inflate(R.layout.bottom_sheet_rating, bottomSheetLayout, false));
         //bottomSheetLayout.expandSheet();
         dialog = ReviewDialogFragment.newInstance(position);
