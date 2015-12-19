@@ -85,7 +85,7 @@ public class ServicesListActivity extends DialogActivity {
                         String description = po.getString("description");
                         int stars = po.getInt("stars");
                         int comments = po.getInt("comments");
-                        String serviceProvider = po.getString("serviceProvider");
+                        String serviceProvider = po.getParseObject("serviceProvider").getObjectId();
 
                         HomeService homeService = new HomeService();
                         homeService.setName(name);

@@ -159,6 +159,7 @@ public class CategoriesActivity extends DialogActivity {
                 toLaunch = new Intent(CategoriesActivity.this, HelpActivity.class);
             } else if (id == R.id.menu_sign_out){
                 ParseUser.logOut();
+                updateSharedPref(R.string.installation_already_saved,INSTALLATION_DATA_NOT_SAVED);
                 goToLogin();
             }
             if(toLaunch != null){
