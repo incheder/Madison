@@ -40,6 +40,7 @@ public class OrderSentActivity extends DialogActivity {
     private String problem;
     private String address;
     private String serviceProvider;
+    private boolean orderWasSent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,9 @@ public class OrderSentActivity extends DialogActivity {
         }
         Timer timer = new Timer();
        // timer.schedule(task, 3000);
-        sendRequest();
+        if(savedInstanceState== null){
+            sendRequest();
+        }
 
     }
 
@@ -88,6 +91,7 @@ public class OrderSentActivity extends DialogActivity {
         Intent home = new Intent(this, CategoriesActivity.class);
         home.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(home);
+        finish();
     }
 
     private View.OnClickListener goBackClickListener = new View.OnClickListener() {
@@ -117,7 +121,7 @@ public class OrderSentActivity extends DialogActivity {
                 progressBar.setVisibility(View.GONE);
                 orderSent.setVisibility(View.VISIBLE);
                 if(e==null){
-
+                    orderWasSent = true;
                 } else {
                     TextView textViewOrderSent = (TextView)orderSent.findViewById(R.id.textview_order_sent);
                     if(textViewOrderSent!= null){
@@ -128,5 +132,13 @@ public class OrderSentActivity extends DialogActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(orderWasSent){
+            goHome();
+        }
     }
 }

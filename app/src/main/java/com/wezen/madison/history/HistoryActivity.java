@@ -65,6 +65,7 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
             query.whereEqualTo("status",status.getValue());
         }
         query.include("homeService");
+        query.include("attendedBy");
         query.orderByDescending("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -82,10 +83,13 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
                         //request.setHomeServiceRequestID((po.getParseObject("homeService").getObjectId()));
                         request.setHomeServiceRequestID(po.getObjectId());
                         request.setDate(po.getCreatedAt().toString());
-                        request.setImage(po.getParseObject("homeService").getParseFile("image").getUrl());
+                        if(po.getParseObject("homeService").getParseFile("image")!= null){
+                            request.setImage(po.getParseObject("homeService").getParseFile("image").getUrl());
+                        }
                         request.setWasRated(po.getBoolean("wasRated"));
                         request.setReview(po.getInt("rating"));
                         request.setId(po.getObjectId());
+                        request.setAttendedBy(po.getParseUser("attendedBy").getUsername());
                         requestList.add(request);
                     }
 

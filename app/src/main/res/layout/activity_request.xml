@@ -74,7 +74,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/request_service_provider_name"
-                                android:text="fulanito de tal"
                                 android:layout_toRightOf="@+id/request_service_provider_avatar"
                                 android:layout_toEndOf="@+id/request_service_provider_avatar"
                                 android:textAppearance="?android:attr/textAppearanceMediumInverse"
@@ -161,7 +160,7 @@
                     android:id="@+id/headerRequest"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/doctor_solucion"
+
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax" />

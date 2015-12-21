@@ -33,6 +33,7 @@ public class RequestActivity extends AppCompatActivity {
     public static final String REQUEST_STATUS = "status";
     public static final String REQUEST_HOME_SERVICE_NAME = "homeServiceName";
     public static final String REQUEST_PROBLEM_DESCRIPTION = "problemDescription";
+    public static final String REQUEST_ATTENDED_BY = "attendedBy";
 
     private ImageView imageHeader;
     private CollapsingToolbarLayout collapsingToolbar;
@@ -54,6 +55,7 @@ public class RequestActivity extends AppCompatActivity {
         TextView yourServiceWillBe = (TextView)findViewById(R.id.request_your_service_will_be);
         TextView statusLabel = (TextView)findViewById(R.id.request_status_label);
         TextView requestProblemDescription = (TextView)findViewById(R.id.request_problem_description);
+        TextView attendedBy = (TextView)findViewById(R.id.request_service_provider_name);
 
         if(getIntent().getExtras()!= null){
             String imageUrl = getIntent().getStringExtra(REQUEST_IMAGE_URL);
@@ -73,6 +75,7 @@ public class RequestActivity extends AppCompatActivity {
             collapsingToolbar.setTitle(title);
             problemDesc = getIntent().getStringExtra(REQUEST_PROBLEM_DESCRIPTION);
             requestProblemDescription.setText(problemDesc);
+            attendedBy.setText(getIntent().getStringExtra(REQUEST_ATTENDED_BY));
 
         }
     }
