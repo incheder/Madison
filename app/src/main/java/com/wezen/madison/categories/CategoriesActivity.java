@@ -160,6 +160,7 @@ public class CategoriesActivity extends DialogActivity {
             } else if (id == R.id.menu_sign_out){
                 ParseUser.logOut();
                 updateSharedPref(R.string.installation_already_saved,INSTALLATION_DATA_NOT_SAVED);
+                ParseInstallation.getCurrentInstallation().deleteInBackground();
                 goToLogin();
             }
             if(toLaunch != null){
