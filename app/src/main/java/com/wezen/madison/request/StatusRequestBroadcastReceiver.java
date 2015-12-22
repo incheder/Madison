@@ -19,6 +19,7 @@ public class StatusRequestBroadcastReceiver extends com.parse.ParsePushBroadcast
     private String IMAGE_URL = "imageUrl";
     private String PROBLEM_DESCRIPTION = "problemDescription";
     private String ATTENDED_BY = "attendedBy";
+    private String ATTENDED_BY_AVATAR = "attendedByAvatar";
 
     @Override
     protected void onPushOpen(Context context, Intent intent) {
@@ -32,6 +33,7 @@ public class StatusRequestBroadcastReceiver extends com.parse.ParsePushBroadcast
             incomingRequest.putExtra(RequestActivity.REQUEST_HOME_SERVICE_NAME, jObject.getString(REQUEST_HOME_SERVICE_NAME));
             incomingRequest.putExtra(RequestActivity.REQUEST_PROBLEM_DESCRIPTION, jObject.getString(PROBLEM_DESCRIPTION));
             incomingRequest.putExtra(RequestActivity.REQUEST_ATTENDED_BY, jObject.getString(ATTENDED_BY));
+            //incomingRequest.putExtra(RequestActivity.REQUEST_ATTENDED_BY_AVATAR, jObject.getString(ATTENDED_BY_AVATAR));
             incomingRequest.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(incomingRequest);
         } catch (JSONException e) {

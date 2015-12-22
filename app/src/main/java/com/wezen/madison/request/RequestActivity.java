@@ -28,12 +28,13 @@ import com.wezen.madison.utils.Utils;
 
 public class RequestActivity extends AppCompatActivity {
 
-    public static final String REQUEST_ID = "clientRequestId";
+    //public static final String REQUEST_ID = "clientRequestId";
     public static final String REQUEST_IMAGE_URL = "imageUrl";
     public static final String REQUEST_STATUS = "status";
     public static final String REQUEST_HOME_SERVICE_NAME = "homeServiceName";
     public static final String REQUEST_PROBLEM_DESCRIPTION = "problemDescription";
     public static final String REQUEST_ATTENDED_BY = "attendedBy";
+    public static final String REQUEST_ATTENDED_BY_AVATAR = "attendedByAvatar";
 
     private ImageView imageHeader;
     private CollapsingToolbarLayout collapsingToolbar;
@@ -56,6 +57,7 @@ public class RequestActivity extends AppCompatActivity {
         TextView statusLabel = (TextView)findViewById(R.id.request_status_label);
         TextView requestProblemDescription = (TextView)findViewById(R.id.request_problem_description);
         TextView attendedBy = (TextView)findViewById(R.id.request_service_provider_name);
+        ImageView attendedByImageView = (ImageView)findViewById(R.id.request_service_provider_avatar);
 
         if(getIntent().getExtras()!= null){
             String imageUrl = getIntent().getStringExtra(REQUEST_IMAGE_URL);
@@ -76,6 +78,10 @@ public class RequestActivity extends AppCompatActivity {
             problemDesc = getIntent().getStringExtra(REQUEST_PROBLEM_DESCRIPTION);
             requestProblemDescription.setText(problemDesc);
             attendedBy.setText(getIntent().getStringExtra(REQUEST_ATTENDED_BY));
+            String attendedByAvatarUrl = getIntent().getStringExtra(REQUEST_ATTENDED_BY_AVATAR);
+            if(attendedByAvatarUrl!= null){
+                Picasso.with(this).load(attendedByAvatarUrl).into(attendedByImageView);
+            }
 
         }
     }

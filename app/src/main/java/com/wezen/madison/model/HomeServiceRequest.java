@@ -18,6 +18,7 @@ public class HomeServiceRequest {
     private Boolean wasRated;
     private Integer colorForStatus;
     private String attendedBy;
+    private String attendedByAvatar;
 
     public String getImage() {
         return image;
@@ -113,5 +114,13 @@ public class HomeServiceRequest {
 
     public void setAttendedBy(String attendedBy) {
         this.attendedBy = attendedBy;
+    }
+
+    public String getAttendedByAvatar() {
+        return attendedByAvatar;
+    }
+
+    public void setAttendedByAvatar(String attendedByAvatar) {
+        this.attendedByAvatar = attendedByAvatar;
     }
 }

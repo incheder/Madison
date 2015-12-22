@@ -89,7 +89,12 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
                         request.setWasRated(po.getBoolean("wasRated"));
                         request.setReview(po.getInt("rating"));
                         request.setId(po.getObjectId());
-                        request.setAttendedBy(po.getParseUser("attendedBy").getUsername());
+                        if(po.getParseUser("attendedBy")!= null){
+                            request.setAttendedBy(po.getParseUser("attendedBy").getUsername());
+                            if(po.getParseUser("attendedBy").getParseFile("userImage")!= null){
+                                request.setAttendedByAvatar(po.getParseUser("attendedBy").getParseFile("userImage").getUrl());
+                            }
+                        }
                         requestList.add(request);
                     }
 

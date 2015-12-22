@@ -63,6 +63,8 @@ public class OrderSentActivity extends DialogActivity {
        // timer.schedule(task, 3000);
         if(savedInstanceState== null){
             sendRequest();
+        } else {
+            goHome();
         }
 
     }
