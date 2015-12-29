@@ -91,6 +91,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
                 request.putExtra(RequestActivity.REQUEST_PROBLEM_DESCRIPTION,item.getDescription());
                 request.putExtra(RequestActivity.REQUEST_ATTENDED_BY,item.getAttendedBy() == null ? "": item.getAttendedBy());
                 request.putExtra(RequestActivity.REQUEST_ATTENDED_BY_AVATAR,item.getAttendedByAvatar());
+                request.putExtra(RequestActivity.REQUEST_DATE_FOR_SERVICE,item.getDateForService().toString());
                 context.startActivity(request);
             }
         });

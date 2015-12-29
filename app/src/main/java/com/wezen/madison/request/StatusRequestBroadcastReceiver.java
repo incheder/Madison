@@ -14,9 +14,7 @@ import org.json.JSONObject;
  */
 public class StatusRequestBroadcastReceiver extends com.parse.ParsePushBroadcastReceiver {
 
-    private static final String PARSE_INCOMING_REQUEST = "homeServiceRequest";
-    private static final String REQUEST_HOME_SERVICE_NAME = "homeServiceName";
-
+    //private static final String PARSE_INCOMING_REQUEST = "homeServiceRequest";
 
     @Override
     protected void onPushOpen(Context context, Intent intent) {
@@ -25,6 +23,8 @@ public class StatusRequestBroadcastReceiver extends com.parse.ParsePushBroadcast
         String PROBLEM_DESCRIPTION = "problemDescription";
         String ATTENDED_BY = "attendedBy";
         String ATTENDED_BY_AVATAR = "attendedByAvatar";
+        String DATE = "date";
+        String REQUEST_HOME_SERVICE_NAME = "homeServiceName";
 
         JSONObject jObject= getDataFromIntent(intent);
         Intent incomingRequest = new Intent(context,RequestActivity.class);
@@ -36,6 +36,7 @@ public class StatusRequestBroadcastReceiver extends com.parse.ParsePushBroadcast
             incomingRequest.putExtra(RequestActivity.REQUEST_PROBLEM_DESCRIPTION, jObject.getString(PROBLEM_DESCRIPTION));
             incomingRequest.putExtra(RequestActivity.REQUEST_ATTENDED_BY, jObject.getString(ATTENDED_BY));
             incomingRequest.putExtra(RequestActivity.REQUEST_ATTENDED_BY_AVATAR, jObject.getString(ATTENDED_BY_AVATAR));
+            incomingRequest.putExtra(RequestActivity.REQUEST_DATE_FOR_SERVICE, jObject.getString(DATE));
             incomingRequest.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(incomingRequest);
         } catch (JSONException e) {

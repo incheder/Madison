@@ -95,6 +95,7 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
                                 request.setAttendedByAvatar(po.getParseUser("attendedBy").getParseFile("userImage").getUrl());
                             }
                         }
+                        request.setDateForService(po.getDate("dateForService"));
                         requestList.add(request);
                     }
 

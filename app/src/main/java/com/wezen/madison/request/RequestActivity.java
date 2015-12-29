@@ -11,8 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -35,6 +33,7 @@ public class RequestActivity extends AppCompatActivity {
     public static final String REQUEST_PROBLEM_DESCRIPTION = "problemDescription";
     public static final String REQUEST_ATTENDED_BY = "attendedBy";
     public static final String REQUEST_ATTENDED_BY_AVATAR = "attendedByAvatar";
+    public static final String REQUEST_DATE_FOR_SERVICE = "dateForService";
 
     private ImageView imageHeader;
     private CollapsingToolbarLayout collapsingToolbar;
@@ -58,6 +57,7 @@ public class RequestActivity extends AppCompatActivity {
         TextView requestProblemDescription = (TextView)findViewById(R.id.request_problem_description);
         TextView attendedBy = (TextView)findViewById(R.id.request_service_provider_name);
         ImageView attendedByImageView = (ImageView)findViewById(R.id.request_service_provider_avatar);
+        TextView requestDate = (TextView)findViewById(R.id.request_date);
 
         if(getIntent().getExtras()!= null){
             String imageUrl = getIntent().getStringExtra(REQUEST_IMAGE_URL);
@@ -82,7 +82,7 @@ public class RequestActivity extends AppCompatActivity {
             if(attendedByAvatarUrl!= null){
                 Picasso.with(this).load(attendedByAvatarUrl).into(attendedByImageView);
             }
-
+            requestDate.setText(getIntent().getStringExtra(REQUEST_DATE_FOR_SERVICE));
         }
     }
 

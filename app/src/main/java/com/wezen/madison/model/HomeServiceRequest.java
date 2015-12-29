@@ -2,6 +2,8 @@ package com.wezen.madison.model;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.Date;
+
 /**
  * Created by eder on 15/09/2015.
  */
@@ -19,6 +21,7 @@ public class HomeServiceRequest {
     private Integer colorForStatus;
     private String attendedBy;
     private String attendedByAvatar;
+    private Date dateForService;
 
     public String getImage() {
         return image;
@@ -122,5 +125,13 @@ public class HomeServiceRequest {
 
     public void setAttendedByAvatar(String attendedByAvatar) {
         this.attendedByAvatar = attendedByAvatar;
+    }
+
+    public Date getDateForService() {
+        return dateForService;
+    }
+
+    public void setDateForService(Date dateForService) {
+        this.dateForService = dateForService;
     }
 }
