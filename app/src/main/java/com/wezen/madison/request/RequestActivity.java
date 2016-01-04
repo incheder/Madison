@@ -13,18 +13,28 @@ import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.wezen.madison.R;
+import com.wezen.madison.history.HistoryActivity;
+import com.wezen.madison.history.ReviewDialogFragment;
 import com.wezen.madison.model.HomeServiceRequestStatus;
+import com.wezen.madison.utils.DialogActivity;
 import com.wezen.madison.utils.Utils;
 
-public class RequestActivity extends AppCompatActivity {
+public class RequestActivity extends DialogActivity implements ReviewDialogFragment.OnClickReviewDialog {
 
     //public static final String REQUEST_ID = "clientRequestId";
     public static final String REQUEST_IMAGE_URL = "imageUrl";
@@ -34,10 +44,17 @@ public class RequestActivity extends AppCompatActivity {
     public static final String REQUEST_ATTENDED_BY = "attendedBy";
     public static final String REQUEST_ATTENDED_BY_AVATAR = "attendedByAvatar";
     public static final String REQUEST_DATE_FOR_SERVICE = "dateForService";
+    public static final String REQUEST_SHOW_RATING_BUTTON = "showRatingButton";
+    public static final String REQUEST_ID = "homeServiceRequestId";
+    public static final String REQUEST_NUM_STARS = "homeServiceRequestNumStars";
 
     private ImageView imageHeader;
     private CollapsingToolbarLayout collapsingToolbar;
     private String problemDesc;
+    private ReviewDialogFragment dialog;
+    private String requestId;
+    private Button buttonRating;
+    private RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +75,8 @@ public class RequestActivity extends AppCompatActivity {
         TextView attendedBy = (TextView)findViewById(R.id.request_service_provider_name);
         ImageView attendedByImageView = (ImageView)findViewById(R.id.request_service_provider_avatar);
         TextView requestDate = (TextView)findViewById(R.id.request_date);
+        buttonRating = (Button)findViewById(R.id.buttonRatingRequest);
+        ratingBar = (RatingBar)findViewById(R.id.ratingBarRequest);
 
         if(getIntent().getExtras()!= null){
             String imageUrl = getIntent().getStringExtra(REQUEST_IMAGE_URL);
@@ -65,7 +84,7 @@ public class RequestActivity extends AppCompatActivity {
             int status = getIntent().getIntExtra(REQUEST_STATUS,-1);
             statusLabel.setText(status == -1 ? "" : HomeServiceRequestStatus.valueOf(status).toString());
             layoutStatus.setBackgroundColor(Utils.getColorByStatus(this,HomeServiceRequestStatus.valueOf(status)));
-            if(status!= -1 && status == HomeServiceRequestStatus.CONFIRMADO.getValue()){
+            if(status!= -1 && (status == HomeServiceRequestStatus.CONFIRMADO.getValue() || status == HomeServiceRequestStatus.COMPLETO.getValue() )){
                 attendedLayout.setVisibility(View.VISIBLE);
                 yourServiceWillBe.setVisibility(View.VISIBLE);
             } else {
@@ -83,6 +102,27 @@ public class RequestActivity extends AppCompatActivity {
                 Picasso.with(this).load(attendedByAvatarUrl).into(attendedByImageView);
             }
             requestDate.setText(getIntent().getStringExtra(REQUEST_DATE_FOR_SERVICE));
+
+            if(getIntent().getBooleanExtra(REQUEST_SHOW_RATING_BUTTON,false)){
+                buttonRating.setVisibility(View.VISIBLE);
+                buttonRating.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showRatingDialog();
+                    }
+                });
+            } else {
+                buttonRating.setVisibility(View.GONE);
+
+            }
+            int numStars = getIntent().getIntExtra(REQUEST_NUM_STARS,0);
+            if(numStars > 0){
+                ratingBar.setVisibility(View.VISIBLE);
+                ratingBar.setRating(numStars);
+            }else {
+                ratingBar.setVisibility(View.GONE);
+            }
+            requestId = getIntent().getStringExtra(REQUEST_ID);
         }
     }
 
@@ -125,4 +165,49 @@ public class RequestActivity extends AppCompatActivity {
         }
 
     };
+
+    public void showRatingDialog(){
+
+        dialog = ReviewDialogFragment.newInstance();
+        dialog.show(getSupportFragmentManager(), null);
+    }
+
+    @Override
+    public void onButtonClicked(final int numStars, String comment) {
+        dialog.dismiss();
+        ParseObject review = new ParseObject("Review");
+        review.put("numStars", numStars);
+        review.put("comment",comment);
+        review.put("fromUser", ParseUser.getCurrentUser());
+        String id = requestId; //requestList.get(position).getHomeServiceRequestID();
+        ParseObject homeServiceID = ParseObject.createWithoutData("HomeServiceRequest",id);
+        review.put("homeServiceRequest", homeServiceID);
+
+        review.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+
+                //requestList.get(position).setWasRated(true);
+                //adapter.notifyDataSetChanged();
+
+                if (e == null) {
+                    buttonRating.setVisibility(View.GONE);
+                    ratingBar.setVisibility(View.VISIBLE);
+                    ratingBar.setRating(numStars);
+                    Toast.makeText(RequestActivity.this, getResources().getString(R.string.review_saved), Toast.LENGTH_SHORT).show();
+                    //TODO actualizar el campo wasRated en la clase de los request, quitamos el boton y mostramos el rating bar con la calificaion recien mandada
+
+
+                } else { //ups
+                    Toast.makeText(RequestActivity.this, getResources().getString(R.string.review_not_saved), Toast.LENGTH_SHORT).show();
+                    //requestList.get(position).setWasRated(false);
+                    //adapter.notifyDataSetChanged();
+
+                }
+            }
+        });
+
+
+    }
+
 }

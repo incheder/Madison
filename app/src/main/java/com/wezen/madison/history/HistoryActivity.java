@@ -25,7 +25,7 @@ import com.wezen.madison.utils.DialogActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryActivity extends DialogActivity implements ReviewDialogFragment.OnClickReviewDialog {
+public class HistoryActivity extends DialogActivity {
 
     private  List<HomeServiceRequest> requestList;
     private HistoryAdapter adapter;
@@ -142,14 +142,8 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
         return super.onOptionsItemSelected(item);
     }
 
-    public void showRatingDialog(int position){
-        //bottomSheetLayout.showWithSheetView(LayoutInflater.from(this).inflate(R.layout.bottom_sheet_rating, bottomSheetLayout, false));
-        //bottomSheetLayout.expandSheet();
-        dialog = ReviewDialogFragment.newInstance(position);
-        dialog.show(getSupportFragmentManager(), null);
-    }
 
-    @Override
+    /*@Override
     public void onButtonClicked(int numStars, String comment, final int position) {
         dialog.dismiss();
         ParseObject review = new ParseObject("Review");
@@ -182,5 +176,5 @@ public class HistoryActivity extends DialogActivity implements ReviewDialogFragm
         });
 
 
-    }
+    }*/
 }

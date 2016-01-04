@@ -63,7 +63,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
             setColorByStatus(holder.status, item.getStatus(), position);
             holder.status.setBackgroundColor(Utils.getColorByStatus(context,item.getStatus()));
         }
-        if(item.getWasRated()){
+        /*if(item.getWasRated()){
             holder.rating.setVisibility(View.GONE);
             holder.review.setVisibility(View.VISIBLE);
         }
@@ -78,7 +78,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
             public void onClick(View v) {
                 ((HistoryActivity) context).showRatingDialog(position);
             }
-        });
+        });*/
 
         holder.content.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +92,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
                 request.putExtra(RequestActivity.REQUEST_ATTENDED_BY,item.getAttendedBy() == null ? "": item.getAttendedBy());
                 request.putExtra(RequestActivity.REQUEST_ATTENDED_BY_AVATAR,item.getAttendedByAvatar());
                 request.putExtra(RequestActivity.REQUEST_DATE_FOR_SERVICE,item.getDateForService().toString());
+                if(item.getWasRated()){
+                    request.putExtra(RequestActivity.REQUEST_NUM_STARS,item.getReview());
+                }
+                if(!item.getWasRated() && item.getStatus() == HomeServiceRequestStatus.COMPLETO){
+                    request.putExtra(RequestActivity.REQUEST_SHOW_RATING_BUTTON,true);
+                }
+                request.putExtra(RequestActivity.REQUEST_ID,item.getHomeServiceRequestID());
+
+
                 context.startActivity(request);
             }
         });
@@ -110,7 +119,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         public TextView description;
         public RatingBar review;
         public ImageView image;
-        public Button rating;
+        //public Button rating;
         public TextView status;
         public CardView content;
 
@@ -123,7 +132,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
             status = (TextView)itemView.findViewById(R.id.history_item_status);
             date = (TextView)itemView.findViewById(R.id.history_item_date);
             review = (RatingBar)itemView.findViewById(R.id.historyItemRating);
-            rating = (Button)itemView.findViewById(R.id.buttonHistoryItem);
+            //rating = (Button)itemView.findViewById(R.id.buttonHistoryItem);
             content = (CardView)itemView.findViewById(R.id.historyItemContent);
         }
     }

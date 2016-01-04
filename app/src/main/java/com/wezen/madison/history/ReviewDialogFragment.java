@@ -25,17 +25,17 @@ public class ReviewDialogFragment extends DialogFragment {
 
     private static final String ARG_HOME_SERVICE_POSITION = "home_service_position";
     private OnClickReviewDialog mListener;
-    private int position;
+    //private int position;
 
     public interface OnClickReviewDialog {
-        void onButtonClicked(int numStars, String comment, int position);
+        void onButtonClicked(int numStars, String comment);
     }
 
-    public static ReviewDialogFragment newInstance(int position) {
+    public static ReviewDialogFragment newInstance() {
         ReviewDialogFragment fragment = new ReviewDialogFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_HOME_SERVICE_POSITION, position);
-        fragment.setArguments(args);
+        //Bundle args = new Bundle();
+        //args.putInt(ARG_HOME_SERVICE_POSITION, position);
+        //fragment.setArguments(args);
         return fragment;
     }
 
@@ -44,7 +44,7 @@ public class ReviewDialogFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            position = getArguments().getInt(ARG_HOME_SERVICE_POSITION);
+            //position = getArguments().getInt(ARG_HOME_SERVICE_POSITION);
 
         }
     }
@@ -87,7 +87,7 @@ public class ReviewDialogFragment extends DialogFragment {
 
                 } else {
                     String comment = TextUtils.isEmpty(editText.getText().toString()) ? "" : editText.getText().toString();
-                    mListener.onButtonClicked(stars, comment, position);
+                    mListener.onButtonClicked(stars, comment);
                 }
             }
         });
