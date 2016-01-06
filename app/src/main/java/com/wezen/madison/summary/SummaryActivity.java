@@ -92,6 +92,8 @@ public class SummaryActivity extends DialogActivity implements  OrderDialogFragm
         map.addMarker(new MarkerOptions().position(myLatLng));
         map.getUiSettings().setAllGesturesEnabled(false);
 
+        setColors(this,toolbar,fab);
+
     }
 
 

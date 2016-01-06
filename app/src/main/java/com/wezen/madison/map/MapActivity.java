@@ -11,6 +11,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -78,10 +79,15 @@ public class MapActivity extends DialogActivity {
         description = getIntent().getExtras().getString(HOME_SERVICE_DESCRIPTION);
         serviceProvider = getIntent().getExtras().getString(HOME_SERVICE_PROVIDER);
 
+        Toolbar bottomToolbar = (Toolbar)findViewById(R.id.mapToolbarBottom);
+
         setUpMapIfNeeded();
         geoCoderResponseReceiver = new GeoCoderResponseReceiver();
         IntentFilter mStatusIntentFilter = new IntentFilter(GeoCoderIntentService.BROADCAST_SEND_ADDRESS);
-        LocalBroadcastManager.getInstance(this).registerReceiver(geoCoderResponseReceiver,mStatusIntentFilter);
+        LocalBroadcastManager.getInstance(this).registerReceiver(geoCoderResponseReceiver, mStatusIntentFilter);
+
+        setColors(this,toolbar,fab,bottomToolbar);
+
     }
 
     @Override
@@ -278,4 +284,6 @@ public class MapActivity extends DialogActivity {
 
         }
     }
+
+
 }

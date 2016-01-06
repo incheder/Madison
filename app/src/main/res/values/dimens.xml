@@ -41,5 +41,6 @@
     <dimen name="elements_margin_history_item">10dp</dimen>
     <dimen name="avatar_width">60dp</dimen>
     <dimen name="avatar_height">60dp</dimen>
+    <dimen name="column_width_history">250dp</dimen>
 
 </resources>

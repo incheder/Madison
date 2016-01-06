@@ -61,6 +61,7 @@ public class OrderSentActivity extends DialogActivity {
         }
         Timer timer = new Timer();
        // timer.schedule(task, 3000);
+        restoreDefaultColors();
         if(savedInstanceState== null){
             sendRequest();
         } else {

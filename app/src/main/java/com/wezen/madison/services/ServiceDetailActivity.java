@@ -31,7 +31,9 @@ import com.wezen.madison.R;
 import com.wezen.madison.categories.ViewPagerAdapter;
 import com.wezen.madison.map.MapActivity;
 import com.wezen.madison.model.BeverageType;
+import com.wezen.madison.utils.Application;
 import com.wezen.madison.utils.DialogActivity;
+import com.wezen.madison.utils.ToolbarColorSinleton;
 import com.wezen.madison.utils.Utils;
 
 public class ServiceDetailActivity extends DialogActivity {
@@ -118,6 +120,10 @@ public class ServiceDetailActivity extends DialogActivity {
                 int statusBarColor = palette.getDarkMutedColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.primaryDark));
              int fabColor = palette.getVibrantColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.accent));
 
+                setMyStatusBarcolor(statusBarColor);
+                setMyToolbarColor(toolbarColor);
+                setMyFabColor(fabColor);
+
              collapsingToolbar.setContentScrimColor(toolbarColor);
              setStatusBarColor(context, statusBarColor);
              fab.setBackgroundTintList(createFabColors(fabColor));
@@ -181,4 +187,5 @@ public class ServiceDetailActivity extends DialogActivity {
         }
 
     };
+
 }
