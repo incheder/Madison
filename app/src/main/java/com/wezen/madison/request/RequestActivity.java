@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
@@ -77,6 +78,7 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
         TextView requestDate = (TextView)findViewById(R.id.request_date);
         buttonRating = (Button)findViewById(R.id.buttonRatingRequest);
         ratingBar = (RatingBar)findViewById(R.id.ratingBarRequest);
+        CardView cardDate = (CardView)findViewById(R.id.card_request_date);
 
         if(getIntent().getExtras()!= null){
             String imageUrl = getIntent().getStringExtra(REQUEST_IMAGE_URL);
@@ -101,7 +103,11 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
             if(attendedByAvatarUrl!= null){
                 Picasso.with(this).load(attendedByAvatarUrl).into(attendedByImageView);
             }
-            requestDate.setText(getIntent().getStringExtra(REQUEST_DATE_FOR_SERVICE));
+            if(getIntent().getStringExtra(REQUEST_DATE_FOR_SERVICE)!=null){
+                requestDate.setText(getIntent().getStringExtra(REQUEST_DATE_FOR_SERVICE));
+            } else {
+                cardDate.setVisibility(View.GONE);
+            }
 
             if(getIntent().getBooleanExtra(REQUEST_SHOW_RATING_BUTTON,false)){
                 buttonRating.setVisibility(View.VISIBLE);

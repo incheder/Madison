@@ -21,6 +21,7 @@ import com.wezen.madison.model.HomeServiceRequest;
 import com.wezen.madison.model.HomeServiceRequestStatus;
 import com.wezen.madison.utils.AutofitRecyclerView;
 import com.wezen.madison.utils.DialogActivity;
+import com.wezen.madison.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +83,7 @@ public class HistoryActivity extends DialogActivity {
                         request.setStatus(HomeServiceRequestStatus.valueOf(status));
                         //request.setHomeServiceRequestID((po.getParseObject("homeService").getObjectId()));
                         request.setHomeServiceRequestID(po.getObjectId());
-                        request.setDate(po.getCreatedAt().toString());
+                        request.setDate(Utils.setDateFormat(po.getCreatedAt()));
                         if(po.getParseObject("homeService").getParseFile("image")!= null){
                             request.setImage(po.getParseObject("homeService").getParseFile("image").getUrl());
                         }
