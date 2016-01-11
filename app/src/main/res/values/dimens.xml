@@ -42,5 +42,7 @@
     <dimen name="avatar_width">60dp</dimen>
     <dimen name="avatar_height">60dp</dimen>
     <dimen name="column_width_history">250dp</dimen>
+    <dimen name="summary_activity_margin">10dp</dimen>
+    <dimen name="card_summary_padding">5dp</dimen>
 
 </resources>

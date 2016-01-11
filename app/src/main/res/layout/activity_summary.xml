@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.wezen.madison.summary.SummaryActivity">
@@ -21,64 +22,105 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/activity_horizontal_margin"
+            android:padding="@dimen/summary_activity_margin"
             android:orientation="vertical"
             android:focusableInTouchMode="true">
 
-            <TextView
-                android:id="@+id/summaryServiceName"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                card_view:cardCornerRadius="4dp"
+                android:layout_marginBottom="@dimen/elements_margin"
+                >
 
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                />
-
-            <TextView
-                android:id="@+id/summaryServiceDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_marginBottom="@dimen/elements_margin"/>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_marginTop="@dimen/elements_margin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:hintTextAppearance="@style/ColorTextInputLayout"
-                android:layout_marginBottom="@dimen/elements_margin">
-
-                <EditText
-                    android:id="@+id/edit_text_problem"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/problem_description"
-                    android:maxLength="250"
-                    />
+                    android:orientation="vertical"
+                    android:padding="@dimen/card_summary_padding">
 
-            </android.support.design.widget.TextInputLayout>
+                    <TextView
+                        android:id="@+id/summaryServiceName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/summary_activity_margin"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:visibility="visible"
+                        />
 
-            <TextView
-                android:layout_marginTop="@dimen/elements_margin"
+                    <TextView
+                        android:id="@+id/summaryServiceDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_marginBottom="@dimen/summary_activity_margin"
+                        android:visibility="gone"/>
+
+                    <android.support.design.widget.TextInputLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintTextAppearance="@style/ColorTextInputLayout"
+                        android:layout_marginBottom="@dimen/summary_activity_margin">
+
+                        <EditText
+                            android:id="@+id/edit_text_problem"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/problem_description"
+                            android:maxLength="250"
+                            />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+
+
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/your_location"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                card_view:cardCornerRadius="4dp"
                 android:layout_marginBottom="@dimen/elements_margin"
-                />
+                >
 
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/mapview"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-               />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/card_summary_padding"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_marginTop="@dimen/elements_margin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/your_location"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:layout_marginBottom="@dimen/elements_margin"
+                        />
+
+                    <com.google.android.gms.maps.MapView
+                        android:id="@+id/mapview"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        />
 
 
-            <TextView
-                android:layout_marginTop="@dimen/elements_margin"
-                android:id="@+id/summaryUserAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    <TextView
+                        android:layout_marginTop="@dimen/elements_margin"
+                        android:id="@+id/summaryUserAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+
 
 
         </LinearLayout>
