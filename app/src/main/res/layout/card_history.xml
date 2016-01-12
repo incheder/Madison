@@ -23,8 +23,8 @@
                 android:id="@+id/history_image"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:scaleType="centerCrop"
 
+                android:src="@drawable/default_image_placeholder"
                />
 
             <FrameLayout

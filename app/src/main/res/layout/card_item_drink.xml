@@ -19,7 +19,7 @@
             android:layout_above="@+id/tvItemServiceDescription"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:scaleType="centerCrop"
+
             android:src="@drawable/doctor_solucion" />
 
         <TextView

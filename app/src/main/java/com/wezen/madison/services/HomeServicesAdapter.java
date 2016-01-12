@@ -44,7 +44,12 @@ public class HomeServicesAdapter extends RecyclerView.Adapter<HomeServicesAdapte
         viewHolder.tvServiceName.setText(homeService.getName());
         viewHolder.tvComments.setText(String.valueOf(homeService.getComments()));
         viewHolder.stars.setRating(homeService.getStars());
-        Picasso.with(context).load(homeService.getUrlImage()).into(viewHolder.ivHomeService);
+        Picasso.with(context)
+                .load(homeService.getUrlImage())
+                .fit()
+                .centerCrop()
+                .placeholder(R.drawable.default_image_placeholder)
+                .into(viewHolder.ivHomeService);
 
 
         viewHolder.content.setOnClickListener(new View.OnClickListener() {

@@ -57,7 +57,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
         if(item.getReview()!= null){
             holder.review.setRating(item.getReview());
         }
-        Picasso.with(context).load(item.getImage()).into(holder.image);
+
+        Picasso.with(context)
+                .load(item.getImage())
+                .fit()
+                .centerCrop()
+                .placeholder(R.drawable.default_image_placeholder)
+                .into(holder.image);
+
         if(item.getStatus()!=null){
             holder.status.setText(item.getStatus().toString());
             setColorByStatus(holder.status, item.getStatus(), position);
