@@ -12,12 +12,17 @@ import com.wezen.madison.model.Beverage;
 import com.wezen.madison.model.BeverageType;
 import com.wezen.madison.model.HomeServiceRequestStatus;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by eder on 4/13/15.
  */
 public class Utils {
+
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd 'de' MMM 'del 'yyyy 'a las' hh:mm a", Locale.getDefault());
 
     private Utils(){}
 
@@ -48,6 +53,12 @@ public class Utils {
         }
         return color;
 
+    }
+
+    public static String setDateFormat(Date date){
+        String newFormat = "";
+        newFormat = dateFormat.format(date);
+        return newFormat;
     }
 
 
