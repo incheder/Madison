@@ -2,6 +2,7 @@ package com.wezen.madison.services;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,11 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewHo
         Review review = reviews.get(position);
         holder.name.setText(review.getUserName());
         holder.date.setText(review.getDate());
-        holder.comment.setText(review.getComment());
+        if(TextUtils.isEmpty(review.getComment())){
+            holder.comment.setVisibility(View.GONE);
+        } else {
+            holder.comment.setText(review.getComment());
+        }
         holder.date.setText(review.getDate());
         holder.stars.setRating(review.getStars());
         Picasso.with(context).load(review.getUserAvatar()).into(holder.avatar);

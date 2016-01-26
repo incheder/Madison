@@ -23,6 +23,7 @@ import java.util.Locale;
 public class Utils {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd 'de' MMM 'del 'yyyy 'a las' hh:mm a", Locale.getDefault());
+    private static final SimpleDateFormat dateFormatWithSlash = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
     private Utils(){}
 
@@ -56,8 +57,14 @@ public class Utils {
     }
 
     public static String setDateFormat(Date date){
-        String newFormat = "";
+        String newFormat;
         newFormat = dateFormat.format(date);
+        return newFormat;
+    }
+
+    public static String setDateFormatWithSlash(Date date){
+        String newFormat;
+        newFormat = dateFormatWithSlash.format(date);
         return newFormat;
     }
 

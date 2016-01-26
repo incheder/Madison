@@ -32,6 +32,7 @@ public class OrderSentActivity extends DialogActivity {
     public  static final String PROBLEM = "problem";
     public  static final String ADDRESS = "address";
     public  static final String SERVICE_PROVIDER = "serviceProvider";
+    public static final String PHONE = "phone";
 
     private ProgressBar progressBar;
     private LinearLayout orderSent;
@@ -41,6 +42,7 @@ public class OrderSentActivity extends DialogActivity {
     private String address;
     private String serviceProvider;
     private boolean orderWasSent = false;
+    private String phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class OrderSentActivity extends DialogActivity {
             problem =  getIntent().getStringExtra(PROBLEM);
             address =  getIntent().getStringExtra(ADDRESS);
             serviceProvider =  getIntent().getStringExtra(SERVICE_PROVIDER);
+            phone =  getIntent().getStringExtra(PHONE);
         }
         Timer timer = new Timer();
        // timer.schedule(task, 3000);
@@ -105,8 +108,6 @@ public class OrderSentActivity extends DialogActivity {
     };
 
     private void sendRequest(){
-
-
         ParseObject homeServices = ParseObject.createWithoutData("HomeServices",id);
         ParseGeoPoint geoPoint = new ParseGeoPoint(myLatLng.latitude,myLatLng.longitude);
         final ParseObject po = new ParseObject("HomeServiceRequest");
@@ -118,6 +119,7 @@ public class OrderSentActivity extends DialogActivity {
         po.put("wasRated",false);
         po.put("address",address);
         po.put("serviceProvider",serviceProvider);
+        po.put("phone",phone);
         po.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

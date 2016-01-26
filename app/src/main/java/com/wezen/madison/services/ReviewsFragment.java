@@ -16,6 +16,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.wezen.madison.R;
 import com.wezen.madison.model.Review;
+import com.wezen.madison.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,7 +114,7 @@ public class ReviewsFragment extends Fragment {
                         review.setId(po.getObjectId());
                         review.setComment(po.getString("comment"));
                         review.setStars(po.getInt("numStars"));
-                        review.setDate(po.getCreatedAt().toString());
+                        review.setDate(Utils.setDateFormatWithSlash(po.getCreatedAt()));
                         ParseObject user = po.getParseObject("fromUser");
                         if(user!= null){
                             if(user.getParseFile("userImage")!= null){

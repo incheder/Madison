@@ -99,7 +99,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
                 request.putExtra(RequestActivity.REQUEST_ATTENDED_BY,item.getAttendedBy() == null ? "": item.getAttendedBy());
                 request.putExtra(RequestActivity.REQUEST_ATTENDED_BY_AVATAR,item.getAttendedByAvatar());
                 if(item.getDateForService()!= null){
-                    request.putExtra(RequestActivity.REQUEST_DATE_FOR_SERVICE,item.getDateForService().toString());
+                    request.putExtra(RequestActivity.REQUEST_DATE_FOR_SERVICE,Utils.setDateFormat(item.getDateForService()));
                 }
                 if(item.getWasRated()){
                     request.putExtra(RequestActivity.REQUEST_NUM_STARS,item.getReview());

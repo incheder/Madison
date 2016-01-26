@@ -2,12 +2,10 @@ package com.wezen.madison.summary;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,7 +19,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.wezen.madison.R;
 import com.wezen.madison.order.OrderDialogFragment;
-import com.wezen.madison.map.MapActivity;
 import com.wezen.madison.order.OrderSentActivity;
 import com.wezen.madison.utils.DialogActivity;
 
@@ -43,6 +40,7 @@ public class SummaryActivity extends DialogActivity implements  OrderDialogFragm
     private String name;
     private String description;
     private String serviceProvider;
+    private EditText editTextPhone;
 
 
     @Override
@@ -60,6 +58,7 @@ public class SummaryActivity extends DialogActivity implements  OrderDialogFragm
         TextView serviceName = (TextView) findViewById(R.id.summaryServiceName);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabSummary);
         editTextPtoblem = (EditText)findViewById(R.id.edit_text_problem);
+        editTextPhone = (EditText)findViewById(R.id.edit_text_phone);
 
         if(getIntent().getExtras()!= null){
             myLatLng = new LatLng(
@@ -100,14 +99,23 @@ public class SummaryActivity extends DialogActivity implements  OrderDialogFragm
     View.OnClickListener fabListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(TextUtils.isEmpty(editTextPtoblem.getText().toString())){
+            if(TextUtils.isEmpty(editTextPtoblem.getText().toString()) ){
                 editTextPtoblem.setError(getResources().getString(R.string.please_add_a_description));
                 editTextPtoblem.requestFocus();
                 return;
             }
+            if(TextUtils.isEmpty(editTextPhone.getText().toString()) ){
+                editTextPhone.setError(getResources().getString(R.string.please_add_a_phone));
+                editTextPhone.requestFocus();
+                return;
+            } else if(!Patterns.PHONE.matcher(editTextPhone.getText().toString()).matches()){
+                editTextPhone.setError(getResources().getString(R.string.please_add_a_valid_phone));
+                editTextPhone.requestFocus();
+                return;
+            }
 
             OrderDialogFragment dialog = OrderDialogFragment.newInstance(name,address);
-            dialog.show( getSupportFragmentManager(),null);
+            dialog.show(getSupportFragmentManager(), null);
         }
     };
 
@@ -141,6 +149,7 @@ public class SummaryActivity extends DialogActivity implements  OrderDialogFragm
         orderSent.putExtra(OrderSentActivity.PROBLEM,editTextPtoblem.getText().toString());
         orderSent.putExtra(OrderSentActivity.ADDRESS,address);
         orderSent.putExtra(OrderSentActivity.SERVICE_PROVIDER,serviceProvider);
+        orderSent.putExtra(OrderSentActivity.PHONE,editTextPhone.getText().toString());
 
         startActivity(orderSent);
     }

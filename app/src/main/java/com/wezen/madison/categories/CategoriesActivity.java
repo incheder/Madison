@@ -153,11 +153,11 @@ public class CategoriesActivity extends DialogActivity {
                 toLaunch.putExtra(AccountActivity.IMAGE_URL,imageUrl);
             } else if (id == R.id.menu_history){
                 toLaunch = new Intent(CategoriesActivity.this, HistoryActivity.class);
-            } else if (id == R.id.menu_settings){
+            } /*else if (id == R.id.menu_settings){
 
             } else if (id == R.id.menu_help){
                 toLaunch = new Intent(CategoriesActivity.this, HelpActivity.class);
-            } else if (id == R.id.menu_sign_out){
+            }*/ else if (id == R.id.menu_sign_out){
                 ParseUser.logOut();
                 updateSharedPref(R.string.installation_already_saved, INSTALLATION_DATA_NOT_SAVED);
                 ParseInstallation.getCurrentInstallation().remove("channels");
