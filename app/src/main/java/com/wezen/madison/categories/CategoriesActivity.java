@@ -34,6 +34,7 @@ import com.wezen.madison.help.HelpActivity;
 import com.wezen.madison.history.HistoryActivity;
 import com.wezen.madison.login.LoginActivity;
 import com.wezen.madison.model.Category;
+import com.wezen.madison.password.PasswordActivity;
 import com.wezen.madison.utils.DialogActivity;
 
 import java.util.ArrayList;
@@ -53,6 +54,8 @@ public class CategoriesActivity extends DialogActivity {
     private String userEmail;
     private String imageUrl;
     private SharedPreferences sharedPref;
+    private String userLastName;
+    private String phone;
 
 
     @Override
@@ -151,11 +154,13 @@ public class CategoriesActivity extends DialogActivity {
                 toLaunch.putExtra(AccountActivity.USERNAME,userName);
                 toLaunch.putExtra(AccountActivity.EMAIL,userEmail);
                 toLaunch.putExtra(AccountActivity.IMAGE_URL,imageUrl);
+                toLaunch.putExtra(AccountActivity.LASTNAME,userLastName);
+                toLaunch.putExtra(AccountActivity.PHONE,phone);
             } else if (id == R.id.menu_history){
                 toLaunch = new Intent(CategoriesActivity.this, HistoryActivity.class);
-            } /*else if (id == R.id.menu_settings){
-
-            } else if (id == R.id.menu_help){
+            } else if (id == R.id.menu_password){
+                toLaunch = new Intent(CategoriesActivity.this, PasswordActivity.class);
+            } /*else if (id == R.id.menu_help){
                 toLaunch = new Intent(CategoriesActivity.this, HelpActivity.class);
             }*/ else if (id == R.id.menu_sign_out){
                 ParseUser.logOut();
@@ -222,19 +227,30 @@ public class CategoriesActivity extends DialogActivity {
 
 
     private void fillNavigationViewHeader(){
-        ImageView imageAvatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.profile_image);
-        TextView textViewUsername = (TextView) navigationView.getHeaderView(0).findViewById(R.id.username);
-        TextView textViewEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.email);
-        ParseUser user = ParseUser.getCurrentUser();
-        userName = user.getUsername();
-        userEmail = user.getEmail();
-        textViewUsername.setText(userName);
-        textViewEmail.setText(userEmail);
-        if(user.getParseFile("userImage")!= null){
-            imageUrl = user.getParseFile("userImage").getUrl();
-            Picasso.with(this).load(imageUrl).into(imageAvatar);
+        final ImageView imageAvatar = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.profile_image);
+        final TextView textViewUsername = (TextView) navigationView.getHeaderView(0).findViewById(R.id.username);
+        final TextView textViewEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.email);
+        //ParseUser user = ParseUser.getCurrentUser();
+        ParseUser.getCurrentUser().fetchIfNeededInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                if(e == null){
+                    ParseUser user = (ParseUser) parseObject;
+                    userName = user.getUsername();
+                    userEmail = user.getEmail();
+                    userLastName = user.getString("lastName");
+                    phone = user.getString("phone");
+                    textViewUsername.setText(userName);
+                    textViewEmail.setText(userEmail);
+                    if (user.getParseFile("userImage") != null) {
+                        imageUrl = user.getParseFile("userImage").getUrl();
+                        Picasso.with(CategoriesActivity.this).load(imageUrl).into(imageAvatar);
 
-        }
+                    }
+                }
+            }
+        });
+
 
     }
 

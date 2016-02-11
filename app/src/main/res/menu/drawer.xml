@@ -8,6 +8,12 @@
             android:title="@string/drawer_menu_account"
             android:icon="@drawable/ic_account_circle_black_48dp"
             />
+        <item
+            android:id="@+id/menu_password"
+            android:checked="false"
+            android:title="@string/drawer_menu_password"
+            android:icon="@drawable/ic_account_circle_black_48dp"
+            />
 
         <item
             android:id="@+id/menu_history"

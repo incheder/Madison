@@ -155,7 +155,7 @@
         <service android:name="com.parse.PushService" />
 
         <receiver
-            android:name="com.wezen.madison.request.StatusRequestBroadcastReceiver"
+            android:name=".request.StatusRequestBroadcastReceiver"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
@@ -181,6 +181,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.history.HistoryActivity" />
+        </activity>
+        <activity
+            android:name=".password.PasswordActivity"
+            android:label="@string/title_activity_password"
+            android:parentActivityName=".categories.CategoriesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wezen.madison.categories.CategoriesActivity" />
         </activity>
     </application>
 

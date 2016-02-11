@@ -98,6 +98,11 @@
     <string name="please_add_a_phone">Por favor añade un teléfono de contacto</string>
     <string name="please_add_a_valid_phone">Por favor añade un teléfono válido</string>
     <string name="select_image_title">Obtener una imagen desde:</string>
+    <string name="drawer_menu_password">Password</string>
+    <string name="title_activity_password">PasswordActivity</string>
+    <string name="new_password">Nuevo password</string>
+    <string name="old_password">Password actual</string>
+    <string name="passwords_must_been_the_same">No coincide con el nuevo password</string>
 
 
 </resources>
