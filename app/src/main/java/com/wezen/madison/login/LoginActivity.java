@@ -28,9 +28,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
@@ -38,8 +40,22 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
+import com.squareup.okhttp.Interceptor;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Response;
 import com.wezen.madison.R;
 import com.wezen.madison.categories.CategoriesActivity;
+import com.wezen.madison.user.User;
+import com.wezen.madison.user.UserApiInterface;
+import com.wezen.madison.utils.ConfigEndpoints;
+
+import retrofit.GsonConverterFactory;
+import retrofit.Retrofit;
+import retrofit.RxJavaCallAdapterFactory;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * A login screen that offers login via email/password.
@@ -76,62 +92,48 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             finish();
         }
         setContentView(R.layout.activity_login);
+        //loginTestUsingRetrofit();
 
+       mEmailView = (EditText)findViewById(R.id.email);
 
-        // Set up the login form.
-        mEmailView = (EditText)findViewById(R.id.email);
-        //populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
+        mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                attemptLogin();
+                return true;
             }
+            return false;
         });
 
         mRepeatPasswordView = (EditText) findViewById(R.id.repeatPassword);
-        mRepeatPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
+        mRepeatPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                attemptLogin();
+                return true;
             }
+            return false;
         });
 
         final Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        RxView.clicks(mEmailSignInButton).subscribe(aVoid -> attemptLogin());
 
-                attemptLogin();
-            }
-        });
+        //mEmailSignInButton.setOnClickListener(view -> attemptLogin());
 
         signin = (TextView)findViewById(R.id.sign_textView);
-        signin.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(signin.getText().toString().equals(getResources().getString(R.string.action_sign_in))){
-                    signin.setText(getResources().getString(R.string.action_register));
-                    mEmailSignInButton.setText(getResources().getString(R.string.action_sign_in));
-                    mRepeatPasswordView.setVisibility(View.GONE);
-                    loginMode =true;
-                } else {
-                    signin.setText(getResources().getString(R.string.action_sign_in));
-                    mEmailSignInButton.setText(getResources().getString(R.string.action_register));
-                    mRepeatPasswordView.setVisibility(View.VISIBLE);
-                    loginMode =false;
-                }
-
+        signin.setOnClickListener(view -> {
+            if(signin.getText().toString().equals(getResources().getString(R.string.action_sign_in))){
+                signin.setText(getResources().getString(R.string.action_register));
+                mEmailSignInButton.setText(getResources().getString(R.string.action_sign_in));
+                mRepeatPasswordView.setVisibility(View.GONE);
+                loginMode =true;
+            } else {
+                signin.setText(getResources().getString(R.string.action_sign_in));
+                mEmailSignInButton.setText(getResources().getString(R.string.action_register));
+                mRepeatPasswordView.setVisibility(View.VISIBLE);
+                loginMode =false;
             }
+
         });
 
         mLoginFormView = findViewById(R.id.login_form);
@@ -242,15 +244,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         parseUser.setPassword(password);
         parseUser.setUsername(email);
         parseUser.put("userType", 1);
-        parseUser.signUpInBackground(new SignUpCallback() {
-            @Override
-            public void done(ParseException e) {
-                showProgress(false);
-                if (e == null) { //no problemo
-                    goToCategories();
-                } else { // ups!
+        parseUser.signUpInBackground(e -> {
+            showProgress(false);
+            if (e == null) { //no problemo
+                goToCategories();
+            } else { // ups!
 
-                }
             }
         });
 
@@ -259,23 +258,20 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private void  loginUser(String username, String password){
         showProgress(true);
        // mProgressView.setVisibility(View.VISIBLE);
-        ParseUser.logInInBackground(username, password, new LogInCallback() {
-            @Override
-            public void done(ParseUser parseUser, ParseException e) {
-               // mProgressView.setVisibility(View.GONE);
-                showProgress(false);
-                if(parseUser != null && parseUser.getInt("userType") == 1){//no problemo
-                    goToCategories();
-                    finish();
-                } else if(parseUser != null){//ups!
-                    ParseUser.logOut();
-                    Toast.makeText(LoginActivity.this, R.string.wrong_credentials, Toast.LENGTH_SHORT).show();
-                } else {
-                    if(e!= null){
-                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-
+        ParseUser.logInInBackground(username, password, (parseUser, e) -> {
+           // mProgressView.setVisibility(View.GONE);
+            showProgress(false);
+            if(parseUser != null && parseUser.getInt("userType") == 1){//no problemo
+                goToCategories();
+                finish();
+            } else if(parseUser != null){//ups!
+                ParseUser.logOut();
+                Toast.makeText(LoginActivity.this, R.string.wrong_credentials, Toast.LENGTH_SHORT).show();
+            } else {
+                if(e!= null){
+                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
     }
@@ -443,6 +439,40 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         categories.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(categories);
     }
+
+    /*private void loginTestUsingRetrofit(){
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.interceptors().add(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Response response = chain.proceed(chain.request());
+                return response ;
+            }
+        });
+
+        Retrofit client = new Retrofit.Builder()
+                .baseUrl(ConfigEndpoints.URL_BASE)
+                .client(okHttpClient)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserApiInterface service = client.create(UserApiInterface.class);
+        Observable<User> observable = service.login("test@mail.com","123456");
+        observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(myAction1);
+       // observable.do
+
+
+
+    }
+
+    Action1<User> myAction1 = new Action1<User>() {
+        @Override
+        public void call(User o) {
+            Log.d("Action",o.toString());
+        }
+    };*/
+
 
 
 }

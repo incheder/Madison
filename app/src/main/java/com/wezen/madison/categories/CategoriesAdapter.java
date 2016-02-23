@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.squareup.picasso.Picasso;
 import com.wezen.madison.R;
 import com.wezen.madison.model.Beverage;
@@ -53,13 +54,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         viewHolder.categoryColor.setBackgroundColor(Color.parseColor(item.getMainColor()));
         viewHolder.tvFooter.setBackgroundColor(Color.parseColor(item.getSecondaryColor()));
 
-        viewHolder.content.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent servicesList = new Intent(context, ServicesListActivity.class);
-                servicesList.putExtra(ServicesListActivity.CATEGORY_ID, item.getId());
-                context.startActivity(servicesList);
-            }
+        RxView.clicks(viewHolder.content).subscribe(aVoid ->{
+            Intent servicesList = new Intent(context, ServicesListActivity.class);
+            servicesList.putExtra(ServicesListActivity.CATEGORY_ID, item.getId());
+            context.startActivity(servicesList);
         });
 
     }

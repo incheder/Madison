@@ -70,7 +70,6 @@ public class CategoriesActivity extends DialogActivity {
         progressIndicator = (FrameLayout)findViewById(R.id.categoriesProgressIndicator);
         RecyclerView rvHome = (RecyclerView) findViewById(R.id.rvHome);
         rvHome.setHasFixedSize(true);
-        //dummyList();
 
         adapter = new CategoriesAdapter(dummyList(),this,getSupportFragmentManager());
         rvHome.setAdapter(adapter);
@@ -110,32 +109,30 @@ public class CategoriesActivity extends DialogActivity {
         final ArrayList<Category> list = new ArrayList<>();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Categories");
         //query.setLimit(1000);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> beverageMenuList, ParseException e) {
-                if (e == null) {
-                    Log.d("beverageMenu", "Retrieved " + beverageMenuList.size() + " BeverageMenu");
-                    for (ParseObject po : beverageMenuList) {
-                        //  list.add(new BeverageMenu());
-                        String name = po.getString("name");
-                        String image = po.getParseFile("image").getUrl();
-                        String mainColor = po.getString("mainColor");
-                        String secondaryColor = po.getString("secondaryColor");
-                        String id = po.getObjectId();
+        query.findInBackground((beverageMenuList, e) -> {
+            if (e == null) {
+                Log.d("beverageMenu", "Retrieved " + beverageMenuList.size() + " BeverageMenu");
+                for (ParseObject po : beverageMenuList) {
+                    //  list.add(new BeverageMenu());
+                    String name = po.getString("name");
+                    String image = po.getParseFile("image").getUrl();
+                    String mainColor = po.getString("mainColor");
+                    String secondaryColor = po.getString("secondaryColor");
+                    String id = po.getObjectId();
 
-                        Category category = new Category();
-                        category.setImage(image);
-                        category.setName(name);
-                        category.setMainColor(mainColor);
-                        category.setSecondaryColor(secondaryColor);
-                        category.setId(id);
-                        list.add(category);
-                    }
-                    adapter.notifyDataSetChanged();
-                    progressIndicator.setVisibility(View.GONE);
-
-                } else {
-                    Log.d("score", "Error: " + e.getMessage());
+                    Category category = new Category();
+                    category.setImage(image);
+                    category.setName(name);
+                    category.setMainColor(mainColor);
+                    category.setSecondaryColor(secondaryColor);
+                    category.setId(id);
+                    list.add(category);
                 }
+                adapter.notifyDataSetChanged();
+                progressIndicator.setVisibility(View.GONE);
+
+            } else {
+                Log.d("score", "Error: " + e.getMessage());
             }
         });
 
@@ -191,16 +188,13 @@ public class CategoriesActivity extends DialogActivity {
         if(isSaved == INSTALLATION_DATA_NOT_SAVED){
             ParseInstallation installation = ParseInstallation.getCurrentInstallation();
             installation.put("user", ParseUser.getCurrentUser());
-            installation.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if(e == null){
-                        Log.d("SUCCESS", "installation saved");
-                        updateSharedPref(R.string.installation_already_saved,INSTALLATION_DATA_SAVED);
-                    } else {
-                        Log.e("ERROR", "installation not saved: " + e.getMessage());
-                        updateSharedPref(R.string.installation_already_saved, INSTALLATION_DATA_NOT_SAVED);
-                    }
+            installation.saveInBackground(e -> {
+                if(e == null){
+                    Log.d("SUCCESS", "installation saved");
+                    updateSharedPref(R.string.installation_already_saved,INSTALLATION_DATA_SAVED);
+                } else {
+                    Log.e("ERROR", "installation not saved: " + e.getMessage());
+                    updateSharedPref(R.string.installation_already_saved, INSTALLATION_DATA_NOT_SAVED);
                 }
             });
         }
@@ -231,22 +225,19 @@ public class CategoriesActivity extends DialogActivity {
         final TextView textViewUsername = (TextView) navigationView.getHeaderView(0).findViewById(R.id.username);
         final TextView textViewEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.email);
         //ParseUser user = ParseUser.getCurrentUser();
-        ParseUser.getCurrentUser().fetchIfNeededInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject parseObject, ParseException e) {
-                if(e == null){
-                    ParseUser user = (ParseUser) parseObject;
-                    userName = user.getUsername();
-                    userEmail = user.getEmail();
-                    userLastName = user.getString("lastName");
-                    phone = user.getString("phone");
-                    textViewUsername.setText(userName);
-                    textViewEmail.setText(userEmail);
-                    if (user.getParseFile("userImage") != null) {
-                        imageUrl = user.getParseFile("userImage").getUrl();
-                        Picasso.with(CategoriesActivity.this).load(imageUrl).into(imageAvatar);
+        ParseUser.getCurrentUser().fetchIfNeededInBackground((parseObject, e) -> {
+            if(e == null){
+                ParseUser user = (ParseUser) parseObject;
+                userName = user.getUsername();
+                userEmail = user.getEmail();
+                userLastName = user.getString("lastName");
+                phone = user.getString("phone");
+                textViewUsername.setText(userName);
+                textViewEmail.setText(userEmail);
+                if (user.getParseFile("userImage") != null) {
+                    imageUrl = user.getParseFile("userImage").getUrl();
+                    Picasso.with(CategoriesActivity.this).load(imageUrl).into(imageAvatar);
 
-                    }
                 }
             }
         });
@@ -262,17 +253,14 @@ public class CategoriesActivity extends DialogActivity {
 
     private void addUserToRole(ParseRole role){
         role.getUsers().add(ParseUser.getCurrentUser());
-        role.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if(e==null){
-                    Log.d("SUCCESS", "user added to role");
-                    updateSharedPref(R.string.role_already_added,USER_ADDED_TO_ROLE);
-                } else {
-                    //ups
-                    Log.e("ERROR", "user not added to role" + e.getMessage());
-                    updateSharedPref(R.string.role_already_added, USER_NOT_ADDED_TO_ROLE);
-                }
+        role.saveInBackground(e -> {
+            if(e==null){
+                Log.d("SUCCESS", "user added to role");
+                updateSharedPref(R.string.role_already_added,USER_ADDED_TO_ROLE);
+            } else {
+                //ups
+                Log.e("ERROR", "user not added to role" + e.getMessage());
+                updateSharedPref(R.string.role_already_added, USER_NOT_ADDED_TO_ROLE);
             }
         });
     }
