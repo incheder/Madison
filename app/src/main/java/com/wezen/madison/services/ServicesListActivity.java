@@ -72,40 +72,37 @@ public class ServicesListActivity extends DialogActivity {
        // poCategory.setObjectId(categoryID);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("HomeServices");
         query.whereEqualTo("Category",poCategory);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                if (e == null) {
+        query.findInBackground((list, e) -> {
+            if (e == null) {
 
-                    for (ParseObject po : list) {
+                for (ParseObject po : list) {
 
-                        String id = po.getObjectId();
-                        String name = po.getString("name");
-                        String imageUrl = po.getParseFile("image").getUrl();
-                        String description = po.getString("description");
-                        int stars = po.getInt("stars");
-                        int comments = po.getInt("comments");
-                        String serviceProvider = po.getParseObject("serviceProvider").getObjectId();
+                    String id = po.getObjectId();
+                    String name = po.getString("name");
+                    String imageUrl = po.getParseFile("image").getUrl();
+                    String description = po.getString("description");
+                    int stars = po.getInt("stars");
+                    int comments = po.getInt("comments");
+                    String serviceProvider = po.getParseObject("serviceProvider").getObjectId();
 
-                        HomeService homeService = new HomeService();
-                        homeService.setName(name);
-                        homeService.setDescription(description);
-                        homeService.setId(id);
-                        homeService.setUrlImage(imageUrl);
-                        homeService.setStars(stars);
-                        homeService.setComments(comments);
-                        homeService.setServiceProvider(serviceProvider);
+                    HomeService homeService = new HomeService();
+                    homeService.setName(name);
+                    homeService.setDescription(description);
+                    homeService.setId(id);
+                    homeService.setUrlImage(imageUrl);
+                    homeService.setStars(stars);
+                    homeService.setComments(comments);
+                    homeService.setServiceProvider(serviceProvider);
 
-                        homeServicesList.add(homeService);
+                    homeServicesList.add(homeService);
 
-                    }
-
-                    adapter.notifyDataSetChanged();
-
-                } else {
-                    //show error message
-                   // Snackbar.make(null,"error",Snackbar.LENGTH_SHORT).show();
                 }
+
+                adapter.notifyDataSetChanged();
+
+            } else {
+                //show error message
+               // Snackbar.make(null,"error",Snackbar.LENGTH_SHORT).show();
             }
         });
     }

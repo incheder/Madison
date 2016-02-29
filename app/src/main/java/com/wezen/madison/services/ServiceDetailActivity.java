@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.wezen.madison.R;
@@ -96,40 +97,34 @@ public class ServiceDetailActivity extends DialogActivity {
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mapIntent = new Intent(ServiceDetailActivity.this, MapActivity.class);
-                mapIntent.putExtra(MapActivity.HOME_SERVICE_ID,id);
-                mapIntent.putExtra(MapActivity.HOME_SERVICE_NAME,name);
-                mapIntent.putExtra(MapActivity.HOME_SERVICE_DESCRIPTION,description);
-                mapIntent.putExtra(MapActivity.HOME_SERVICE_PROVIDER,serviceProvider);
-                startActivity(mapIntent);
-            }
+        RxView.clicks(fab).subscribe(aVoid -> {
+            Intent mapIntent = new Intent(ServiceDetailActivity.this, MapActivity.class);
+            mapIntent.putExtra(MapActivity.HOME_SERVICE_ID,id);
+            mapIntent.putExtra(MapActivity.HOME_SERVICE_NAME,name);
+            mapIntent.putExtra(MapActivity.HOME_SERVICE_DESCRIPTION,description);
+            mapIntent.putExtra(MapActivity.HOME_SERVICE_PROVIDER,serviceProvider);
+            startActivity(mapIntent);
         });
+
     }
 
 
     private void toolBarColoring(Bitmap bitmap){
        // Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.doctor_solucion);
-        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                int  toolbarColor = palette.getMutedColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.primary));
-                int statusBarColor = palette.getDarkMutedColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.primaryDark));
-             int fabColor = palette.getVibrantColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.accent));
+        Palette.from(bitmap).generate(palette -> {
+            int  toolbarColor = palette.getMutedColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.primary));
+            int statusBarColor = palette.getDarkMutedColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.primaryDark));
+            int fabColor = palette.getVibrantColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.accent));
 
-                setMyStatusBarcolor(statusBarColor);
-                setMyToolbarColor(toolbarColor);
-                setMyFabColor(fabColor);
+            setMyStatusBarcolor(statusBarColor);
+            setMyToolbarColor(toolbarColor);
+            setMyFabColor(fabColor);
 
              collapsingToolbar.setContentScrimColor(toolbarColor);
              setStatusBarColor(context, statusBarColor);
              fab.setBackgroundTintList(createFabColors(fabColor));
              tabLayout.setBackgroundColor(toolbarColor);
              tabLayout.setSelectedTabIndicatorColor(fabColor);
-            }
         });
         header.setImageBitmap(bitmap);
     }

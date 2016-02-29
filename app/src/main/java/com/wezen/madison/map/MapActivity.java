@@ -68,6 +68,7 @@ public class MapActivity extends DialogActivity {
         userAddressTextView = (TextView)findViewById(R.id.mapAddressTextView);
         userAddressTextView.setOnClickListener(addressTextViewListener);
         fab = (FloatingActionButton)findViewById(R.id.fabMap);
+
         fab.setOnClickListener(fabClickListener);
         fab.hide();
         setSupportActionBar(toolbar);

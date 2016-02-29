@@ -105,31 +105,28 @@ public class ReviewsFragment extends Fragment {
         query.include("fromUser");
         query.whereMatchesQuery("homeServiceRequest",innerQuery);
         //query.whereEqualTo("homeService", holder);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> list, ParseException e) {
-                if(e == null){
-                    for (ParseObject po: list) {
-                        Review review = new Review();
-                        review.setId(po.getObjectId());
-                        review.setComment(po.getString("comment"));
-                        review.setStars(po.getInt("numStars"));
-                        review.setDate(Utils.setDateFormatWithSlash(po.getCreatedAt()));
-                        ParseObject user = po.getParseObject("fromUser");
-                        if(user!= null){
-                            if(user.getParseFile("userImage")!= null){
-                                review.setUserAvatar(user.getParseFile("userImage").getUrl());
-                            }
-                            review.setUserName(user.getString("username"));
+        query.findInBackground((list, e) -> {
+            if(e == null){
+                for (ParseObject po: list) {
+                    Review review = new Review();
+                    review.setId(po.getObjectId());
+                    review.setComment(po.getString("comment"));
+                    review.setStars(po.getInt("numStars"));
+                    review.setDate(Utils.setDateFormatWithSlash(po.getCreatedAt()));
+                    ParseObject user = po.getParseObject("fromUser");
+                    if(user!= null){
+                        if(user.getParseFile("userImage")!= null){
+                            review.setUserAvatar(user.getParseFile("userImage").getUrl());
                         }
-                        reviews.add(review);
+                        review.setUserName(user.getString("username"));
                     }
-                    adapter.notifyDataSetChanged();
-                } else {
-                    Log.e("TAG",e.getMessage());
+                    reviews.add(review);
                 }
-
+                adapter.notifyDataSetChanged();
+            } else {
+                Log.e("TAG",e.getMessage());
             }
+
         });
     }
 
