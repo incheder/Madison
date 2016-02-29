@@ -103,6 +103,7 @@
     <string name="new_password">Nuevo password</string>
     <string name="old_password">Password actual</string>
     <string name="passwords_must_been_the_same">No coincide con el nuevo password</string>
+    <string name="you_can_not_use_the_same_password">El nuevo password debe ser diferente al anterior</string>
 
 
 </resources>
