@@ -194,10 +194,12 @@ public class MapActivity extends DialogActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_location) {
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(
-                    CameraPosition.fromLatLngZoom(
-                            new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude()),
-                            mMap.getCameraPosition().zoom)));
+            if(mMap.getMyLocation()!=null){
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(
+                        CameraPosition.fromLatLngZoom(
+                                new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude()),
+                                mMap.getCameraPosition().zoom)));
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
