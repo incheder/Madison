@@ -84,7 +84,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:elevation="@dimen/elevation_fab_map"
-        app:backgroundTint="@color/fab_map" />
+        app:backgroundTint="@color/fab_map"
+        app:borderWidth="0dp"
+       />
 
 
 </RelativeLayout>

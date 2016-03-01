@@ -61,7 +61,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:hintTextAppearance="@style/ColorTextInputLayout"
-                        android:layout_marginBottom="@dimen/summary_activity_margin">
+                        android:layout_marginBottom="@dimen/summary_activity_margin"
+                        android:layout_marginLeft="@dimen/summary_activity_margin"
+                        android:layout_marginStart="@dimen/summary_activity_margin"
+                        android:layout_marginRight="@dimen/summary_activity_margin"
+                        android:layout_marginEnd="@dimen/summary_activity_margin">
 
                         <EditText
                             android:id="@+id/edit_text_problem"
@@ -78,7 +82,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:hintTextAppearance="@style/ColorTextInputLayout"
-                        android:layout_marginBottom="@dimen/summary_activity_margin">
+                        android:layout_marginBottom="@dimen/summary_activity_margin"
+                        android:layout_marginTop="@dimen/summary_activity_margin"
+                        android:layout_marginLeft="@dimen/summary_activity_margin"
+                        android:layout_marginStart="@dimen/summary_activity_margin"
+                        android:layout_marginRight="@dimen/summary_activity_margin"
+                        android:layout_marginEnd="@dimen/summary_activity_margin"
+                        >
 
                         <EditText
                             android:id="@+id/edit_text_phone"
@@ -156,6 +166,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:elevation="@dimen/elevation_fab_map"
-        app:backgroundTint="@color/fab_summary" />
+        app:backgroundTint="@color/fab_summary"
+        app:borderWidth="0dp"/>
 
 </RelativeLayout>
