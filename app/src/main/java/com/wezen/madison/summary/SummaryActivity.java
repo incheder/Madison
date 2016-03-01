@@ -17,6 +17,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.ParseUser;
 import com.wezen.madison.R;
 import com.wezen.madison.order.OrderDialogFragment;
 import com.wezen.madison.order.OrderSentActivity;
@@ -59,6 +60,9 @@ public class SummaryActivity extends DialogActivity implements  OrderDialogFragm
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabSummary);
         editTextPtoblem = (EditText)findViewById(R.id.edit_text_problem);
         editTextPhone = (EditText)findViewById(R.id.edit_text_phone);
+        if(ParseUser.getCurrentUser().getString("phone")!= null){
+            editTextPhone.setText(ParseUser.getCurrentUser().getString("phone"));
+        }
 
         if(getIntent().getExtras()!= null){
             myLatLng = new LatLng(
