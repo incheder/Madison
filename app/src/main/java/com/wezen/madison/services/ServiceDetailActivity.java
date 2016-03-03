@@ -111,20 +111,24 @@ public class ServiceDetailActivity extends DialogActivity {
 
     private void toolBarColoring(Bitmap bitmap){
        // Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.doctor_solucion);
-        Palette.from(bitmap).generate(palette -> {
-            int  toolbarColor = palette.getMutedColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.primary));
-            int statusBarColor = palette.getDarkMutedColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.primaryDark));
-            int fabColor = palette.getVibrantColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.accent));
+        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                int toolbarColor = palette.getMutedColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.primary));
+                int statusBarColor = palette.getDarkMutedColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.primaryDark));
+                int fabColor = palette.getVibrantColor(ContextCompat.getColor(ServiceDetailActivity.this, R.color.accent));
 
-            setMyStatusBarcolor(statusBarColor);
-            setMyToolbarColor(toolbarColor);
-            setMyFabColor(fabColor);
+                ServiceDetailActivity.this.setMyStatusBarcolor(statusBarColor);
+                ServiceDetailActivity.this.setMyToolbarColor(toolbarColor);
+                ServiceDetailActivity.this.setMyFabColor(fabColor);
 
-             collapsingToolbar.setContentScrimColor(toolbarColor);
-             setStatusBarColor(context, statusBarColor);
-             fab.setBackgroundTintList(createFabColors(fabColor));
-             tabLayout.setBackgroundColor(toolbarColor);
-             tabLayout.setSelectedTabIndicatorColor(fabColor);
+                collapsingToolbar.setContentScrimColor(toolbarColor);
+                setStatusBarColor(context, statusBarColor);
+                fab.setBackgroundTintList(createFabColors(fabColor));
+                fab.invalidate();
+                tabLayout.setBackgroundColor(toolbarColor);
+                tabLayout.setSelectedTabIndicatorColor(fabColor);
+            }
         });
         header.setImageBitmap(bitmap);
     }
