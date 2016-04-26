@@ -30,15 +30,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="$315.00"
         android:id="@+id/tvItemDrinkPrice"
         android:gravity="center_horizontal"
-        android:background="@color/background_material_dark"
-        android:textColor="@color/abc_primary_text_material_dark"
         android:padding="10dp"
         android:textStyle="bold"
-
-
         android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

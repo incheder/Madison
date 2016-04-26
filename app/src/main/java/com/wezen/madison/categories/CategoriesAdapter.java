@@ -51,8 +51,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         final Category item = mDataset.get(position);
         viewHolder.tvFooter.setText(item.getName());
         Picasso.with(context).load(item.getImage()).into(viewHolder.ivBeverage);
-        viewHolder.categoryColor.setBackgroundColor(Color.parseColor(item.getMainColor()));
-        viewHolder.tvFooter.setBackgroundColor(Color.parseColor(item.getSecondaryColor()));
+        //viewHolder.categoryColor.setBackgroundColor(Color.parseColor(item.getMainColor()));
+        //viewHolder.tvFooter.setBackgroundColor(Color.parseColor(item.getSecondaryColor()));
+        viewHolder.ivBeverage.setColorFilter(Color.parseColor(item.getMainColor()));
 
         RxView.clicks(viewHolder.content).subscribe(aVoid ->{
             Intent servicesList = new Intent(context, ServicesListActivity.class);

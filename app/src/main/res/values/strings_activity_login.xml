@@ -6,7 +6,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Iniciar Sesión</string>
     <string name="action_sign_in_short">Iniciar Sesión</string>
-    <string name="repeat_password">Repite el password</string>
+    <string name="repeat_password">Repite el nuevo password</string>
     <string name="action_register">Regístrate</string>
 
     <string name="error_invalid_email">Este email es invalido</string>

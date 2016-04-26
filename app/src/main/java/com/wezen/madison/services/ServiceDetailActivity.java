@@ -124,8 +124,8 @@ public class ServiceDetailActivity extends DialogActivity {
 
                 collapsingToolbar.setContentScrimColor(toolbarColor);
                 setStatusBarColor(context, statusBarColor);
-                fab.setBackgroundTintList(createFabColors(fabColor));
-                fab.invalidate();
+                fab.setBackgroundTintList(ColorStateList.valueOf(fabColor));
+                //fab.setRippleColor(statusBarColor);
                 tabLayout.setBackgroundColor(toolbarColor);
                 tabLayout.setSelectedTabIndicatorColor(fabColor);
             }

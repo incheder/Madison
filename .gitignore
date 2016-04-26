@@ -40,3 +40,7 @@ app/libs/Parse-1.10.0.jar
 .idea/gradle.xml
 .idea/runConfigurations.xml
 build/intermediates/gradle_project_sync_data.bin
+build/generated/mockable-android-23.jar
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+gradlew

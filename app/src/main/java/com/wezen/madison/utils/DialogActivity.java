@@ -123,7 +123,9 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
     protected void setColors( Context context, Toolbar toolbar,FloatingActionButton fab){
         if(toolbar!= null && fab!= null){
             toolbar.setBackgroundColor(getMyToolbarColor());
-            fab.setBackgroundTintList(createFabColors(getMyFabColor()));
+            //fab.setBackgroundTintList(createFabColors(getMyFabColor()));
+            fab.setBackgroundTintList(ColorStateList.valueOf(getMyFabColor()));
+
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -138,7 +140,7 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
 
     }
 
-    private ColorStateList createFabColors(int color){
+    /*private ColorStateList createFabColors(int color){
         int[][] states = new int[][] {
                 new int[] { android.R.attr.state_enabled}, // enabled
 
@@ -151,7 +153,7 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
 
         ColorStateList myList = new ColorStateList(states, colors);
         return myList;
-    }
+    }*/
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

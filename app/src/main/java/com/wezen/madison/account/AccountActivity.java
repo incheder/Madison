@@ -3,6 +3,7 @@ package com.wezen.madison.account;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -51,23 +52,21 @@ public class AccountActivity extends DialogActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.accountToolbar);
         setSupportActionBar(toolbar);
         avatar = (CircleImageView)findViewById(R.id.account_image);
-        avatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if(avatar!= null){
+            avatar.setOnClickListener(v -> {
                 Intent chooseImageIntent = ImagePicker.getPickImageIntent(AccountActivity.this);
                 startActivityForResult(chooseImageIntent, PICK_IMAGE_REQUEST);
-            }
-        });
+            });
+        }
         lastNameEditText = (EditText)findViewById(R.id.accountLastNameEditText);
         phoneEditText = (EditText)findViewById(R.id.accountPhoneEditText);
         accountName = (EditText)findViewById(R.id.accountNameEditText);
         accountEmail = (EditText)findViewById(R.id.accountEmailEditText);
 
 
-        Button save = (Button)findViewById(R.id.accountSave);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        FloatingActionButton save = (FloatingActionButton)findViewById(R.id.accountSave);
+        if(save!= null){
+            save.setOnClickListener(v -> {
                 final ParseUser user = ParseUser.getCurrentUser();
                 if(!TextUtils.isEmpty(lastNameEditText.getText())){
                     user.put("lastName",lastNameEditText.getText().toString());
@@ -83,21 +82,19 @@ public class AccountActivity extends DialogActivity {
                 }
                 if(avatarBitmap!= null){
                     final ParseFile pf = new ParseFile(user.getObjectId()+ "_avatar_image.jpeg",bitmapToByteArray(avatarBitmap));
-                    pf.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if(e==null){
-                                user.put("userImage",pf);
-                            }
-                            saveParseUSer(user);
+                    pf.saveInBackground((SaveCallback) e -> {
+                        if(e==null){
+                            user.put("userImage",pf);
                         }
+                        saveParseUSer(user);
                     });
                 } else {
                     saveParseUSer(user);
                 }
 
-            }
-        });
+            });
+
+        }
 
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -149,14 +146,11 @@ public class AccountActivity extends DialogActivity {
     }
 
     private void saveParseUSer(ParseUser user){
-        user.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if(e == null){
-                        ParseUser.getCurrentUser().fetchInBackground();
-                } else { //ups
+        user.saveInBackground(e -> {
+            if(e == null){
+                    ParseUser.getCurrentUser().fetchInBackground();
+            } else { //ups
 
-                }
             }
         });
     }
