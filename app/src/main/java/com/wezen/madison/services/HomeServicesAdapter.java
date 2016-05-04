@@ -19,6 +19,8 @@ import com.wezen.madison.model.HomeService;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.functions.Action1;
+
 /**
  * Created by eder on 4/8/15.
  */
@@ -53,16 +55,19 @@ public class HomeServicesAdapter extends RecyclerView.Adapter<HomeServicesAdapte
                 .into(viewHolder.ivHomeService);
 
 
-        RxView.clicks(viewHolder.content).subscribe(aVoid -> {
-            Intent serviceDetail = new Intent(context, ServiceDetailActivity.class);
-            serviceDetail.putExtra(ServiceDetailActivity.PARAM_ID,homeService.getId());
-            //serviceDetail.putExtra(ServiceDetailActivity.PARAM_COMMENTS,homeService.getComments());
-            serviceDetail.putExtra(ServiceDetailActivity.PARAM_DESCRIPTION,homeService.getDescription());
-            serviceDetail.putExtra(ServiceDetailActivity.PARAM_NAME,homeService.getName());
-            //serviceDetail.putExtra(ServiceDetailActivity.PARAM_STARS,homeService.getStars());
-            serviceDetail.putExtra(ServiceDetailActivity.PARAM_URL_IMAGE,homeService.getUrlImage());
-            serviceDetail.putExtra(ServiceDetailActivity.PARAM_SERVICE_PROVIDER,homeService.getServiceProvider());
-            context.startActivity(serviceDetail);
+        RxView.clicks(viewHolder.content).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent serviceDetail = new Intent(context, ServiceDetailActivity.class);
+                serviceDetail.putExtra(ServiceDetailActivity.PARAM_ID,homeService.getId());
+                //serviceDetail.putExtra(ServiceDetailActivity.PARAM_COMMENTS,homeService.getComments());
+                serviceDetail.putExtra(ServiceDetailActivity.PARAM_DESCRIPTION,homeService.getDescription());
+                serviceDetail.putExtra(ServiceDetailActivity.PARAM_NAME,homeService.getName());
+                //serviceDetail.putExtra(ServiceDetailActivity.PARAM_STARS,homeService.getStars());
+                serviceDetail.putExtra(ServiceDetailActivity.PARAM_URL_IMAGE,homeService.getUrlImage());
+                serviceDetail.putExtra(ServiceDetailActivity.PARAM_SERVICE_PROVIDER,homeService.getServiceProvider());
+                context.startActivity(serviceDetail);
+            }
         });
 
     }

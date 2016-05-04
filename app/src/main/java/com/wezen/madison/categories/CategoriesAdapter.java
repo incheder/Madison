@@ -25,6 +25,8 @@ import com.wezen.madison.services.ServicesListActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.functions.Action1;
+
 /**
  * Created by eder on 4/8/15.
  */
@@ -55,10 +57,13 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         //viewHolder.tvFooter.setBackgroundColor(Color.parseColor(item.getSecondaryColor()));
         viewHolder.ivBeverage.setColorFilter(Color.parseColor(item.getMainColor()));
 
-        RxView.clicks(viewHolder.content).subscribe(aVoid ->{
-            Intent servicesList = new Intent(context, ServicesListActivity.class);
-            servicesList.putExtra(ServicesListActivity.CATEGORY_ID, item.getId());
-            context.startActivity(servicesList);
+        RxView.clicks(viewHolder.content).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent servicesList = new Intent(context, ServicesListActivity.class);
+                servicesList.putExtra(ServicesListActivity.CATEGORY_ID, item.getId());
+                context.startActivity(servicesList);
+            }
         });
 
     }

@@ -53,9 +53,12 @@ public class AccountActivity extends DialogActivity {
         setSupportActionBar(toolbar);
         avatar = (CircleImageView)findViewById(R.id.account_image);
         if(avatar!= null){
-            avatar.setOnClickListener(v -> {
-                Intent chooseImageIntent = ImagePicker.getPickImageIntent(AccountActivity.this);
-                startActivityForResult(chooseImageIntent, PICK_IMAGE_REQUEST);
+            avatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent chooseImageIntent = ImagePicker.getPickImageIntent(AccountActivity.this);
+                    startActivityForResult(chooseImageIntent, PICK_IMAGE_REQUEST);
+                }
             });
         }
         lastNameEditText = (EditText)findViewById(R.id.accountLastNameEditText);
@@ -66,32 +69,37 @@ public class AccountActivity extends DialogActivity {
 
         FloatingActionButton save = (FloatingActionButton)findViewById(R.id.accountSave);
         if(save!= null){
-            save.setOnClickListener(v -> {
-                final ParseUser user = ParseUser.getCurrentUser();
-                if(!TextUtils.isEmpty(lastNameEditText.getText())){
-                    user.put("lastName",lastNameEditText.getText().toString());
-                }
-                if(!TextUtils.isEmpty(phoneEditText.getText())){
-                    user.put("phone",phoneEditText.getText().toString());
-                }
-                if(!TextUtils.isEmpty(accountName.getText())){
-                    user.put("userName",accountName.getText().toString());
-                }
-                if(!TextUtils.isEmpty(accountEmail.getText())){
-                    user.put("email", accountEmail.getText().toString());
-                }
-                if(avatarBitmap!= null){
-                    final ParseFile pf = new ParseFile(user.getObjectId()+ "_avatar_image.jpeg",bitmapToByteArray(avatarBitmap));
-                    pf.saveInBackground((SaveCallback) e -> {
-                        if(e==null){
-                            user.put("userImage",pf);
-                        }
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final ParseUser user = ParseUser.getCurrentUser();
+                    if(!TextUtils.isEmpty(lastNameEditText.getText())){
+                        user.put("lastName",lastNameEditText.getText().toString());
+                    }
+                    if(!TextUtils.isEmpty(phoneEditText.getText())){
+                        user.put("phone",phoneEditText.getText().toString());
+                    }
+                    if(!TextUtils.isEmpty(accountName.getText())){
+                        user.put("userName",accountName.getText().toString());
+                    }
+                    if(!TextUtils.isEmpty(accountEmail.getText())){
+                        user.put("email", accountEmail.getText().toString());
+                    }
+                    if(avatarBitmap!= null){
+                        final ParseFile pf = new ParseFile(user.getObjectId()+ "_avatar_image.jpeg",bitmapToByteArray(avatarBitmap));
+                        pf.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if(e==null){
+                                    user.put("userImage",pf);
+                                }
+                                saveParseUSer(user);
+                            }
+                        });
+                    } else {
                         saveParseUSer(user);
-                    });
-                } else {
-                    saveParseUSer(user);
+                    }
                 }
-
             });
 
         }
@@ -146,11 +154,14 @@ public class AccountActivity extends DialogActivity {
     }
 
     private void saveParseUSer(ParseUser user){
-        user.saveInBackground(e -> {
-            if(e == null){
+        user.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null){
                     ParseUser.getCurrentUser().fetchInBackground();
-            } else { //ups
+                } else { //ups
 
+                }
             }
         });
     }

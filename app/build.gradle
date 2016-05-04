@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'retrolambda'
+//apply plugin: 'retrolambda'
 
 android {
     compileSdkVersion 23

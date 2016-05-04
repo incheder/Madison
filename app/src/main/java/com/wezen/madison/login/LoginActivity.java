@@ -98,42 +98,55 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
 
         mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
-            if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                attemptLogin();
-                return true;
+        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == R.id.login || actionId == EditorInfo.IME_NULL) {
+                    attemptLogin();
+                    return true;
+                }
+                return false;
             }
-            return false;
         });
 
         mRepeatPasswordView = (EditText) findViewById(R.id.repeatPassword);
-        mRepeatPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
-            if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                attemptLogin();
-                return true;
+        mRepeatPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == R.id.login || actionId == EditorInfo.IME_NULL) {
+                    attemptLogin();
+                    return true;
+                }
+                return false;
             }
-            return false;
         });
 
         final Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        RxView.clicks(mEmailSignInButton).subscribe(aVoid -> attemptLogin());
+        RxView.clicks(mEmailSignInButton).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                attemptLogin();
+            }
+        });
 
         //mEmailSignInButton.setOnClickListener(view -> attemptLogin());
 
         signin = (TextView)findViewById(R.id.sign_textView);
-        signin.setOnClickListener(view -> {
-            if(signin.getText().toString().equals(getResources().getString(R.string.action_sign_in))){
-                signin.setText(getResources().getString(R.string.action_register));
-                mEmailSignInButton.setText(getResources().getString(R.string.action_sign_in));
-                mRepeatPasswordView.setVisibility(View.GONE);
-                loginMode =true;
-            } else {
-                signin.setText(getResources().getString(R.string.action_sign_in));
-                mEmailSignInButton.setText(getResources().getString(R.string.action_register));
-                mRepeatPasswordView.setVisibility(View.VISIBLE);
-                loginMode =false;
+        signin.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(signin.getText().toString().equals(getResources().getString(R.string.action_sign_in))){
+                    signin.setText(getResources().getString(R.string.action_register));
+                    mEmailSignInButton.setText(getResources().getString(R.string.action_sign_in));
+                    mRepeatPasswordView.setVisibility(View.GONE);
+                    loginMode =true;
+                } else {
+                    signin.setText(getResources().getString(R.string.action_sign_in));
+                    mEmailSignInButton.setText(getResources().getString(R.string.action_register));
+                    mRepeatPasswordView.setVisibility(View.VISIBLE);
+                    loginMode =false;
+                }
             }
-
         });
 
         mLoginFormView = findViewById(R.id.login_form);
@@ -244,12 +257,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         parseUser.setPassword(password);
         parseUser.setUsername(email);
         parseUser.put("userType", 1);
-        parseUser.signUpInBackground(e -> {
-            showProgress(false);
-            if (e == null) { //no problemo
-                goToCategories();
-            } else { // ups!
+        parseUser.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                showProgress(false);
+                if (e == null) { //no problemo
+                    goToCategories();
+                } else { // ups!
 
+                }
             }
         });
 
@@ -258,20 +274,23 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private void  loginUser(String username, String password){
         showProgress(true);
        // mProgressView.setVisibility(View.VISIBLE);
-        ParseUser.logInInBackground(username, password, (parseUser, e) -> {
-           // mProgressView.setVisibility(View.GONE);
-            showProgress(false);
-            if(parseUser != null && parseUser.getInt("userType") == 1){//no problemo
-                goToCategories();
-                finish();
-            } else if(parseUser != null){//ups!
-                ParseUser.logOut();
-                Toast.makeText(LoginActivity.this, R.string.wrong_credentials, Toast.LENGTH_SHORT).show();
-            } else {
-                if(e!= null){
-                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+        ParseUser.logInInBackground(username, password, new LogInCallback() {
+            @Override
+            public void done(ParseUser parseUser, ParseException e) {
+                // mProgressView.setVisibility(View.GONE);
+                showProgress(false);
+                if(parseUser != null && parseUser.getInt("userType") == 1){//no problemo
+                    goToCategories();
+                    finish();
+                } else if(parseUser != null){//ups!
+                    ParseUser.logOut();
+                    Toast.makeText(LoginActivity.this, R.string.wrong_credentials, Toast.LENGTH_SHORT).show();
+                } else {
+                    if(e!= null){
+                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
 
+                }
             }
         });
     }

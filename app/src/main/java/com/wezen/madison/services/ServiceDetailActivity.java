@@ -37,6 +37,8 @@ import com.wezen.madison.utils.DialogActivity;
 import com.wezen.madison.utils.ToolbarColorSinleton;
 import com.wezen.madison.utils.Utils;
 
+import rx.functions.Action1;
+
 public class ServiceDetailActivity extends DialogActivity {
     public static final String PARAM_ID = "ID";
     public static final String PARAM_COMMENTS = "COMMENTS";
@@ -97,13 +99,16 @@ public class ServiceDetailActivity extends DialogActivity {
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
-        RxView.clicks(fab).subscribe(aVoid -> {
-            Intent mapIntent = new Intent(ServiceDetailActivity.this, MapActivity.class);
-            mapIntent.putExtra(MapActivity.HOME_SERVICE_ID,id);
-            mapIntent.putExtra(MapActivity.HOME_SERVICE_NAME,name);
-            mapIntent.putExtra(MapActivity.HOME_SERVICE_DESCRIPTION,description);
-            mapIntent.putExtra(MapActivity.HOME_SERVICE_PROVIDER,serviceProvider);
-            startActivity(mapIntent);
+        RxView.clicks(fab).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                Intent mapIntent = new Intent(ServiceDetailActivity.this, MapActivity.class);
+                mapIntent.putExtra(MapActivity.HOME_SERVICE_ID,id);
+                mapIntent.putExtra(MapActivity.HOME_SERVICE_NAME,name);
+                mapIntent.putExtra(MapActivity.HOME_SERVICE_DESCRIPTION,description);
+                mapIntent.putExtra(MapActivity.HOME_SERVICE_PROVIDER,serviceProvider);
+                startActivity(mapIntent);
+            }
         });
 
     }
