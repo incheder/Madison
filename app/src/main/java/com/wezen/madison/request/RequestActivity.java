@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -35,7 +36,11 @@ import com.wezen.madison.model.HomeServiceRequestStatus;
 import com.wezen.madison.utils.DialogActivity;
 import com.wezen.madison.utils.Utils;
 
-public class RequestActivity extends DialogActivity implements ReviewDialogFragment.OnClickReviewDialog {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import rx.functions.Action1;
+
+public class RequestActivity extends DialogActivity implements ReviewDialogFragment.OnClickReviewDialog,CancelRequestDialogFragment.OnClickCancelDialog {
 
     //public static final String REQUEST_ID = "clientRequestId";
     public static final String REQUEST_IMAGE_URL = "imageUrl";
@@ -48,6 +53,7 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
     public static final String REQUEST_SHOW_RATING_BUTTON = "showRatingButton";
     public static final String REQUEST_ID = "homeServiceRequestId";
     public static final String REQUEST_NUM_STARS = "homeServiceRequestNumStars";
+    public static final String REQUEST_SHOW_CANCEL_BUTTON = "showCancelButton";
 
     private ImageView imageHeader;
     private CollapsingToolbarLayout collapsingToolbar;
@@ -57,10 +63,18 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
     private Button buttonRating;
     private RatingBar ratingBar;
 
+    @Bind(R.id.buttonCancelRequest)
+    Button buttonCancelRequest;
+    @Bind(R.id.request_rating_layout)
+    LinearLayout ratingLayout;
+    @Bind( R.id.request_my_rating)
+    TextView textViewMyRating;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarRequest);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null){
@@ -125,9 +139,26 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
             if(numStars > 0){
                 ratingBar.setVisibility(View.VISIBLE);
                 ratingBar.setRating(numStars);
+                ratingLayout.setVisibility(View.GONE);
+                textViewMyRating.setVisibility(View.VISIBLE);
             }else {
                 ratingBar.setVisibility(View.GONE);
+                ratingLayout.setVisibility(View.VISIBLE);
+                textViewMyRating.setVisibility(View.GONE);
             }
+            if(getIntent().getBooleanExtra(REQUEST_SHOW_CANCEL_BUTTON,false)){
+                buttonCancelRequest.setVisibility(View.VISIBLE);
+                RxView.clicks(buttonCancelRequest).subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        CancelRequestDialogFragment cancelRequestDialogFragment = CancelRequestDialogFragment.newInstance(null,null);
+                        cancelRequestDialogFragment.show(getSupportFragmentManager(),null);
+                    }
+                });
+            } else {
+                buttonCancelRequest.setVisibility(View.GONE);
+            }
+
             requestId = getIntent().getStringExtra(REQUEST_ID);
         }
     }
@@ -216,4 +247,8 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
 
     }
 
+    @Override
+    public void onCancelRequestButtonClicked() {
+
+    }
 }
