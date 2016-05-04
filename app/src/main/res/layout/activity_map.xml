@@ -71,14 +71,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/ic_place_48dp" />
+        android:src="@drawable/ic_place_white_48dp"
+        android:id="@+id/mapCustomMarker"/>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
-        android:src="@drawable/ic_done_red_24dp"
+        android:src="@drawable/ic_done_white_24dp"
         android:id="@+id/fabMap"
         android:layout_above="@id/mapToolbarBottom"
         android:layout_alignParentRight="true"

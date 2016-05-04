@@ -14,6 +14,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Window;
+import android.widget.ImageView;
 
 import com.wezen.madison.R;
 
@@ -134,9 +135,10 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
         }
     }
 
-    protected void setColors( Context context, Toolbar toolbar,FloatingActionButton fab, Toolbar bottomToolbar){
+    protected void setColors( Context context, Toolbar toolbar,FloatingActionButton fab, Toolbar bottomToolbar, ImageView marker){
        setColors(context,toolbar,fab);
        bottomToolbar.setBackgroundColor(getMyToolbarColor());
+       marker.setColorFilter(getMyFabColor());
 
     }
 

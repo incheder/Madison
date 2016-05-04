@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -37,6 +38,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MapActivity extends DialogActivity {
     //public static final String LATITUDE = "latitude";
     //public static final String LONGITUDE = "longitude";
@@ -46,15 +50,29 @@ public class MapActivity extends DialogActivity {
     public static final String HOME_SERVICE_DESCRIPTION = "description";
     public static final String HOME_SERVICE_PROVIDER = "serviceProvider";
 
-    private EditText userAddressEditText;
+    //private EditText userAddressEditText;
     private boolean firstTime = true;
-    private TextView userAddressTextView;
-    private FloatingActionButton fab;
+    //private TextView userAddressTextView;
+    //private FloatingActionButton fab;
     private GeoCoderResponseReceiver geoCoderResponseReceiver;
     private String id;
     private String name;
     private String description;
     private String serviceProvider;
+
+    @Bind(R.id.mapCustomMarker)
+    ImageView marker;
+    @Bind(R.id.mapAddressTextView)
+    TextView userAddressTextView;
+    @Bind(R.id.mapAddressEditTex)
+    EditText userAddressEditText;
+    @Bind(R.id.fabMap)
+    FloatingActionButton fab;
+    @Bind(R.id.mapToolbar)
+    Toolbar toolbar;
+    @Bind(R.id.mapToolbarBottom)
+    Toolbar bottomToolbar;
+
 
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -63,31 +81,27 @@ public class MapActivity extends DialogActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.mapToolbar);
-        userAddressEditText = (EditText)findViewById(R.id.mapAddressEditTex);
-        userAddressTextView = (TextView)findViewById(R.id.mapAddressTextView);
-        userAddressTextView.setOnClickListener(addressTextViewListener);
-        fab = (FloatingActionButton)findViewById(R.id.fabMap);
-
-        fab.setOnClickListener(fabClickListener);
-        fab.hide();
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        userAddressTextView.setOnClickListener(addressTextViewListener);
+        fab.setOnClickListener(fabClickListener);
+        //fab.hide();
+
         id = getIntent().getExtras().getString(HOME_SERVICE_ID);
         name = getIntent().getExtras().getString(HOME_SERVICE_NAME);
         description = getIntent().getExtras().getString(HOME_SERVICE_DESCRIPTION);
         serviceProvider = getIntent().getExtras().getString(HOME_SERVICE_PROVIDER);
-
-        Toolbar bottomToolbar = (Toolbar)findViewById(R.id.mapToolbarBottom);
 
         setUpMapIfNeeded();
         geoCoderResponseReceiver = new GeoCoderResponseReceiver();
         IntentFilter mStatusIntentFilter = new IntentFilter(GeoCoderIntentService.BROADCAST_SEND_ADDRESS);
         LocalBroadcastManager.getInstance(this).registerReceiver(geoCoderResponseReceiver, mStatusIntentFilter);
 
-        setColors(this,toolbar,fab,bottomToolbar);
+        setColors(this,toolbar,fab,bottomToolbar,marker);
 
     }
 
@@ -146,6 +160,7 @@ public class MapActivity extends DialogActivity {
     private void setUpMap() {
 
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        //checkPermission()
         mMap.setMyLocationEnabled(true);
         mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 
