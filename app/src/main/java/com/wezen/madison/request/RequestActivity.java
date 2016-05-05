@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -249,6 +250,24 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
 
     @Override
     public void onCancelRequestButtonClicked() {
+        cancelRequest();
+
+    }
+
+    private void cancelRequest(){
+        ParseObject po = ParseObject.createWithoutData("HomeServiceRequest",requestId);
+        po.put("status", HomeServiceRequestStatus.CANCELADO.getValue());
+        po.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null){
+                    //TODO send push to partner
+                    onBackPressed();
+                } else {//ups
+                    Log.d("Error",getResources().getString(R.string.error_canceling_homeservice));
+                }
+            }
+        });
 
     }
 }

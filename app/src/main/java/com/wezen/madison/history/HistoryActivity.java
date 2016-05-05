@@ -48,14 +48,14 @@ public class HistoryActivity extends DialogActivity {
         requestList = new ArrayList<>();
         adapter = new HistoryAdapter(requestList,this);
         rvHistory.setAdapter(adapter);
-        getList(null);
+
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
+        getList(null);
     }
 
     private void getList(HomeServiceRequestStatus status) {
