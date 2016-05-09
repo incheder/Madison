@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
@@ -73,6 +75,16 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
     LinearLayout averageRatingLayout;
     @Bind( R.id.request_my_rating)
     TextView textViewMyRating;
+    @Bind(R.id.requestCoordinatorLayout)
+    CoordinatorLayout coordinatorLayout;
+    @Bind(R.id.request_status_label)
+    TextView statusLabel;
+    @Bind(R.id.request_layout_status)
+    LinearLayout layoutStatus;
+    @Bind(R.id.request_attended_by_layout)
+    RelativeLayout attendedLayout;
+    @Bind(R.id.request_your_service_will_be)
+    TextView yourServiceWillBe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +98,10 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
         }
         imageHeader = (ImageView)findViewById(R.id.headerRequest);
         collapsingToolbar = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar_request);
-        LinearLayout layoutStatus = (LinearLayout)findViewById(R.id.request_layout_status);
-        RelativeLayout attendedLayout = (RelativeLayout)findViewById(R.id.request_attended_by_layout);
-        TextView yourServiceWillBe = (TextView)findViewById(R.id.request_your_service_will_be);
-        TextView statusLabel = (TextView)findViewById(R.id.request_status_label);
+        //LinearLayout layoutStatus = (LinearLayout)findViewById(R.id.request_layout_status);
+        //RelativeLayout attendedLayout = (RelativeLayout)findViewById(R.id.request_attended_by_layout);
+        //TextView yourServiceWillBe = (TextView)findViewById(R.id.request_your_service_will_be);
+        //TextView statusLabel = (TextView)findViewById(R.id.request_status_label);
         TextView requestProblemDescription = (TextView)findViewById(R.id.request_problem_description);
         TextView attendedBy = (TextView)findViewById(R.id.request_service_provider_name);
         ImageView attendedByImageView = (ImageView)findViewById(R.id.request_service_provider_avatar);
@@ -253,8 +265,8 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
 
     @Override
     public void onCancelRequestButtonClicked() {
+        cancelRequest();
         sendCancelPush();
-        //cancelRequest();
 
     }
 
@@ -265,9 +277,14 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
             @Override
             public void done(ParseException e) {
                 if(e == null){
-                    //TODO send push to partner
+                    Snackbar.make(coordinatorLayout,R.string.service_cancelled,Snackbar.LENGTH_SHORT).show();
+                    statusLabel.setText(HomeServiceRequestStatus.CANCELADO.toString());
+                    layoutStatus.setBackgroundColor(Utils.getColorByStatus(RequestActivity.this,HomeServiceRequestStatus.CANCELADO));
+                    attendedLayout.setVisibility(View.GONE);
+                    yourServiceWillBe.setVisibility(View.INVISIBLE);
+                    buttonCancelRequest.setVisibility(View.GONE);
 
-                    onBackPressed();
+                    //onBackPressed();
                 } else {//ups
                     Log.d("Error",getResources().getString(R.string.error_canceling_homeservice));
                 }
