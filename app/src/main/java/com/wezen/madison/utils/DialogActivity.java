@@ -17,8 +17,9 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.wezen.madison.R;
+import com.wezen.madison.history.ReviewDialogFragment;
 
-public class DialogActivity extends AppCompatActivity implements NetworkDialogFragment.OnClickOrderDialog {
+public class DialogActivity extends AppCompatActivity implements NetworkDialogFragment.OnClickOrderDialog, ReviewDialogFragment.OnClickReviewDialog {
 
     private static final String TOOLBAR_COLOR_BUNDLE = "toolbar";
     private static final String STATUSBAR_COLOR_BUNDLE = "statusBar";
@@ -26,6 +27,7 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
 
     protected NetworkResponseReceiver networkResponseReceiver;
     NetworkDialogFragment dialog;
+    ReviewDialogFragment reviewDialog;
 
     private static Integer myStatusBarcolor;
     private static Integer myToolbarColor;
@@ -87,9 +89,18 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
                 dialog = NetworkDialogFragment.newInstance("","");
                 dialog.setCancelable(false);
             }
-            if(!dialog. isAdded() && !dialog.isVisible()){
+            if(!dialog.isAdded() && !dialog.isVisible()){
                 dialog.show(getSupportFragmentManager(), null);
             }
+        } else {//there is a connection, now we have to display a rating dialog if needed
+            /*if(reviewDialog == null){
+                reviewDialog = ReviewDialogFragment.newInstance();
+                reviewDialog.setCancelable(false);
+            }
+            if(!reviewDialog.isAdded() && !reviewDialog.isVisible()){
+                reviewDialog.show(getSupportFragmentManager(), null);
+            }*/
+
         }
     }
 
@@ -101,6 +112,11 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
         if(!Utils.isNetworkEnable(DialogActivity.this)){
             dialog.show(getSupportFragmentManager(), null);
         }
+
+    }
+
+    @Override
+    public void onReviewDialogButtonClicked(int numStars, String comment) {
 
     }
 

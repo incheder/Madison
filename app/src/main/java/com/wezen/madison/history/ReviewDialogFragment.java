@@ -3,7 +3,6 @@ package com.wezen.madison.history;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -28,7 +27,7 @@ public class ReviewDialogFragment extends DialogFragment {
     //private int position;
 
     public interface OnClickReviewDialog {
-        void onButtonClicked(int numStars, String comment);
+        void onReviewDialogButtonClicked(int numStars, String comment);
     }
 
     public static ReviewDialogFragment newInstance() {
@@ -60,7 +59,7 @@ public class ReviewDialogFragment extends DialogFragment {
                 mListener = (OnClickReviewDialog) activity;
             } catch (ClassCastException e) {
                 throw new ClassCastException(activity.toString()
-                        + " must implement OnFragmentInteractionListener");
+                        + " must implement OnClickReviewDialog");
             }
 
         }
@@ -87,7 +86,7 @@ public class ReviewDialogFragment extends DialogFragment {
 
                 } else {
                     String comment = TextUtils.isEmpty(editText.getText().toString()) ? "" : editText.getText().toString();
-                    mListener.onButtonClicked(stars, comment);
+                    mListener.onReviewDialogButtonClicked(stars, comment);
                 }
             }
         });

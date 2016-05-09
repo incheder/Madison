@@ -104,9 +104,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
                 if(item.getWasRated()){
                     request.putExtra(RequestActivity.REQUEST_NUM_STARS,item.getReview());
                 }
-                if(!item.getWasRated() && item.getStatus() == HomeServiceRequestStatus.COMPLETO){
+                /*if(!item.getWasRated() && item.getStatus() == HomeServiceRequestStatus.COMPLETO){
                     request.putExtra(RequestActivity.REQUEST_SHOW_RATING_BUTTON,true);
-                }
+                }*/
                 if(item.getStatus() == HomeServiceRequestStatus.CONFIRMADO || item.getStatus() == HomeServiceRequestStatus.ENVIADO){
                     request.putExtra(RequestActivity.REQUEST_SHOW_CANCEL_BUTTON,true);
                 }

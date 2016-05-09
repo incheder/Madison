@@ -145,7 +145,7 @@ public class HistoryActivity extends DialogActivity {
 
 
     /*@Override
-    public void onButtonClicked(int numStars, String comment, final int position) {
+    public void onReviewDialogButtonClicked(int numStars, String comment, final int position) {
         dialog.dismiss();
         ParseObject review = new ParseObject("Review");
         review.put("numStars", numStars);

@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
@@ -24,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jakewharton.rxbinding.view.RxView;
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -31,11 +32,13 @@ import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.wezen.madison.R;
-import com.wezen.madison.history.HistoryActivity;
 import com.wezen.madison.history.ReviewDialogFragment;
 import com.wezen.madison.model.HomeServiceRequestStatus;
 import com.wezen.madison.utils.DialogActivity;
 import com.wezen.madison.utils.Utils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -61,13 +64,13 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
     private String problemDesc;
     private ReviewDialogFragment dialog;
     private String requestId;
-    private Button buttonRating;
+    //private Button buttonRating;
     private RatingBar ratingBar;
 
     @Bind(R.id.buttonCancelRequest)
     Button buttonCancelRequest;
     @Bind(R.id.request_rating_layout)
-    LinearLayout ratingLayout;
+    LinearLayout averageRatingLayout;
     @Bind( R.id.request_my_rating)
     TextView textViewMyRating;
 
@@ -91,7 +94,7 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
         TextView attendedBy = (TextView)findViewById(R.id.request_service_provider_name);
         ImageView attendedByImageView = (ImageView)findViewById(R.id.request_service_provider_avatar);
         TextView requestDate = (TextView)findViewById(R.id.request_date);
-        buttonRating = (Button)findViewById(R.id.buttonRatingRequest);
+        //buttonRating = (Button)findViewById(R.id.buttonRatingRequest);
         ratingBar = (RatingBar)findViewById(R.id.ratingBarRequest);
         CardView cardDate = (CardView)findViewById(R.id.card_request_date);
 
@@ -124,7 +127,7 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
                 cardDate.setVisibility(View.GONE);
             }
 
-            if(getIntent().getBooleanExtra(REQUEST_SHOW_RATING_BUTTON,false)){
+            /*if(getIntent().getBooleanExtra(REQUEST_SHOW_RATING_BUTTON,false)){
                 buttonRating.setVisibility(View.VISIBLE);
                 buttonRating.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -135,16 +138,16 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
             } else {
                 buttonRating.setVisibility(View.GONE);
 
-            }
+            }*/
             int numStars = getIntent().getIntExtra(REQUEST_NUM_STARS,0);
             if(numStars > 0){
                 ratingBar.setVisibility(View.VISIBLE);
                 ratingBar.setRating(numStars);
-                ratingLayout.setVisibility(View.GONE);
+                averageRatingLayout.setVisibility(View.GONE);
                 textViewMyRating.setVisibility(View.VISIBLE);
             }else {
                 ratingBar.setVisibility(View.GONE);
-                ratingLayout.setVisibility(View.VISIBLE);
+                averageRatingLayout.setVisibility(View.VISIBLE);
                 textViewMyRating.setVisibility(View.GONE);
             }
             if(getIntent().getBooleanExtra(REQUEST_SHOW_CANCEL_BUTTON,false)){
@@ -211,7 +214,7 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
     }
 
     @Override
-    public void onButtonClicked(final int numStars, String comment) {
+    public void onReviewDialogButtonClicked(final int numStars, String comment) {
         dialog.dismiss();
         ParseObject review = new ParseObject("Review");
         review.put("numStars", numStars);
@@ -229,7 +232,7 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
                 //adapter.notifyDataSetChanged();
 
                 if (e == null) {
-                    buttonRating.setVisibility(View.GONE);
+                    //buttonRating.setVisibility(View.GONE);
                     ratingBar.setVisibility(View.VISIBLE);
                     ratingBar.setRating(numStars);
                     Toast.makeText(RequestActivity.this, getResources().getString(R.string.review_saved), Toast.LENGTH_SHORT).show();
@@ -250,7 +253,8 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
 
     @Override
     public void onCancelRequestButtonClicked() {
-        cancelRequest();
+        sendCancelPush();
+        //cancelRequest();
 
     }
 
@@ -262,6 +266,7 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
             public void done(ParseException e) {
                 if(e == null){
                     //TODO send push to partner
+
                     onBackPressed();
                 } else {//ups
                     Log.d("Error",getResources().getString(R.string.error_canceling_homeservice));
@@ -269,5 +274,23 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
             }
         });
 
+    }
+
+    private void sendCancelPush(){
+        Map<String,Object> params = new HashMap<>();
+        params.put("requestId", requestId);
+        //params.put("employeeId", employeeId);
+        ParseCloud.callFunctionInBackground("sendCancelServicePushToEmployee", params, new FunctionCallback<Object>() {
+            @Override
+            public void done(Object o, ParseException e) {
+                if (e == null) {
+                    Log.d("SUCCESS: ", o.toString());
+                    //finish();
+                } else {
+                    Log.e("ERROR: ", e.getMessage());
+
+                }
+            }
+        });
     }
 }

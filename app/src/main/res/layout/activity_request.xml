@@ -117,12 +117,12 @@
 
                         </RelativeLayout>
 
-                        <Button
+                        <!--<Button
                             android:id="@+id/buttonRatingRequest"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/add_review"
-                            android:visibility="gone"/>
+                            android:visibility="gone"/>-->
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -152,7 +152,8 @@
                             android:text="@string/cancel_service"
                             android:visibility="visible"
                             android:layout_gravity="center"
-                            android:layout_marginBottom="@dimen/elements_margin"/>
+                            android:layout_marginBottom="@dimen/elements_margin"
+                            />
 
                     </LinearLayout>
 
