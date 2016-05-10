@@ -143,6 +143,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".request.RequestActivity"
+            android:label="@string/title_activity_request"
+            android:parentActivityName=".history.HistoryActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wezen.madison.history.HistoryActivity" />
+        </activity>
+        <activity
+            android:name=".password.PasswordActivity"
+            android:label="@string/title_activity_password"
+            android:parentActivityName=".categories.CategoriesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wezen.madison.categories.CategoriesActivity" />
+        </activity>
 
         <receiver
             android:name=".utils.ConnectionChange"
@@ -173,23 +189,9 @@
                 <category android:name="com.wezen.madison" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".request.AlarmBroadcastReceiver"/>
 
-        <activity
-            android:name=".request.RequestActivity"
-            android:label="@string/title_activity_request"
-            android:parentActivityName=".history.HistoryActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.wezen.madison.history.HistoryActivity" />
-        </activity>
-        <activity
-            android:name=".password.PasswordActivity"
-            android:label="@string/title_activity_password"
-            android:parentActivityName=".categories.CategoriesActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.wezen.madison.categories.CategoriesActivity" />
-        </activity>
+
     </application>
 
 </manifest>

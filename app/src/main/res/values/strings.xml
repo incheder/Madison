@@ -109,6 +109,7 @@
     <string name="cancel_service_dialog_title">¿Cancelar servicio?</string>
     <string name="error_canceling_homeservice">Hubo un problema al cancelar el servicio</string>
     <string name="service_cancelled">Servicio cancelado</string>
+    <string name="alarm_notification_title">Evalua el servicio</string>
 
 
 </resources>
