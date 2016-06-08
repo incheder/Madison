@@ -26,9 +26,12 @@ import android.widget.Toast;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.parse.FunctionCallback;
+import com.parse.GetCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
@@ -46,7 +49,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.functions.Action1;
 
-public class RequestActivity extends DialogActivity implements ReviewDialogFragment.OnClickReviewDialog,CancelRequestDialogFragment.OnClickCancelDialog {
+public class RequestActivity extends DialogActivity implements /*ReviewDialogFragment.OnClickReviewDialog,*/CancelRequestDialogFragment.OnClickCancelDialog {
 
     //public static final String REQUEST_ID = "clientRequestId";
     public static final String REQUEST_IMAGE_URL = "imageUrl";
@@ -60,6 +63,8 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
     public static final String REQUEST_ID = "homeServiceRequestId";
     public static final String REQUEST_NUM_STARS = "homeServiceRequestNumStars";
     public static final String REQUEST_SHOW_CANCEL_BUTTON = "showCancelButton";
+    public static final String REQUEST_IS_COMPLETE = "homeServiceIsComplete";
+    public static final String REQUEST_AVERAGE_STARS = "averageStars";
 
     private ImageView imageHeader;
     private CollapsingToolbarLayout collapsingToolbar;
@@ -85,6 +90,8 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
     RelativeLayout attendedLayout;
     @Bind(R.id.request_your_service_will_be)
     TextView yourServiceWillBe;
+    @Bind(R.id.request_service_provider_rating)
+    TextView averageRatingTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,42 +109,88 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
         //RelativeLayout attendedLayout = (RelativeLayout)findViewById(R.id.request_attended_by_layout);
         //TextView yourServiceWillBe = (TextView)findViewById(R.id.request_your_service_will_be);
         //TextView statusLabel = (TextView)findViewById(R.id.request_status_label);
-        TextView requestProblemDescription = (TextView)findViewById(R.id.request_problem_description);
-        TextView attendedBy = (TextView)findViewById(R.id.request_service_provider_name);
-        ImageView attendedByImageView = (ImageView)findViewById(R.id.request_service_provider_avatar);
-        TextView requestDate = (TextView)findViewById(R.id.request_date);
+        final TextView requestProblemDescription = (TextView)findViewById(R.id.request_problem_description);
+        final TextView attendedBy = (TextView)findViewById(R.id.request_service_provider_name);
+        final ImageView attendedByImageView = (ImageView)findViewById(R.id.request_service_provider_avatar);
+        final TextView requestDate = (TextView)findViewById(R.id.request_date);
         //buttonRating = (Button)findViewById(R.id.buttonRatingRequest);
         ratingBar = (RatingBar)findViewById(R.id.ratingBarRequest);
         CardView cardDate = (CardView)findViewById(R.id.card_request_date);
 
         if(getIntent().getExtras()!= null){
-            String imageUrl = getIntent().getStringExtra(REQUEST_IMAGE_URL);
-            Picasso.with(this).load(imageUrl).into(target);
-            int status = getIntent().getIntExtra(REQUEST_STATUS,-1);
-            statusLabel.setText(status == -1 ? "" : HomeServiceRequestStatus.valueOf(status).toString());
-            layoutStatus.setBackgroundColor(Utils.getColorByStatus(this,HomeServiceRequestStatus.valueOf(status)));
-            if(status!= -1 && (status == HomeServiceRequestStatus.CONFIRMADO.getValue() || status == HomeServiceRequestStatus.COMPLETO.getValue() )){
-                attendedLayout.setVisibility(View.VISIBLE);
-                yourServiceWillBe.setVisibility(View.VISIBLE);
-            } else {
-                attendedLayout.setVisibility(View.GONE);
-                yourServiceWillBe.setVisibility(View.INVISIBLE);
+            requestId = getIntent().getStringExtra(REQUEST_ID);
 
-            }
-            String title = getIntent().getStringExtra(REQUEST_HOME_SERVICE_NAME);
-            collapsingToolbar.setTitle(title);
-            problemDesc = getIntent().getStringExtra(REQUEST_PROBLEM_DESCRIPTION);
-            requestProblemDescription.setText(problemDesc);
-            attendedBy.setText(getIntent().getStringExtra(REQUEST_ATTENDED_BY));
-            String attendedByAvatarUrl = getIntent().getStringExtra(REQUEST_ATTENDED_BY_AVATAR);
-            if(attendedByAvatarUrl!= null){
-                Picasso.with(this).load(attendedByAvatarUrl).into(attendedByImageView);
-            }
-            if(getIntent().getStringExtra(REQUEST_DATE_FOR_SERVICE)!=null){
-                requestDate.setText(getIntent().getStringExtra(REQUEST_DATE_FOR_SERVICE));
-            } else {
-                cardDate.setVisibility(View.GONE);
-            }
+            /*if(getIntent().getBooleanExtra(REQUEST_IS_COMPLETE, false)){
+
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("HomeServiceRequest");
+                query.include("user");
+                query.include("attendedBy");
+                query.include("homeService");
+                query.getInBackground(requestId, new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject po, ParseException e) {
+                        if(e == null){
+
+                            ParseFile image = po.getParseObject("homeService").getParseFile("image");
+                            if (image != null) {
+                                Picasso.with(RequestActivity.this).load(image.getUrl()).into(target);
+                            }
+                            int status = po.getInt("status");
+                            statusLabel.setText(status == -1 ? "" : HomeServiceRequestStatus.valueOf(status).toString());
+                            layoutStatus.setBackgroundColor(Utils.getColorByStatus(RequestActivity.this,HomeServiceRequestStatus.valueOf(status)));
+                            if(status!= -1 && (status == HomeServiceRequestStatus.CONFIRMADO.getValue() || status == HomeServiceRequestStatus.COMPLETO.getValue() )){
+                                attendedLayout.setVisibility(View.VISIBLE);
+                                yourServiceWillBe.setVisibility(View.VISIBLE);
+                            } else {
+                                attendedLayout.setVisibility(View.GONE);
+                                yourServiceWillBe.setVisibility(View.INVISIBLE);
+
+                            }
+                            collapsingToolbar.setTitle(po.getParseObject("homeService").getString("name"));
+                            requestProblemDescription.setText(po.getString("problemDescription"));
+                            attendedBy.setText(po.getParseUser("attendedBy").getUsername());
+                            ParseFile attendedFile = po.getParseUser("attendedBy").getParseFile("userImage");
+                            if(attendedFile!= null){
+                                Picasso.with(RequestActivity.this).load(attendedFile.getUrl()).into(attendedByImageView);
+                            }
+                            requestDate.setText(po.getDate("dateForService").toString());
+
+
+                        } else {
+                            //TODO shoe empty layot with an error message
+                        }
+
+                    }
+                });*/
+
+            //} else {
+                String imageUrl = getIntent().getStringExtra(REQUEST_IMAGE_URL);
+                Picasso.with(this).load(imageUrl).into(target);
+                int status = getIntent().getIntExtra(REQUEST_STATUS,-1);
+                statusLabel.setText(status == -1 ? "" : HomeServiceRequestStatus.valueOf(status).toString());
+                layoutStatus.setBackgroundColor(Utils.getColorByStatus(this,HomeServiceRequestStatus.valueOf(status)));
+                if(status!= -1 && (status == HomeServiceRequestStatus.CONFIRMADO.getValue() || status == HomeServiceRequestStatus.COMPLETO.getValue() )){
+                    attendedLayout.setVisibility(View.VISIBLE);
+                    yourServiceWillBe.setVisibility(View.VISIBLE);
+                } else {
+                    attendedLayout.setVisibility(View.GONE);
+                    yourServiceWillBe.setVisibility(View.INVISIBLE);
+
+                }
+                String title = getIntent().getStringExtra(REQUEST_HOME_SERVICE_NAME);
+                collapsingToolbar.setTitle(title);
+                problemDesc = getIntent().getStringExtra(REQUEST_PROBLEM_DESCRIPTION);
+                requestProblemDescription.setText(problemDesc);
+                attendedBy.setText(getIntent().getStringExtra(REQUEST_ATTENDED_BY));
+                String attendedByAvatarUrl = getIntent().getStringExtra(REQUEST_ATTENDED_BY_AVATAR);
+                if(attendedByAvatarUrl!= null){
+                    Picasso.with(this).load(attendedByAvatarUrl).into(attendedByImageView);
+                }
+                if(getIntent().getStringExtra(REQUEST_DATE_FOR_SERVICE)!=null){
+                    requestDate.setText(getIntent().getStringExtra(REQUEST_DATE_FOR_SERVICE));
+                } else {
+                    cardDate.setVisibility(View.GONE);
+                }
 
             /*if(getIntent().getBooleanExtra(REQUEST_SHOW_RATING_BUTTON,false)){
                 buttonRating.setVisibility(View.VISIBLE);
@@ -151,31 +204,40 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
                 buttonRating.setVisibility(View.GONE);
 
             }*/
-            int numStars = getIntent().getIntExtra(REQUEST_NUM_STARS,0);
-            if(numStars > 0){
-                ratingBar.setVisibility(View.VISIBLE);
-                ratingBar.setRating(numStars);
-                averageRatingLayout.setVisibility(View.GONE);
-                textViewMyRating.setVisibility(View.VISIBLE);
-            }else {
-                ratingBar.setVisibility(View.GONE);
-                averageRatingLayout.setVisibility(View.VISIBLE);
-                textViewMyRating.setVisibility(View.GONE);
-            }
-            if(getIntent().getBooleanExtra(REQUEST_SHOW_CANCEL_BUTTON,false)){
-                buttonCancelRequest.setVisibility(View.VISIBLE);
-                RxView.clicks(buttonCancelRequest).subscribe(new Action1<Void>() {
-                    @Override
-                    public void call(Void aVoid) {
-                        CancelRequestDialogFragment cancelRequestDialogFragment = CancelRequestDialogFragment.newInstance(null,null);
-                        cancelRequestDialogFragment.show(getSupportFragmentManager(),null);
-                    }
-                });
-            } else {
-                buttonCancelRequest.setVisibility(View.GONE);
-            }
+                int myReview = getIntent().getIntExtra(REQUEST_NUM_STARS,0);
+                if(myReview > 0){
+                    ratingBar.setVisibility(View.VISIBLE);
+                    ratingBar.setRating(myReview);
+                    averageRatingLayout.setVisibility(View.GONE);
+                    textViewMyRating.setVisibility(View.VISIBLE);
+                }else {
+                    ratingBar.setVisibility(View.GONE);
+                    averageRatingLayout.setVisibility(View.VISIBLE);
+                    textViewMyRating.setVisibility(View.GONE);
+                }
+                if(getIntent().getBooleanExtra(REQUEST_SHOW_CANCEL_BUTTON,false)){
+                    buttonCancelRequest.setVisibility(View.VISIBLE);
+                    //buttonCancelRequest.setBackgroundColor(Utils.getColorByStatus(this,HomeServiceRequestStatus.valueOf(status)));
+                    buttonCancelRequest.setTextColor(Utils.getColorByStatus(this,HomeServiceRequestStatus.valueOf(status)));
+                    RxView.clicks(buttonCancelRequest).subscribe(new Action1<Void>() {
+                        @Override
+                        public void call(Void aVoid) {
+                            CancelRequestDialogFragment cancelRequestDialogFragment = CancelRequestDialogFragment.newInstance(null,null);
+                            cancelRequestDialogFragment.show(getSupportFragmentManager(),null);
+                        }
+                    });
+                } else {
+                    buttonCancelRequest.setVisibility(View.GONE);
+                }
 
-            requestId = getIntent().getStringExtra(REQUEST_ID);
+                double averageStars = getIntent().getDoubleExtra(REQUEST_AVERAGE_STARS,0);
+                averageRatingTextView.setText(String.valueOf( averageStars ));
+
+           // }
+
+
+
+
         }
     }
 
@@ -221,12 +283,12 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
 
     public void showRatingDialog(){
 
-        dialog = ReviewDialogFragment.newInstance();
-        dialog.show(getSupportFragmentManager(), null);
+        //dialog = ReviewDialogFragment.newInstance();
+        //dialog.show(getSupportFragmentManager(), null);
     }
 
-    @Override
-    public void onReviewDialogButtonClicked(final int numStars, String comment) {
+    /*@Override
+    public void onReviewDialogButtonClicked(final int numStars, String comment,String idRequest) {
         dialog.dismiss();
         ParseObject review = new ParseObject("Review");
         review.put("numStars", numStars);
@@ -261,7 +323,7 @@ public class RequestActivity extends DialogActivity implements ReviewDialogFragm
         });
 
 
-    }
+    }*/
 
     @Override
     public void onCancelRequestButtonClicked() {

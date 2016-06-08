@@ -12,7 +12,7 @@
             android:id="@+id/menu_password"
             android:checked="false"
             android:title="@string/drawer_menu_password"
-            android:icon="@drawable/ic_account_circle_black_48dp"
+            android:icon="@drawable/ic_lock_black_24dp"
             />
 
         <item

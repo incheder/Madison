@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,14 +13,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
@@ -31,11 +24,7 @@ import com.squareup.picasso.Target;
 import com.wezen.madison.R;
 import com.wezen.madison.categories.ViewPagerAdapter;
 import com.wezen.madison.map.MapActivity;
-import com.wezen.madison.model.BeverageType;
-import com.wezen.madison.utils.Application;
 import com.wezen.madison.utils.DialogActivity;
-import com.wezen.madison.utils.ToolbarColorSinleton;
-import com.wezen.madison.utils.Utils;
 
 import rx.functions.Action1;
 

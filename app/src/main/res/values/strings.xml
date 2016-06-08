@@ -105,11 +105,16 @@
     <string name="passwords_must_been_the_same">No coincide con el nuevo password</string>
     <string name="you_can_not_use_the_same_password">El nuevo password debe ser diferente al anterior</string>
     <string name="cancel_service">Cancelar servicio</string>
-    <string name="my_rating">Calificación obtenida</string>
+    <string name="my_rating">Tu calificación</string>
     <string name="cancel_service_dialog_title">¿Cancelar servicio?</string>
     <string name="error_canceling_homeservice">Hubo un problema al cancelar el servicio</string>
     <string name="service_cancelled">Servicio cancelado</string>
     <string name="alarm_notification_title">Evalua el servicio</string>
+    <string name="my_pref">madison_preferences</string>
+    <string name="pendin_review_pref">pending_review_pref</string>
+    <string name="name_review_pref">name_review_pref</string>
+    <string name="avatar_review_pref">avatar_review_pref</string>
+    <string name="id_request_review_pref">id_request_review_pref</string>
 
 
 </resources>

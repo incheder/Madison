@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -51,6 +52,7 @@ public class OrderSentActivity extends DialogActivity {
         progressBar = (ProgressBar)findViewById(R.id.progressBarOrderSent);
         orderSent = (LinearLayout)findViewById(R.id.orderSentLayout);
         Button btnBack = (Button)findViewById(R.id.orderGoBack);
+        RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.orderSentContent);
         btnBack.setOnClickListener(goBackClickListener);
         if(getIntent().getExtras()!= null){
             myLatLng = new LatLng(
@@ -62,9 +64,10 @@ public class OrderSentActivity extends DialogActivity {
             serviceProvider =  getIntent().getStringExtra(SERVICE_PROVIDER);
             phone =  getIntent().getStringExtra(PHONE);
         }
-        Timer timer = new Timer();
-       // timer.schedule(task, 3000);
-        restoreDefaultColors();
+
+        setColors(this,null,null);
+        relativeLayout.setBackgroundColor(getMyToolbarColor());
+        //restoreDefaultColors();
         if(savedInstanceState== null){
             sendRequest();
         } else {

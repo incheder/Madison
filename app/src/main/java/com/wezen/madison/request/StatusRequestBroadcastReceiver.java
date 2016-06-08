@@ -5,12 +5,15 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.wezen.madison.R;
+import com.wezen.madison.categories.CategoriesActivity;
 import com.wezen.madison.model.HomeServiceRequestStatus;
+import com.wezen.madison.utils.MyApplication;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,22 +33,31 @@ public class StatusRequestBroadcastReceiver extends com.parse.ParsePushBroadcast
     private String REQUEST_HOME_SERVICE_NAME = "homeServiceName";
     private JSONObject jObject;
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd 'de' MMM 'del 'yyyy 'a las' hh:mm a", Locale.getDefault());
+    private SharedPreferences sharedPref;
+    private  String IS_COMPLETE = "isComplete";
+    private String ATTENDED_BY_AVATAR = "attendedByAvatar";
+    private String PARSE_INCOMING_REQUEST = "homeServiceRequest";
 
     @Override
     protected void onPushReceive(Context context, Intent intent) {
         if(jObject== null){
             jObject= getDataFromIntent(intent);
         }
-
         try {
-            Date date =  dateFormat.parse(jObject.getString(DATE));
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
-            cal.add(Calendar.HOUR_OF_DAY, 1);
-            //scheduleAlarmNotification(getNotification(jObject.getString(REQUEST_HOME_SERVICE_NAME),context),cal.getTimeInMillis(),context,jObject.getLong(PUSH_ID));
-        } catch (JSONException | ParseException e) {
+            if(jObject.has(IS_COMPLETE) && jObject.getBoolean(IS_COMPLETE)){
+                sharedPref = context.getSharedPreferences(context.getString(R.string.my_pref),Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putBoolean(context.getString(R.string.pendin_review_pref), true);
+                editor.putString(context.getString(R.string.name_review_pref),jObject.getString(REQUEST_HOME_SERVICE_NAME));
+                editor.putString(context.getString(R.string.avatar_review_pref),jObject.getString(ATTENDED_BY_AVATAR) );
+                editor.putString(context.getString(R.string.id_request_review_pref),jObject.getString(PARSE_INCOMING_REQUEST) );
+                editor.apply();
+
+            }
+        } catch (JSONException e) {
             e.printStackTrace();
         }
+
         super.onPushReceive(context, intent);
     }
 
@@ -55,26 +67,37 @@ public class StatusRequestBroadcastReceiver extends com.parse.ParsePushBroadcast
         String IMAGE_URL = "imageUrl";
         String PROBLEM_DESCRIPTION = "problemDescription";
         String ATTENDED_BY = "attendedBy";
-        String ATTENDED_BY_AVATAR = "attendedByAvatar";
 
-
-        if(jObject == null){
+        if(jObject== null){
             jObject= getDataFromIntent(intent);
         }
-        Intent incomingRequest = new Intent(context,RequestActivity.class);
         try {
-            //incomingRequest.putExtra(RequestActivity.REQUEST_ID,jObject.getString(PARSE_INCOMING_REQUEST));
-            incomingRequest.putExtra(RequestActivity.REQUEST_IMAGE_URL,jObject.getString(IMAGE_URL));
-            incomingRequest.putExtra(RequestActivity.REQUEST_STATUS, HomeServiceRequestStatus.CONFIRMADO.getValue());
-            incomingRequest.putExtra(RequestActivity.REQUEST_HOME_SERVICE_NAME, jObject.getString(REQUEST_HOME_SERVICE_NAME));
+            if(jObject.has(IS_COMPLETE) && jObject.getBoolean(IS_COMPLETE)){
+                //((MyApplication)context.getApplicationContext()).setPendingReview(true);
+                /*sharedPref = context.getSharedPreferences(context.getString(R.string.my_pref),Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putBoolean(context.getString(R.string.pendin_review_pref), true);
+                editor.putString(context.getString(R.string.name_review_pref),jObject.getString(REQUEST_HOME_SERVICE_NAME));
+                editor.putString(context.getString(R.string.avatar_review_pref),jObject.getString(ATTENDED_BY_AVATAR) );
+                editor.putString(context.getString(R.string.id_request_review_pref),jObject.getString(PARSE_INCOMING_REQUEST) );
+                editor.apply();*/
 
-            incomingRequest.putExtra(RequestActivity.REQUEST_PROBLEM_DESCRIPTION, jObject.getString(PROBLEM_DESCRIPTION));
-            incomingRequest.putExtra(RequestActivity.REQUEST_ATTENDED_BY, jObject.getString(ATTENDED_BY));
-            incomingRequest.putExtra(RequestActivity.REQUEST_ATTENDED_BY_AVATAR, jObject.getString(ATTENDED_BY_AVATAR));
-            incomingRequest.putExtra(RequestActivity.REQUEST_DATE_FOR_SERVICE, jObject.getString(DATE));
-            incomingRequest.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(incomingRequest);
+                super.onPushOpen(context, intent);
+            } else {
+                Intent incomingRequest = new Intent(context,RequestActivity.class);
+                //incomingRequest.putExtra(RequestActivity.REQUEST_ID,jObject.getString(PARSE_INCOMING_REQUEST));
+                incomingRequest.putExtra(RequestActivity.REQUEST_IMAGE_URL,jObject.getString(IMAGE_URL));
+                incomingRequest.putExtra(RequestActivity.REQUEST_STATUS, HomeServiceRequestStatus.CONFIRMADO.getValue());
+                incomingRequest.putExtra(RequestActivity.REQUEST_HOME_SERVICE_NAME, jObject.getString(REQUEST_HOME_SERVICE_NAME));
 
+                incomingRequest.putExtra(RequestActivity.REQUEST_PROBLEM_DESCRIPTION, jObject.getString(PROBLEM_DESCRIPTION));
+                incomingRequest.putExtra(RequestActivity.REQUEST_ATTENDED_BY, jObject.getString(ATTENDED_BY));
+                incomingRequest.putExtra(RequestActivity.REQUEST_ATTENDED_BY_AVATAR, jObject.getString(ATTENDED_BY_AVATAR));
+                incomingRequest.putExtra(RequestActivity.REQUEST_DATE_FOR_SERVICE, jObject.getString(DATE));
+                incomingRequest.putExtra(RequestActivity.REQUEST_SHOW_CANCEL_BUTTON,true);
+                incomingRequest.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(incomingRequest);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -93,7 +116,7 @@ public class StatusRequestBroadcastReceiver extends com.parse.ParsePushBroadcast
         return data;
     }
 
-    private void scheduleAlarmNotification(Notification notification, long time, Context context,long id){
+    /*private void scheduleAlarmNotification(Notification notification, long time, Context context,long id){
         Intent notificationIntent = new Intent(context,AlarmBroadcastReceiver.class);
         notificationIntent.putExtra(AlarmBroadcastReceiver.NOTIFICATION_ID,id);
         notificationIntent.putExtra(AlarmBroadcastReceiver.NOTIFICATION,notification);
@@ -112,5 +135,5 @@ public class StatusRequestBroadcastReceiver extends com.parse.ParsePushBroadcast
         builder.setSmallIcon(R.mipmap.ic_launcher);
 
         return builder.build();
-    }
+    }*/
 }

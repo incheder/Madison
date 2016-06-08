@@ -12,9 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wezen.madison.R;
 
 /**
@@ -22,19 +24,25 @@ import com.wezen.madison.R;
  */
 public class ReviewDialogFragment extends DialogFragment {
 
-    private static final String ARG_HOME_SERVICE_POSITION = "home_service_position";
+    private static final String ARG_HOME_SERVICE_NAME = "home_service_name";
+    private static final String ARG_HOME_SERVICE_AVATAR = "home_service_avatar";
+    private static final String ARG_ID_REQUEST = "id_request";
     private OnClickReviewDialog mListener;
-    //private int position;
+    private String name;
+    private String avatarUrl;
+    private String idRequest;
 
     public interface OnClickReviewDialog {
-        void onReviewDialogButtonClicked(int numStars, String comment);
+        void onReviewDialogButtonClicked(int numStars, String comment,String idRequest);
     }
 
-    public static ReviewDialogFragment newInstance() {
+    public static ReviewDialogFragment newInstance(String name, String avatarUrl,String idRequest) {
         ReviewDialogFragment fragment = new ReviewDialogFragment();
-        //Bundle args = new Bundle();
-        //args.putInt(ARG_HOME_SERVICE_POSITION, position);
-        //fragment.setArguments(args);
+        Bundle args = new Bundle();
+        args.putString(ARG_HOME_SERVICE_NAME, name);
+        args.putString(ARG_HOME_SERVICE_AVATAR, avatarUrl);
+        args.putString(ARG_ID_REQUEST, idRequest);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -43,8 +51,9 @@ public class ReviewDialogFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            //position = getArguments().getInt(ARG_HOME_SERVICE_POSITION);
-
+            name = getArguments().getString(ARG_HOME_SERVICE_NAME);
+            avatarUrl = getArguments().getString(ARG_HOME_SERVICE_AVATAR);
+            idRequest = getArguments().getString(ARG_ID_REQUEST);
         }
     }
 
@@ -77,6 +86,16 @@ public class ReviewDialogFragment extends DialogFragment {
         final EditText editText = (EditText)view.findViewById(R.id.edit_text_review);
         final TextView rateService = (TextView)view.findViewById(R.id.rateService);
         final Button saveReview = (Button)view.findViewById(R.id.save_review_button);
+        TextView homeServiceName = (TextView)view.findViewById(R.id.home_service_name_rating);
+        ImageView homeServiceAvatar = (ImageView)view.findViewById(R.id.home_service_avatar_rating);
+        if(!name.equals("")){
+            homeServiceName.setText(name);
+        }
+        if(!avatarUrl.equals("")){
+            Picasso.with(getActivity()).load(avatarUrl).into(homeServiceAvatar);
+        }
+
+
         saveReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +105,7 @@ public class ReviewDialogFragment extends DialogFragment {
 
                 } else {
                     String comment = TextUtils.isEmpty(editText.getText().toString()) ? "" : editText.getText().toString();
-                    mListener.onReviewDialogButtonClicked(stars, comment);
+                    mListener.onReviewDialogButtonClicked(stars, comment,idRequest);
                 }
             }
         });

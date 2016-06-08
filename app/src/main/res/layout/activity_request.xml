@@ -97,7 +97,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:id="@+id/request_service_provider_rating"
-                                    android:text="4"
+
                                     android:textAppearance="?android:attr/textAppearanceMediumInverse"
                                     />
 
@@ -148,12 +148,16 @@
 
                         <Button
                             android:id="@+id/buttonCancelRequest"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/cancel_service"
                             android:visibility="visible"
                             android:layout_gravity="center"
-                            android:layout_marginBottom="@dimen/elements_margin"
+                            android:layout_margin="@dimen/elements_margin"
+                            android:background="@color/cancel_button"
+                            android:padding="@dimen/cancel_button_padding"
+
+
                             />
 
                     </LinearLayout>

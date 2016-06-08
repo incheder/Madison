@@ -80,7 +80,8 @@
             android:layout_gravity="end"
             android:layout_marginRight="@dimen/elements_margin_history_item"
             android:layout_marginEnd="@dimen/elements_margin_history_item"
-            android:textColor="@color/status_label_color"/>
+            android:textColor="@color/status_label_color"
+            android:layout_marginBottom="@dimen/elements_margin_history_item"/>
 
         <TextView
             android:layout_width="match_parent"

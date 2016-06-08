@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,8 +16,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.wezen.madison.R;
+import com.wezen.madison.history.HistoryActivity;
 import com.wezen.madison.history.ReviewDialogFragment;
 
 public class DialogActivity extends AppCompatActivity implements NetworkDialogFragment.OnClickOrderDialog, ReviewDialogFragment.OnClickReviewDialog {
@@ -32,6 +39,7 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
     private static Integer myStatusBarcolor;
     private static Integer myToolbarColor;
     private static Integer myFabColor;
+    private SharedPreferences sharedPref;
 
     public Integer getMyStatusBarcolor() {
         return myStatusBarcolor;
@@ -93,14 +101,20 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
                 dialog.show(getSupportFragmentManager(), null);
             }
         } else {//there is a connection, now we have to display a rating dialog if needed
-            /*if(reviewDialog == null){
-                reviewDialog = ReviewDialogFragment.newInstance();
-                reviewDialog.setCancelable(false);
+            sharedPref = getSharedPreferences(getString(R.string.my_pref),Context.MODE_PRIVATE);
+            boolean pending = sharedPref.getBoolean(getString(R.string.pendin_review_pref),false );
+            String name = sharedPref.getString(getString(R.string.name_review_pref),"");
+            String avatar = sharedPref.getString(getString(R.string.avatar_review_pref),"");
+            String id_request = sharedPref.getString(getString(R.string.id_request_review_pref),"");
+            if(pending){
+                if(reviewDialog == null){
+                    reviewDialog = ReviewDialogFragment.newInstance(name,avatar,id_request);
+                    reviewDialog.setCancelable(false);
+                }
+                if(!reviewDialog.isAdded() && !reviewDialog.isVisible()){
+                    reviewDialog.show(getSupportFragmentManager(), null);
+                }
             }
-            if(!reviewDialog.isAdded() && !reviewDialog.isVisible()){
-                reviewDialog.show(getSupportFragmentManager(), null);
-            }*/
-
         }
     }
 
@@ -116,8 +130,38 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
     }
 
     @Override
-    public void onReviewDialogButtonClicked(int numStars, String comment) {
+    public void onReviewDialogButtonClicked(int numStars, String comment, String idRequest) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean(getString(R.string.pendin_review_pref), false);
+        editor.putString(getString(R.string.name_review_pref), "");
+        editor.putString(getString(R.string.avatar_review_pref), "");
+        editor.apply();
+        ParseObject review = new ParseObject("Review");
+        review.put("numStars", numStars);
+        review.put("comment",comment);
+        review.put("fromUser", ParseUser.getCurrentUser());
+        ParseObject homeServiceID = ParseObject.createWithoutData("HomeServiceRequest", idRequest);
+        review.put("homeServiceRequest", homeServiceID);
 
+        review.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+
+                if (e == null) {
+                    Toast.makeText(DialogActivity.this, getResources().getString(R.string.review_saved), Toast.LENGTH_SHORT).show();
+                    //TODO actualizar el campo wasRated en la clase de los request, quitamos el boton y mostramos el rating bar con la calificaion recien mandada
+
+
+                } else { //ups
+                    Toast.makeText(DialogActivity.this, getResources().getString(R.string.review_not_saved), Toast.LENGTH_SHORT).show();
+                    //requestList.get(position).setWasRated(false);
+                    //adapter.notifyDataSetChanged();
+
+                }
+            }
+        });
+
+        reviewDialog.dismiss();
     }
 
 
@@ -141,8 +185,10 @@ public class DialogActivity extends AppCompatActivity implements NetworkDialogFr
         if(toolbar!= null && fab!= null){
             toolbar.setBackgroundColor(getMyToolbarColor());
             //fab.setBackgroundTintList(createFabColors(getMyFabColor()));
-            fab.setBackgroundTintList(ColorStateList.valueOf(getMyFabColor()));
+        }
 
+        if(fab!=null){
+            fab.setBackgroundTintList(ColorStateList.valueOf(getMyFabColor()));
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

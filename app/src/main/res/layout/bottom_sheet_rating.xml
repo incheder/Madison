@@ -19,6 +19,22 @@
         android:focusableInTouchMode="true"
         />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="@dimen/avatar_width"
+        android:layout_height="@dimen/avatar_height"
+        android:id="@+id/home_service_avatar_rating"
+     />
+
+    <TextView
+        android:id="@+id/home_service_name_rating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/elements_margin"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        />
+
     <RatingBar
         android:id="@+id/historyItemRating"
         android:layout_width="wrap_content"

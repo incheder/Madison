@@ -45,5 +45,6 @@
     <dimen name="summary_activity_margin">10dp</dimen>
     <dimen name="card_summary_padding">5dp</dimen>
     <dimen name="rating_icon_left_margin">2dp</dimen>
+    <dimen name="cancel_button_padding">3dp</dimen>
 
 </resources>

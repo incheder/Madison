@@ -6,9 +6,10 @@ import com.parse.ParsePush;
 /**
  * Created by eder on 5/25/15.
  */
-public class Application extends android.app.Application {
+public class MyApplication extends android.app.Application {
 
-    public ToolbarColorSinleton toolbarColorSinleton;
+    public static boolean pendingReview;
+
 
     @Override
     public void onCreate() {

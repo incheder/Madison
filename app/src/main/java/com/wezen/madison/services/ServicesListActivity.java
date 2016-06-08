@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -29,7 +31,7 @@ public class ServicesListActivity extends DialogActivity {
     private List<HomeService> homeServicesList;
     private HomeServicesAdapter adapter;
     private String categoryID;
-
+    private ProgressBar progressBar;
 
 
     @Override
@@ -43,6 +45,7 @@ public class ServicesListActivity extends DialogActivity {
         }
 
 
+        progressBar = (ProgressBar)findViewById(R.id.progressBarHomeServiceList);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvServiceList);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
@@ -75,6 +78,7 @@ public class ServicesListActivity extends DialogActivity {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
+                progressBar.setVisibility(View.GONE);
                 if (e == null) {
 
                     for (ParseObject po : list) {

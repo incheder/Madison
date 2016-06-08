@@ -22,6 +22,7 @@ public class HomeServiceRequest {
     private String attendedBy;
     private String attendedByAvatar;
     private Date dateForService;
+    private Double averageStars;
 
     public String getImage() {
         return image;
@@ -133,5 +134,13 @@ public class HomeServiceRequest {
 
     public void setDateForService(Date dateForService) {
         this.dateForService = dateForService;
+    }
+
+    public Double getAverageStars() {
+        return averageStars;
+    }
+
+    public void setAverageStars(Double averageStars) {
+        this.averageStars = averageStars;
     }
 }

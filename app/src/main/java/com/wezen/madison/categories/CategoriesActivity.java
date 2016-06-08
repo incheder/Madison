@@ -36,6 +36,7 @@ import com.wezen.madison.login.LoginActivity;
 import com.wezen.madison.model.Category;
 import com.wezen.madison.password.PasswordActivity;
 import com.wezen.madison.utils.DialogActivity;
+import com.wezen.madison.utils.MyApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +102,7 @@ public class CategoriesActivity extends DialogActivity {
         saveSharedPrefData();
 
         fillNavigationViewHeader();
+
 
     }
 
@@ -186,7 +188,8 @@ public class CategoriesActivity extends DialogActivity {
 
 
     private void saveSharedPrefData(){
-        sharedPref = getPreferences(Context.MODE_PRIVATE);
+        //sharedPref = getPreferences(Context.MODE_PRIVATE);
+        sharedPref = getSharedPreferences(getString(R.string.my_pref),Context.MODE_PRIVATE);
         int isSaved = sharedPref.getInt(getString(R.string.installation_already_saved), INSTALLATION_DATA_NOT_SAVED);
         if(isSaved == INSTALLATION_DATA_NOT_SAVED){
             ParseInstallation installation = ParseInstallation.getCurrentInstallation();

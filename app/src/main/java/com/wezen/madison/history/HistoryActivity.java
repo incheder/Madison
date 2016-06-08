@@ -76,6 +76,7 @@ public class HistoryActivity extends DialogActivity {
                     requestList.clear();
                     for (ParseObject po : list) {
                         HomeServiceRequest request = new HomeServiceRequest();
+                        request.setAverageStars(po.getParseObject("homeService").getDouble("stars"));
                         request.setLocation(new LatLng(po.getParseGeoPoint("userLocation").getLatitude(), po.getParseGeoPoint("userLocation").getLongitude()));
                         request.setName(po.getParseObject("homeService").getString("name"));
                         request.setDescription(po.getString("problemDescription"));

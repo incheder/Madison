@@ -52,7 +52,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
     public void onBindViewHolder(HistoryHolder holder, final int position) {
         final HomeServiceRequest item = list.get(position);
         holder.name.setText(item.getName());
-        holder.date.setText(item.getDate());
+        //holder.date.setText(item.getDate());
+        holder.date.setVisibility(View.GONE);
         holder.description.setText(item.getDescription());
         if(item.getReview()!= null){
             holder.review.setRating(item.getReview());
@@ -109,6 +110,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryH
                 }*/
                 if(item.getStatus() == HomeServiceRequestStatus.CONFIRMADO || item.getStatus() == HomeServiceRequestStatus.ENVIADO){
                     request.putExtra(RequestActivity.REQUEST_SHOW_CANCEL_BUTTON,true);
+                }
+                if(item.getAverageStars() != null ){
+                    request.putExtra(RequestActivity.REQUEST_AVERAGE_STARS,item.getAverageStars());
                 }
                 request.putExtra(RequestActivity.REQUEST_ID,item.getHomeServiceRequestID());
 

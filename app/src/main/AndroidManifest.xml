@@ -33,11 +33,12 @@
     <uses-permission android:name="com.wezen.madison.permission.C2D_MESSAGE" />
 
     <application
-        android:name=".utils.Application"
+        android:name=".utils.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        >
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -49,14 +50,16 @@
             android:name=".services.ServicesListActivity"
             android:label="@string/title_activity_services_list"
             android:launchMode="singleTop"
-            android:parentActivityName=".categories.CategoriesActivity" >
+            android:parentActivityName=".categories.CategoriesActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.categories.CategoriesActivity" />
         </activity>
         <activity
             android:name=".categories.CategoriesActivity"
-            android:label="@string/title_activity_categories" >
+            android:label="@string/title_activity_categories"
+            android:screenOrientation="portrait">
 
             <!--
             <intent-filter>
@@ -70,7 +73,8 @@
             android:name=".services.ServiceDetailActivity"
             android:label="@string/title_activity_service_detail"
             android:launchMode="singleTop"
-            android:parentActivityName=".services.ServicesListActivity" >
+            android:parentActivityName=".services.ServicesListActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.services.ServicesListActivity" />
@@ -78,7 +82,8 @@
         <activity
             android:name=".map.MapActivity"
             android:label="@string/title_activity_map"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.services.ServiceDetailActivity" />
@@ -87,7 +92,8 @@
             android:name=".summary.SummaryActivity"
             android:label="@string/title_activity_summary"
             android:launchMode="singleTop"
-            android:parentActivityName=".map.MapActivity" >
+            android:parentActivityName=".map.MapActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.map.MapActivity" />
@@ -95,7 +101,8 @@
         <activity
             android:name=".order.OrderSentActivity"
             android:label="@string/title_activity_order_sent"
-            android:parentActivityName=".summary.SummaryActivity" >
+            android:parentActivityName=".summary.SummaryActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.summary.SummaryActivity" />
@@ -110,7 +117,8 @@
             android:name=".account.AccountActivity"
             android:label="@string/title_activity_account"
             android:launchMode="singleTop"
-            android:parentActivityName=".categories.CategoriesActivity" >
+            android:parentActivityName=".categories.CategoriesActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.categories.CategoriesActivity" />
@@ -119,7 +127,8 @@
             android:name=".history.HistoryActivity"
             android:label="@string/title_activity_history"
             android:launchMode="singleTop"
-            android:parentActivityName=".categories.CategoriesActivity" >
+            android:parentActivityName=".categories.CategoriesActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.categories.CategoriesActivity" />
@@ -128,7 +137,8 @@
             android:name=".help.HelpActivity"
             android:label="@string/title_activity_help"
             android:launchMode="singleTop"
-            android:parentActivityName=".categories.CategoriesActivity" >
+            android:parentActivityName=".categories.CategoriesActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.categories.CategoriesActivity" />
@@ -136,7 +146,8 @@
         <activity
             android:name=".login.LoginActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
+            android:windowSoftInputMode="adjustResize|stateVisible"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -146,7 +157,8 @@
         <activity
             android:name=".request.RequestActivity"
             android:label="@string/title_activity_request"
-            android:parentActivityName=".history.HistoryActivity" >
+            android:parentActivityName=".history.HistoryActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.history.HistoryActivity" />
@@ -154,7 +166,8 @@
         <activity
             android:name=".password.PasswordActivity"
             android:label="@string/title_activity_password"
-            android:parentActivityName=".categories.CategoriesActivity" >
+            android:parentActivityName=".categories.CategoriesActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.wezen.madison.categories.CategoriesActivity" />
