@@ -1,19 +1,14 @@
 package com.wezen.madison.utils;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.content.ContextCompat;
-import android.widget.TextView;
 
 import com.wezen.madison.R;
-import com.wezen.madison.model.Beverage;
-import com.wezen.madison.model.BeverageType;
 import com.wezen.madison.model.HomeServiceRequestStatus;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
