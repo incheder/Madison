@@ -8,8 +8,6 @@ import com.parse.ParsePush;
  */
 public class MyApplication extends android.app.Application {
 
-    public static boolean pendingReview;
-
 
     @Override
     public void onCreate() {
@@ -18,4 +16,5 @@ public class MyApplication extends android.app.Application {
         Parse.initialize(this, "xJzgkwGEHuFFIBazGyGWeHmbn9cSWaQ2F9oPHFhb", "dSdG1ACby08fUT6oCxxxZxWyXq5sTzm3zW51YNNS");
         ParsePush.subscribeInBackground("Client");
     }
+
 }
