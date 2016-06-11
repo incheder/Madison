@@ -42,6 +42,7 @@ import com.wezen.madison.model.HomeServiceRequestStatus;
 import com.wezen.madison.utils.DialogActivity;
 import com.wezen.madison.utils.Utils;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -231,7 +232,7 @@ public class RequestActivity extends DialogActivity implements /*ReviewDialogFra
                 }
 
                 double averageStars = getIntent().getDoubleExtra(REQUEST_AVERAGE_STARS,0);
-                averageRatingTextView.setText(String.valueOf( averageStars ));
+                averageRatingTextView.setText(String.valueOf(  new DecimalFormat("#.#").format(averageStars) ));
 
            // }
 
