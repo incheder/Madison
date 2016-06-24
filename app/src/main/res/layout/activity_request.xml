@@ -189,7 +189,6 @@
                             android:id="@+id/request_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="14/12/12 dsd"
                             android:layout_marginBottom="@dimen/elements_margin"/>
 
                     </LinearLayout>
