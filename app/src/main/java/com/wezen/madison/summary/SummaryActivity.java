@@ -19,7 +19,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.ParseUser;
 import com.wezen.madison.R;
-import com.wezen.madison.order.OrderDialogFragment;
 import com.wezen.madison.order.OrderSentActivity;
 import com.wezen.madison.utils.DialogActivity;
 

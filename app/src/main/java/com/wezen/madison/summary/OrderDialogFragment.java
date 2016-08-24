@@ -1,9 +1,8 @@
-package com.wezen.madison.order;
+package com.wezen.madison.summary;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;

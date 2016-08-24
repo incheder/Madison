@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.content.LocalBroadcastManager;
-import android.widget.Toast;
-
-import com.wezen.madison.order.OrderDialogFragment;
 
 /**
  * Created by eder on 22/10/2015.
